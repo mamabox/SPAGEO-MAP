@@ -12,23 +12,24 @@ using UnityEngine;
 
 public class MapView : MonoBehaviour
 {
-    [SerializeField] Vector3 cameraPosition; //Camera offset from player
-    [SerializeField] Vector3 cameraRotation = new Vector3(90, 0, 0); //Camera x-axis tilt
+    private Vector3 cameraPosition; //Camera offset from player
+    private Vector3 cameraRotation = new Vector3(90, 0, 0); //Camera x-axis tilt
     private GameObject player;
-    [SerializeField] int mapView = 1;
-    [SerializeField] int size;
+    [SerializeField] int view = 1;
+    private int size;
 
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         transform.rotation = Quaternion.Euler(cameraRotation);
-        SetCameraView(2);
+        SetCameraView(1);
     }
 
 
     public void SetCameraView(int mapView)
     {
+        view = mapView;
         if (mapView == 1)
         {
             cameraPosition = new Vector3(120, 1, 120);
@@ -45,5 +46,6 @@ public class MapView : MonoBehaviour
             size = 200;
         }
         transform.position = cameraPosition; // Sets camera to player movement + offset
+        //TODO: Set camera size
     }
 }
