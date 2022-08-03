@@ -65,4 +65,6 @@ public class PlayerMovement : MonoBehaviour
         rotateInput = context.ReadValue<float>();
         rotateVector = new Vector3(0,rotateInput, 0);
     }
+
+
 }

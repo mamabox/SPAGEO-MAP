@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Toggle Views",
+                    "name": "Toggle View",
                     "type": "Button",
                     "id": "96e0316d-c0d7-4519-93c5-29262526e008",
                     "expectedControlType": "Button",
@@ -380,7 +380,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Views",
+                    "action": "Toggle View",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -391,7 +391,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle Views",
+                    "action": "Toggle View",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
