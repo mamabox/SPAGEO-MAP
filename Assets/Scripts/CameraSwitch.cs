@@ -38,7 +38,7 @@ public class CameraSwitch : MonoBehaviour
 
     public void OnToggleView(InputAction.CallbackContext context)
     {
-        Debug.Log("Toggle view");
+        //Debug.Log("Toggle view");
         if (playerCam.activeInHierarchy && mapViewAllowed)    //IF in City view, show map
         {
             if (!mapViewTimeLimit)
@@ -58,7 +58,7 @@ public class CameraSwitch : MonoBehaviour
         mapViewAllowed = false;
         playerCam.SetActive(false); //Map View
         mapCam.SetActive(true);
-        playerSymbol.SetActive(true);
+        //playerSymbol.SetActive(true);
         yield return new WaitForSeconds(mapViewTime);
         HideMap();
         mapViewAllowed = true;
@@ -76,6 +76,6 @@ public class CameraSwitch : MonoBehaviour
     {
         playerCam.SetActive(true); //City View
         mapCam.SetActive(false);
-        playerSymbol.SetActive(false);
+        //playerSymbol.SetActive(false);
     }
 }
