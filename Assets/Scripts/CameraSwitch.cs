@@ -21,13 +21,14 @@ public class CameraSwitch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var gameplayActionMap = playerControls.FindActionMap("Default");
+        /*
+        var gameplayActionMap = playerControls.FindActionMap("City View");
         toggleView = gameplayActionMap.FindAction("Toggle View");
 
         toggleView.performed += OnToggleView;
         toggleView.canceled -= OnToggleView;
         toggleView.Enable();
-
+        */
     }
 
     // Update is called once per frame
@@ -38,18 +39,22 @@ public class CameraSwitch : MonoBehaviour
 
     public void OnToggleView(InputAction.CallbackContext context)
     {
-        //Debug.Log("Toggle view");
-        if (playerCam.activeInHierarchy && mapViewAllowed)    //IF in City view, show map
-        {
-            if (!mapViewTimeLimit)
-                ShowMap();
-            else
-                StartCoroutine(ShowMapTimeLimit());
-        }
-        else // IF in  Map view, hide map
-        {
-            HideMap();
-        }
+       
+        
+            Debug.Log("Toggle view");
+            if (playerCam.activeInHierarchy && mapViewAllowed)    //IF in City view, show map
+            {
+
+                if (!mapViewTimeLimit) { }
+                //ShowMap();
+                
+            }
+            else // IF in  Map view, hide map
+            {
+                
+            }
+        
+
     }
 
 
@@ -65,17 +70,35 @@ public class CameraSwitch : MonoBehaviour
 
     }
 
-    private void ShowMap()  //Only one step back allowed before moving forward
+    public void OnShowMap(InputAction.CallbackContext context)  //Only one step back allowed before moving forward
     {
-        playerCam.SetActive(false); //Map View
-        mapCam.SetActive(true);
-        playerSymbol.SetActive(true);
+        if (context.performed && mapViewAllowed)
+        {
+            if (!mapViewTimeLimit) {
+                Debug.Log("ShowMap");
+                playerCam.SetActive(false); //Map View
+                mapCam.SetActive(true);
+                playerSymbol.SetActive(true);
+            }
+            else
+                StartCoroutine(ShowMapTimeLimit());
+
+        }
+
+    }
+
+    public void OnHideMap(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            HideMap();
+        }
     }
 
     private void HideMap()
     {
+        Debug.Log("HideMap");
         playerCam.SetActive(true); //City View
         mapCam.SetActive(false);
-        //playerSymbol.SetActive(false);
     }
 }

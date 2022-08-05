@@ -32,17 +32,17 @@ public class MapView : MonoBehaviour
         view = mapView;
         if (mapView == 1)
         {
-            cameraPosition = new Vector3(122.5f, 10, 122.5f);
+            cameraPosition = new Vector3(205, 45, 127.5f);
             size = 130;
         }
         else if (mapView == 2)
         {
-            cameraPosition = new Vector3(250, 10, -17.5f);
+            cameraPosition = new Vector3(250, 45, -17.5f);
             size = 130;
         }
         else if (mapView == 3)
         {
-            cameraPosition = new Vector3(187.5f, 10, 52.5f);
+            cameraPosition = new Vector3(187.5f, 45, 52.5f);
             size = 200;
         }
         transform.position = cameraPosition; // Sets camera to player movement + offset

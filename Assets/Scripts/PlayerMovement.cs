@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveVector;
     Vector3 rotateVector;
 
+   
+    InputActionAsset playerControls;
     [SerializeField] float speed = 6f;
     [SerializeField] float lookSpeed = 50f;
     float backStepForce = 2;
@@ -18,10 +20,15 @@ public class PlayerMovement : MonoBehaviour
     public float moveInput;
     public float rotateInput;
 
+    
+
 
     void Start()
     {
+        var cityActionMap = GetComponent<PlayerInput>().actions.FindActionMap("City View");
+        var mapActionMap = GetComponent<PlayerInput>().actions.FindActionMap("Map View");
         character = GetComponent<CharacterController>();
+        ;
     }
 
 
@@ -66,5 +73,9 @@ public class PlayerMovement : MonoBehaviour
         rotateVector = new Vector3(0,rotateInput, 0);
     }
 
+    public void DrawLine()
+    {
+
+    }
 
 }
