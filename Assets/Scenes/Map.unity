@@ -2834,6 +2834,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1403152968}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MapView
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 96e0316d-c0d7-4519-93c5-29262526e008
     m_ActionName: Default/Toggle Views[/Keyboard/v]
   - m_PersistentCalls:
@@ -2852,9 +2864,37 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b9cd31fe-4adb-4163-9ef7-4589a4937510
     m_ActionName: New action map/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1006376802}
+        m_TargetAssemblyTypeName: CameraSwitch, Assembly-CSharp
+        m_MethodName: OnHideMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1403152968}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CityView
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0b77ee54-a3d1-4f17-90ee-902bce6c0dcb
+    m_ActionName: Map View/Hide Map[/Keyboard/v]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: City View
+  m_DefaultActionMap: CityView
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!143 &1403152969

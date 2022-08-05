@@ -2,7 +2,7 @@
     "name": "DefaultControls",
     "maps": [
         {
-            "name": "City View",
+            "name": "CityView",
             "id": "4b309267-b163-4a9b-8b06-e50edf231b85",
             "actions": [
                 {
@@ -24,8 +24,8 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Toggle View",
-                    "type": "PassThrough",
+                    "name": "Show Map",
+                    "type": "Button",
                     "id": "96e0316d-c0d7-4519-93c5-29262526e008",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -203,10 +203,10 @@
                     "name": "",
                     "id": "9d63928b-32fd-4fad-8d36-714d0e518d52",
                     "path": "<Keyboard>/v",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle View",
+                    "action": "Show Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -217,14 +217,14 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle View",
+                    "action": "Show Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Map View",
+            "name": "MapView",
             "id": "79608a12-d181-4d95-87ac-e9fcc09d646d",
             "actions": [
                 {
@@ -235,6 +235,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Hide Map",
+                    "type": "Button",
+                    "id": "0b77ee54-a3d1-4f17-90ee-902bce6c0dcb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -347,6 +356,28 @@
                     "action": "Draw Line",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "a2a66680-e73b-44ce-b2eb-3ce6cab45741",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hide Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7526cba1-f670-4d8d-8f61-0356b7b53711",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hide Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
