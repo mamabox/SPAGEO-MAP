@@ -46,6 +46,7 @@ public class FollowPlayer : MonoBehaviour
         {
             cameraTransformOffset = new Vector3(245, 244, -16);
             cameraRotationOffset = new Vector3(90, 0, 0);
+            GetComponent<Camera>().orthographicSize = 200;
         }
     }
 

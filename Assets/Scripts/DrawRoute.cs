@@ -17,6 +17,7 @@ public class DrawRoute : MonoBehaviour
     Vector2 drawInput;  //player input for drawing
 
     LineRenderer lr;
+    
     Pencil pencil;
     float height = 41f;
     float multiplier = 35;
@@ -29,6 +30,8 @@ public class DrawRoute : MonoBehaviour
     List<string> validCoordinates = new List<string>();
     private string startPos;
     private Vector3 startPosVector;
+
+    bool drawingAllowed;
 
    
     // Start is called before the first frame update
@@ -48,8 +51,10 @@ public class DrawRoute : MonoBehaviour
         pointsArray = new Vector3[coordinates.Count];
         //Debug.Log("coord count: "+ coordinates.Count);
         //Debug.Log("count: " + pointsArray.Length);
+
+        // TEST 
         StringToPoints(coordinates);
-        SetupLine(pointsArray);
+        //SetupLine(pointsArray);
     }
 
     // Update is called once per frame
@@ -71,15 +76,21 @@ public class DrawRoute : MonoBehaviour
         
 
 
-        //Set pencil coordinates
+        //Initialise pencil coordinates / information
         pencil.startCoord = CreateCoordinate(startPos);
         pencil.currentCoord = CreateCoordinate(startPos);
         pencil.lastCoord = CreateCoordinate(startPos);
+        pencil.routeAllPoints.Add(startPos);
+        pencil.route.Add(startPos);
+
 
         //Move start point and drawing point
         startPoint.transform.position = pencil.startCoord.pos;
         pencilDot.transform.position = pencil.startCoord.pos;
         //point.SetActive(false);
+
+        //Line renderer setup
+        lr.SetPosition(0,pencil.startCoord.pos);
         
     }
 
@@ -181,13 +192,37 @@ public class DrawRoute : MonoBehaviour
 
     }
 
+    //TODO: check if longer than 1
     private void MovePencil(Coordinate nextCoord)
     {
+        int _routeLength = pencil.route.Count;
         //Debug.Log("_nextCoord pos: " + nextCoord.pos);
+
+        // (1) Record coordinates
+        //if (pencil.lastCoord.name == nextCoord.name)  //IF tracing back step
+            if ((pencil.route.Count > 1) && (pencil.route.ElementAt(pencil.route.Count-2) == nextCoord.name))  //IF tracing back step
+        {
+            //Delete the last point in the renderline
+            lr.positionCount = pencil.route.Count - 1;
+            pencil.route.RemoveAt(pencil.route.Count - 1);
+            
+        }
+        else
+        {
+            //Add a point to the route render line
+            pencil.route.Add(nextCoord.name);
+            lr.positionCount = pencil.route.Count;
+            lr.SetPosition(pencil.route.Count-1, nextCoord.pos);
+            
+        }
+
+        pencil.routeAllPoints.Add(nextCoord.name); // Add to the list of all coordinates
+
+
         pencilDot.transform.position = nextCoord.pos; //Move to the next position
         pencil.lastCoord = pencil.currentCoord; //Set the current position as the last position
         pencil.currentCoord = nextCoord; // Set the next coordinate as the current coordinate
-        pencil.routeAllPoints.Add(nextCoord.name); // Add to the list of all coordinates
+        
     }
 
     private void SetValidCoordinates()

@@ -244,6 +244,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Change Camera View",
+                    "type": "Button",
+                    "id": "3ac201c0-8157-44a7-8278-5f0f4b30d490",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -376,6 +385,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hide Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3bf2b1f6-3641-4b56-897c-acde15ecddff",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Camera View",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1aef7669-9faf-48f2-ab2a-8a7eb62eea91",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Camera View",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

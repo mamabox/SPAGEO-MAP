@@ -18,6 +18,8 @@ public class MapView : MonoBehaviour
     [SerializeField] int view = 1;
     private int size;
 
+    [SerializeField] List<GameObject> sidePanels;   // 0 = enter text, 1 = draw route
+
 
     void Awake()
     {
@@ -33,17 +35,17 @@ public class MapView : MonoBehaviour
         if (mapView == 1)
         {
             cameraPosition = new Vector3(205, 45, 127.5f);
-            size = 130;
+            GetComponent<Camera>().orthographicSize = 135;
         }
         else if (mapView == 2)
         {
-            cameraPosition = new Vector3(250, 45, -17.5f);
-            size = 130;
+            cameraPosition = new Vector3(342, 45, -7.5f);
+            GetComponent<Camera>().orthographicSize = 135;
         }
         else if (mapView == 3)
         {
-            cameraPosition = new Vector3(187.5f, 45, 52.5f);
-            size = 200;
+            cameraPosition = new Vector3(315, 45, 62.5f);
+            GetComponent<Camera>().orthographicSize = 207.5f;
         }
         transform.position = cameraPosition; // Sets camera to player movement + offset
         //TODO: Set camera size
