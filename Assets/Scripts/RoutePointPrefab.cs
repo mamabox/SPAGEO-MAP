@@ -7,6 +7,8 @@ public class RoutePointPrefab : MonoBehaviour
     public Coordinate currentCoord;
     public Coordinate startCoord;
     public Coordinate lastCoord;
+    public List<string> routeAllPoints;
+    public List<string> route;
 
     // Start is called before the first frame update
     void Start()

@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 639504834}
   endPoint: {fileID: 0}
-  point: {fileID: 1145628561}
+  pencil: {fileID: 1145628561}
   xyCoordSeparator: _
 --- !u!120 &89289525
 LineRenderer:

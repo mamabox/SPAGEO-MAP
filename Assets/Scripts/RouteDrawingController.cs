@@ -8,12 +8,12 @@ public class RouteDrawingController : MonoBehaviour
 {
     [SerializeField] GameObject startPoint;
     [SerializeField] GameObject endPoint;
-    [SerializeField] GameObject point;
+    [SerializeField] GameObject pencil;
 
     Vector2 drawInput;
 
     LineRenderer lr;
-    RoutePointPrefab pencil;
+    RoutePointPrefab pencilInfo;
     float height = 41f;
     float multiplier = 35;
     List<string> coordinates = new List<string> { "0_0", "0_1", "0_2", "1_2" };
@@ -34,7 +34,7 @@ public class RouteDrawingController : MonoBehaviour
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        pencil = point.GetComponent<RoutePointPrefab>();
+        pencilInfo = pencil.GetComponent<RoutePointPrefab>();
         startPos = "3_3";
         SetValidCoordinates();
         SetStartPoint();
@@ -62,13 +62,13 @@ public class RouteDrawingController : MonoBehaviour
         //startPosVector = new Vector3(_coord[0] * multiplier, height, _coord[1] * multiplier);
 
         //Set pencil coordinates
-        pencil.startCoord = CreateCoordinate(startPos);
-        pencil.currentCoord = CreateCoordinate(startPos);
-        pencil.lastCoord = CreateCoordinate(startPos);
+        pencilInfo.startCoord = CreateCoordinate(startPos);
+        pencilInfo.currentCoord = CreateCoordinate(startPos);
+        pencilInfo.lastCoord = CreateCoordinate(startPos);
 
         //Move start point and drawing point
-        startPoint.transform.position = pencil.startCoord.pos;
-        point.transform.position = pencil.startCoord.pos;
+        startPoint.transform.position = pencilInfo.startCoord.pos;
+        pencil.transform.position = pencilInfo.startCoord.pos;
         //point.SetActive(false);
         
     }
@@ -76,7 +76,7 @@ public class RouteDrawingController : MonoBehaviour
     private Coordinate CreateCoordinate(string coord)
     {
         Coordinate _coord = new Coordinate();
-        string[] _coordString = startPos.Split(char.Parse(xyCoordSeparator));
+        string[] _coordString = coord.Split(char.Parse(xyCoordSeparator));
         float[] _coordFloat = { float.Parse(_coordString[0]), float.Parse(_coordString[1]) };
         Vector3 _pos = new Vector3(_coordFloat[0] * multiplier, height, _coordFloat[1] * multiplier);
 
@@ -119,30 +119,63 @@ public class RouteDrawingController : MonoBehaviour
             if (drawInput == new Vector2(0, 1))  //UP
             {
                 Debug.Log("Draw UP");
-                DrawRoute("U");
+                DrawRoute("UP");
             }
             else if (drawInput == new Vector2(0, -1)) //DOWN
             {
                 Debug.Log("Draw DOWN");
-                DrawRoute("D");
-            }
-            else if (drawInput == new Vector2(1, 0))  //RIGHT
-            {
-                Debug.Log("Draw RIGHT");
-                DrawRoute("R");
+                DrawRoute("DOWN");
             }
             else if (drawInput == new Vector2(-1, 0)) //LEFT
             {
                 Debug.Log("Draw LEFT");
-                DrawRoute("L");
+                DrawRoute("LEFT");
             }
+            else if (drawInput == new Vector2(1, 0))  //RIGHT
+            {
+                Debug.Log("Draw RIGHT");
+                DrawRoute("RIGHT");
+            }
+
         }
 
     }
 
     public void DrawRoute(string direction)
     {
+        Coordinate _nextCoord;
+        string _nextCoordString = "";
 
+        if (direction == "UP")
+        {
+            _nextCoordString = pencilInfo.currentCoord.x + xyCoordSeparator + (pencilInfo.currentCoord.z + 1);
+        }
+        else if (direction == "DOWN")
+        {
+            _nextCoordString = pencilInfo.currentCoord.x + xyCoordSeparator + (pencilInfo.currentCoord.z - 1);
+        }
+        else if (direction == "LEFT")
+        {
+            _nextCoordString = (pencilInfo.currentCoord.x - 1) + xyCoordSeparator + pencilInfo.currentCoord.z;
+        }
+        else if (direction == "RIGHT")
+        {
+            _nextCoordString = (pencilInfo.currentCoord.x + 1) + xyCoordSeparator + pencilInfo.currentCoord.z;
+        }
+        Debug.Log("Next coord string: " + _nextCoordString);
+        _nextCoord = CreateCoordinate(_nextCoordString);
+        MovePencil(_nextCoord);
+
+
+    }
+
+    private void MovePencil(Coordinate nextCoord)
+    {
+        //Debug.Log("_nextCoord pos: " + nextCoord.pos);
+        pencil.transform.position = nextCoord.pos; //Move to the next position
+        pencilInfo.lastCoord = pencilInfo.currentCoord; //Set the current position as the last position
+        pencilInfo.currentCoord = nextCoord; // Set the next coordinate as the current coordinate
+        pencilInfo.routeAllPoints.Add(nextCoord.name); // Add to the list of all coordinates
     }
 
     private void SetValidCoordinates()
