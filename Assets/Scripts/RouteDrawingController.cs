@@ -20,6 +20,8 @@ public class RouteDrawingController : MonoBehaviour
     List<Vector3> points = new List<Vector3>();
     Vector3[] pointsArray;
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
+    List<string> urbanCoordinates = new List<string>();
+    List<string> suburbCoordinates = new List<string>();
     List<string> validCoordinates = new List<string>();
     private string startPos;
     private Vector3 startPosVector;
@@ -136,9 +138,7 @@ public class RouteDrawingController : MonoBehaviour
                 Debug.Log("Draw RIGHT");
                 DrawRoute("RIGHT");
             }
-
         }
-
     }
 
     public void DrawRoute(string direction)
@@ -180,21 +180,40 @@ public class RouteDrawingController : MonoBehaviour
 
     private void SetValidCoordinates()
     {
-        int maxX = 5;
-        int maxY  = 5;
+        int urbanMinX = 0;
+        int urbanMaxX = 7;
+        int urbanMinY = 0;
+        int urbanMaxY = 7;
+        int suburbMinX = 4;
+        int suburbMaxX = 11;
+        int suburbMinY = -4;
+        int suburbMaxY  = 3;
 
-        for (int x = 0; x < maxX; x++)
+        // Urban coordinates
+        for (int x = urbanMinX; x < urbanMaxX; x++)
         {
-            for (int y = 0; y < maxY; y++)
+            for (int y = urbanMinY; y < urbanMaxY; y++)
             {
                 string _coord = x + xyCoordSeparator + y;
-                validCoordinates.Add(_coord);
-
+                urbanCoordinates.Add(_coord);
             }
         }
-        Debug.Log("validCoordinates: " + string.Join(",", validCoordinates));
+
+        // Subburb coordinates
+        for (int x = suburbMinX; x < suburbMaxX; x++)
+        {
+            for (int y = suburbMinY; y < suburbMaxY; y++)
+            {
+                string _coord = x + xyCoordSeparator + y;
+                suburbCoordinates.Add(_coord);
+            }
+        }
+
+        validCoordinates = urbanCoordinates.Union(suburbCoordinates).ToList(); //Union of both sets of coordinates without duplicates
+
+        Debug.Log("validCoordinates: " + urbanCoordinates.Count+ "|" + suburbCoordinates.Count + "|"+ validCoordinates.Count + "): " + string.Join(",", validCoordinates));
         Debug.Log("TEST (3,4): " + IsCoordValid("3_4"));
-        Debug.Log("TEST (6,4): " + IsCoordValid("6_4"));
+        Debug.Log("TEST (-3,2): " + IsCoordValid("6_4"));
     }
 
     private bool IsCoordValid(string coord)
