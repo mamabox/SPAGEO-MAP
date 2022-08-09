@@ -13,6 +13,7 @@ public class RouteDrawingController : MonoBehaviour
     Vector2 drawInput;
 
     LineRenderer lr;
+    RoutePointPrefab pencil;
     float height = 41f;
     float multiplier = 35;
     List<string> coordinates = new List<string> { "0_0", "0_1", "0_2", "1_2" };
@@ -21,13 +22,20 @@ public class RouteDrawingController : MonoBehaviour
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
     List<string> validCoordinates = new List<string>();
     private string startPos;
+    private Vector3 startPosVector;
+
+    //private Coordinate startCoord;
+    //private Coordinate currentCoord;
+    //private Coordinate lastCoord;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-
+        pencil = point.GetComponent<RoutePointPrefab>();
+        startPos = "3_3";
         SetValidCoordinates();
         SetStartPoint();
         pointsArray = new Vector3[coordinates.Count];
@@ -48,11 +56,37 @@ public class RouteDrawingController : MonoBehaviour
 
     private void SetStartPoint()
     {
-        startPos = "3_3";
-        string[] _coordString = startPos.Split(char.Parse(xyCoordSeparator));
-        float[] _coord = { float.Parse(_coordString[0]), float.Parse(_coordString[1])};
-        startPoint.transform.position = new Vector3(_coord[0]* multiplier, height, _coord[1] * multiplier);
+        //startPos = "3_3";
+        //string[] _coordString = startPos.Split(char.Parse(xyCoordSeparator));
+        //float[] _coord = { float.Parse(_coordString[0]), float.Parse(_coordString[1])};
+        //startPosVector = new Vector3(_coord[0] * multiplier, height, _coord[1] * multiplier);
+
+        //Set pencil coordinates
+        pencil.startCoord = CreateCoordinate(startPos);
+        pencil.currentCoord = CreateCoordinate(startPos);
+        pencil.lastCoord = CreateCoordinate(startPos);
+
+        //Move start point and drawing point
+        startPoint.transform.position = pencil.startCoord.pos;
+        point.transform.position = pencil.startCoord.pos;
+        //point.SetActive(false);
         
+    }
+
+    private Coordinate CreateCoordinate(string coord)
+    {
+        Coordinate _coord = new Coordinate();
+        string[] _coordString = startPos.Split(char.Parse(xyCoordSeparator));
+        float[] _coordFloat = { float.Parse(_coordString[0]), float.Parse(_coordString[1]) };
+        Vector3 _pos = new Vector3(_coordFloat[0] * multiplier, height, _coordFloat[1] * multiplier);
+
+        _coord.name = coord;
+        _coord.x = float.Parse(_coordString[0]);
+        _coord.z = float.Parse(_coordString[1]);
+        _coord.pos = new Vector3(_coord.x * multiplier, height, _coord.z * multiplier);
+
+        return _coord;
+
     }
 
     private void StringToPoints(List<string> route)

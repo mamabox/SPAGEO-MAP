@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class RoutePointPrefab : MonoBehaviour
 {
-    public string coord;
-    public string startCoord;
-    public string lastCoord;
+    public Coordinate currentCoord;
+    public Coordinate startCoord;
+    public Coordinate lastCoord;
+
     // Start is called before the first frame update
     void Start()
     {

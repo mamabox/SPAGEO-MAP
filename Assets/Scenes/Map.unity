@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 639504834}
   endPoint: {fileID: 0}
-  point: {fileID: 8229829215111396395, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
+  point: {fileID: 1145628561}
   xyCoordSeparator: _
 --- !u!120 &89289525
 LineRenderer:
@@ -765,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639504834}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 70, y: 39.99999, z: 34.999985}
+  m_LocalPosition: {x: 70, y: 40, z: 35}
   m_LocalScale: {x: 8, y: 1, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1790,6 +1790,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38540b8895db74db78c4dded775824e2, type: 3}
+--- !u!1 &1145628561 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8229829215111396395, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
+  m_PrefabInstance: {fileID: 5535033516883391415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1211322038
 GameObject:
   m_ObjectHideFlags: 0
@@ -3757,7 +3762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229829215111396395, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
       propertyPath: m_Name
-      value: Route Points Prefab
+      value: Pencil
       objectReference: {fileID: 0}
     - target: {fileID: 8229829215111396395, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
       propertyPath: m_Layer
