@@ -164,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_LocalScale.x
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 89289525}
   - component: {fileID: 89289524}
   m_Layer: 6
-  m_Name: DrawLinePrefab
+  m_Name: Route Drawing Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89289523}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -371,8 +371,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1295673084}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &106995922 stripped
 Transform:
@@ -425,7 +425,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &176386114
 MonoBehaviour:
@@ -672,7 +672,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &639504834
 GameObject:
@@ -1383,7 +1383,7 @@ RectTransform:
   m_Children:
   - {fileID: 787690902}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1580,7 +1580,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014362853
 GameObject:
@@ -1726,7 +1726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_LocalScale.x
@@ -2178,7 +2178,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1268009700
 MonoBehaviour:
@@ -2223,14 +2223,13 @@ Transform:
   m_Children:
   - {fileID: 639504838}
   - {fileID: 1211322042}
-  - {fileID: 89289526}
   - {fileID: 1863083628}
   - {fileID: 106995922}
   - {fileID: 1733572658}
   - {fileID: 1312442907}
   - {fileID: 1085935747}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1312442907 stripped
 Transform:
@@ -2357,7 +2356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_LocalScale.x
@@ -2850,10 +2849,10 @@ MonoBehaviour:
     m_ActionName: Default/Toggle Views[/Keyboard/v]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1403152970}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: DrawLine
-        m_Mode: 1
+      - m_Target: {fileID: 89289524}
+        m_TargetAssemblyTypeName: RouteDrawingController, Assembly-CSharp
+        m_MethodName: OnDrawPath
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3641,7 +3640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7568701499125388179, guid: 38540b8895db74db78c4dded775824e2, type: 3}
       propertyPath: m_LocalScale.x
@@ -3714,7 +3713,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1132742990324575941, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1132742990324575941, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
       propertyPath: m_LocalPosition.x

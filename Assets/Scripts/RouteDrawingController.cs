@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class RouteDrawingController : MonoBehaviour
 {
     [SerializeField] GameObject startPoint;
     [SerializeField] GameObject endPoint;
     [SerializeField] GameObject point;
+
+    Vector2 drawInput;
 
     LineRenderer lr;
     float height = 41f;
@@ -16,6 +19,7 @@ public class RouteDrawingController : MonoBehaviour
     List<Vector3> points = new List<Vector3>();
     Vector3[] pointsArray;
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
+    List<string> validCoordinates = new List<string>();
 
 
     // Start is called before the first frame update
@@ -23,6 +27,7 @@ public class RouteDrawingController : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
 
+        SetValidCoordinates();
         pointsArray = new Vector3[coordinates.Count];
         //Debug.Log("coord count: "+ coordinates.Count);
         //Debug.Log("count: " + pointsArray.Length);
@@ -61,4 +66,56 @@ public class RouteDrawingController : MonoBehaviour
         lr.SetPositions(points);
     }
 
+    public void OnDrawPath(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            drawInput = context.ReadValue<Vector2>();
+            if (drawInput == new Vector2(0, 1))  //UP
+            {
+                Debug.Log("Draw UP");
+            }
+            else if (drawInput == new Vector2(0, -1)) //DOWN
+            {
+                Debug.Log("Draw DOWN");
+            }
+            else if (drawInput == new Vector2(1, 0))  //RIGHT
+            {
+                Debug.Log("Draw RIGHT");
+            }
+            else if (drawInput == new Vector2(-1, 0)) //LEFT
+            {
+                Debug.Log("Draw LEFT");
+            }
+        }
+
+    }
+
+    private void SetValidCoordinates()
+    {
+        int maxX = 5;
+        int maxY  = 5;
+
+        for (int x = 0; x < maxX; x++)
+        {
+            for (int y = 0; y < maxY; y++)
+            {
+                string _coord = x + xyCoordSeparator + y;
+                validCoordinates.Add(_coord);
+
+            }
+        }
+        Debug.Log("validCoordinates: " + string.Join(",", validCoordinates));
+        Debug.Log("TEST (3,4): " + IsCoordValid("3_4"));
+        Debug.Log("TEST (6,4): " + IsCoordValid("6_4"));
+    }
+
+    private bool IsCoordValid(string coord)
+    {
+        if (validCoordinates.Contains(coord))
+            return true;
+        else
+            return false;
+    }
+    
 }

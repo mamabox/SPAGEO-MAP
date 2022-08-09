@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveVector;
     Vector3 rotateVector;
 
+
    
     InputActionAsset playerControls;
     [SerializeField] float speed = 6f;
@@ -37,12 +38,12 @@ public class PlayerMovement : MonoBehaviour
         //Character move
         if (moveInput > 0) // move forward
         {
-            Debug.Log("Forward");
+            //Debug.Log("Forward");
             character.transform.Translate(Vector3.forward * moveInput * Time.deltaTime * speed);
         }
         else if (moveInput < 0) // move backward
         {
-            Debug.Log("Backward");
+            //Debug.Log("Backward");
         }
 
         //Character rotate
@@ -56,15 +57,6 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.ReadValue<float>();
         moveVector = new Vector3(moveInput, 0, 0);
-
-        if (moveInput > 0) // move forward
-        {
-            Debug.Log("Forward");
-        }
-        else if (moveInput < 0) // move backward
-        {
-            Debug.Log("Backward");
-        }
     }
 
     public void OnRotate(InputAction.CallbackContext context)
@@ -73,9 +65,6 @@ public class PlayerMovement : MonoBehaviour
         rotateVector = new Vector3(0,rotateInput, 0);
     }
 
-    public void DrawLine()
-    {
 
-    }
 
 }
