@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoutePointPrefab : MonoBehaviour
+public class Pencil : MonoBehaviour
 {
     public Coordinate currentCoord;
     public Coordinate startCoord;
