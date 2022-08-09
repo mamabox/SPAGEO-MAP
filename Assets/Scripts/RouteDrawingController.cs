@@ -20,6 +20,7 @@ public class RouteDrawingController : MonoBehaviour
     Vector3[] pointsArray;
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
     List<string> validCoordinates = new List<string>();
+    private string startPos;
 
 
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class RouteDrawingController : MonoBehaviour
         lr = GetComponent<LineRenderer>();
 
         SetValidCoordinates();
+        SetStartPoint();
         pointsArray = new Vector3[coordinates.Count];
         //Debug.Log("coord count: "+ coordinates.Count);
         //Debug.Log("count: " + pointsArray.Length);
@@ -43,6 +45,15 @@ public class RouteDrawingController : MonoBehaviour
     //        lr.SetPosition(i, points[i].position);
     //    }
     //}
+
+    private void SetStartPoint()
+    {
+        startPos = "3_3";
+        string[] _coordString = startPos.Split(char.Parse(xyCoordSeparator));
+        float[] _coord = { float.Parse(_coordString[0]), float.Parse(_coordString[1])};
+        startPoint.transform.position = new Vector3(_coord[0]* multiplier, height, _coord[1] * multiplier);
+        
+    }
 
     private void StringToPoints(List<string> route)
     {
@@ -74,20 +85,29 @@ public class RouteDrawingController : MonoBehaviour
             if (drawInput == new Vector2(0, 1))  //UP
             {
                 Debug.Log("Draw UP");
+                DrawRoute("U");
             }
             else if (drawInput == new Vector2(0, -1)) //DOWN
             {
                 Debug.Log("Draw DOWN");
+                DrawRoute("D");
             }
             else if (drawInput == new Vector2(1, 0))  //RIGHT
             {
                 Debug.Log("Draw RIGHT");
+                DrawRoute("R");
             }
             else if (drawInput == new Vector2(-1, 0)) //LEFT
             {
                 Debug.Log("Draw LEFT");
+                DrawRoute("L");
             }
         }
+
+    }
+
+    public void DrawRoute(string direction)
+    {
 
     }
 
