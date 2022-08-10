@@ -3317,6 +3317,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3ac201c0-8157-44a7-8278-5f0f4b30d490
     m_ActionName: MapView/Change Camera View[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1445695922}
+        m_TargetAssemblyTypeName: DrawRoute, Assembly-CSharp
+        m_MethodName: OnDeleteLine
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 120e7369-49cf-45cc-aafc-eaf17ce7c7d4
+    m_ActionName: MapView/Delete Line[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1445695922}
+        m_TargetAssemblyTypeName: DrawRoute, Assembly-CSharp
+        m_MethodName: OnValidateRoute
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3e63bd4c-d941-4330-b37d-d0d5b18db2e5
+    m_ActionName: MapView/Validate Route[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: CityView

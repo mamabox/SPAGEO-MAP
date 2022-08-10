@@ -262,6 +262,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Validate Route",
+                    "type": "Button",
+                    "id": "3e63bd4c-d941-4330-b37d-d0d5b18db2e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -438,6 +447,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Delete Line",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb59d8a9-b55d-4b38-8030-777981d31f23",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Validate Route",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93c78e1d-d08f-4538-bcab-67b93a4acb88",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Validate Route",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

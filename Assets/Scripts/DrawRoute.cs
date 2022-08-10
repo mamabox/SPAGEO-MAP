@@ -159,6 +159,25 @@ public class DrawRoute : MonoBehaviour
         }
     }
 
+    public void OnDeleteLine(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            lr.positionCount = 1;   //remove all points
+
+            //Delete routes
+            pencil.routeAllPoints.Clear();
+            pencil.route.Clear();
+
+            SetStartPoint();
+        }
+    }
+
+    public void OnValidateRoute(InputAction.CallbackContext context)
+    {
+
+    }
+
     public void RenderLineFromInput(string direction)
     {
         Coordinate _nextCoord;
