@@ -311,7 +311,6 @@ GameObject:
   m_Component:
   - component: {fileID: 89289526}
   - component: {fileID: 89289525}
-  - component: {fileID: 89289527}
   - component: {fileID: 89289528}
   m_Layer: 6
   m_Name: Route Drawing Controller
@@ -433,22 +432,6 @@ Transform:
   m_Father: {fileID: 77633578}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &89289527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89289523}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19e7c3bc37d304e7592b1f1cf4f23db0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPointPrefab: {fileID: 781925570417346289, guid: 198ee91464973406babea95755f36e04, type: 3}
-  endPointPrefab: {fileID: 2895595254448645937, guid: 2f0d8d31a0e7c48548871057b6977f22, type: 3}
-  pencilPrefab: {fileID: 3224112528724391522, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
-  xyCoordSeparator: _
 --- !u!114 &89289528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,6 +761,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1295673084}
     m_Modifications:
+    - target: {fileID: -1767813988269256361, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
+      propertyPath: mapCam
+      value: 
+      objectReference: {fileID: 1268009695}
     - target: {fileID: 3224112528724391522, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
       propertyPath: m_Name
       value: Penci Dot
@@ -1727,8 +1714,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransformOffset: {x: 0, y: 0, z: 0}
   cameraRotationOffset: {x: 0, y: 0, z: 0}
-  view: city
-  mapView: 0
 --- !u!1 &980174670
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,7 +2439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5b5c3da222e4f19adb79789fb86913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: 1
+  viewNb: 1
   sidePanels:
   - {fileID: 787690901}
   - {fileID: 268807950}

@@ -8,7 +8,7 @@ public class DrawRoute : MonoBehaviour
 {
     [SerializeField] GameObject startPointPrefab;
     [SerializeField] GameObject endPointPrefab;
-    [SerializeField] GameObject pencilPrefab;
+    //[SerializeField] GameObject pencilPrefab;
     [SerializeField] GameObject mapCam;
 
     //GameObject pencilDot;
@@ -19,6 +19,7 @@ public class DrawRoute : MonoBehaviour
 
     LineRenderer lr;
     Pencil pencil;
+    MapView mapView;
 
     float height = 41f;
     float multiplier = 35;
@@ -29,8 +30,8 @@ public class DrawRoute : MonoBehaviour
     Vector3[] pointsArray;
 
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
-    List<string> urbanCoordinates = new List<string>();
-    List<string> suburbCoordinates = new List<string>();
+    List<string> urbanViewCoordinates = new List<string>();
+    List<string> suburViewCoordinates = new List<string>();
     List<string> validCoordinates = new List<string>();
     private string startPos;
     private Vector3 startPosVector;
@@ -43,6 +44,7 @@ public class DrawRoute : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
         pencil = GetComponent<Pencil>();
+        mapView = mapCam.GetComponent<MapView>();
     }
 
     // Start is called before the first frame update
@@ -233,7 +235,7 @@ public class DrawRoute : MonoBehaviour
             for (int y = urbanMinY; y <= urbanMaxY; y++)
             {
                 string _coord = x + xyCoordSeparator + y;
-                urbanCoordinates.Add(_coord);
+                urbanViewCoordinates.Add(_coord);
             }
         }
 
@@ -243,22 +245,23 @@ public class DrawRoute : MonoBehaviour
             for (int y = suburbMinY; y <= suburbMaxY; y++)
             {
                 string _coord = x + xyCoordSeparator + y;
-                suburbCoordinates.Add(_coord);
+                suburViewCoordinates.Add(_coord);
             }
         }
 
-        validCoordinates = urbanCoordinates.Union(suburbCoordinates).ToList(); //Union of both sets of coordinates without duplicates
+        validCoordinates = urbanViewCoordinates.Union(suburViewCoordinates).ToList(); //Union of both sets of coordinates without duplicates
 
         //Debug.Log("validCoordinates: " + urbanCoordinates.Count+ "|" + suburbCoordinates.Count + "|"+ validCoordinates.Count + "): " + string.Join(",", validCoordinates));
         //Debug.Log("TEST (3,4): " + IsCoordValid("3_4"));
         //Debug.Log("TEST (-3,2): " + IsCoordValid("6_4"));
     }
 
-    //Checks if the coordinate is valid for the map.
+    //Checks if a coordinate is part of the current mapView
     //TODO: should have 3 options depending on mapview
     private bool IsCoordValid(string coord)
     {
-        if (validCoordinates.Contains(coord))
+        if ((mapView.viewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.viewNb == 2 &&
+            suburViewCoordinates.Contains(coord)) || (mapView.viewNb == 3 && validCoordinates.Contains(coord)))
             return true;
         else
             return false;

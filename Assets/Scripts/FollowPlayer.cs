@@ -15,13 +15,11 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] Vector3 cameraTransformOffset; //Camera offset from player
     [SerializeField] Vector3 cameraRotationOffset; //Camera x-axis tilt
     private GameObject player;
-
     
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-
 
     void Start()
     {

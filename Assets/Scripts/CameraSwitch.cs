@@ -43,7 +43,7 @@ public class CameraSwitch : MonoBehaviour
     }
 
 
-    IEnumerator ShowMapTimeLimit()  //Only one step back allowed before moving forward
+    IEnumerator ShowMapTimeLimit()  //Show map for a specific duration
     {
         Debug.Log("ShowMapTimeLimit");
         mapViewAllowed = false;
@@ -57,7 +57,7 @@ public class CameraSwitch : MonoBehaviour
 
     }
 
-    public void OnShowMap(InputAction.CallbackContext context)  //Only one step back allowed before moving forward
+    public void OnShowMap(InputAction.CallbackContext context)  //Show map
     {
         if (context.started && mapViewAllowed)
         {
@@ -84,7 +84,7 @@ public class CameraSwitch : MonoBehaviour
                 camView++;
             else
                 camView = 1;
-            Debug.Log("Change cam view to #" + camView);
+            //Debug.Log("Change cam view to #" + camView);
             mapCam.GetComponent<MapView>().SetCameraView(camView);
         }
     }
