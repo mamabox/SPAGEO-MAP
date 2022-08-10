@@ -36,7 +36,7 @@ public class DrawRoute : MonoBehaviour
     private string startPos;
     private Vector3 startPosVector;
 
-    bool drawingAllowed;    // Is drawing allowed during this scenario
+    public bool drawingAllowed;    // Is drawing allowed during this scenario
 
 
 
@@ -65,6 +65,8 @@ public class DrawRoute : MonoBehaviour
         pointsArray = new Vector3[testCoordinates.Count];
         StringToPoints(testCoordinates);
         //SetupLine(pointsArray);
+
+        drawingAllowed = true;  //TODO: trigger in different mode
     }
 
 
@@ -133,7 +135,7 @@ public class DrawRoute : MonoBehaviour
     // HANDLES PLAYER INPUT
     public void OnDrawInput(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && drawingAllowed)
         {
             drawInput = context.ReadValue<Vector2>();
             if (drawInput == new Vector2(0, 1))  //UP
@@ -170,12 +172,16 @@ public class DrawRoute : MonoBehaviour
             pencil.route.Clear();
 
             SetStartPoint();
+            drawingAllowed = true;
         }
     }
 
     public void OnValidateRoute(InputAction.CallbackContext context)
     {
-
+        endPoint = Instantiate(endPointPrefab);
+        endPoint.transform.position = pencil.currentCoord.pos;
+        drawingAllowed = false;
+        //TODO: SAVE ROUTE
     }
 
     public void RenderLineFromInput(string direction)
