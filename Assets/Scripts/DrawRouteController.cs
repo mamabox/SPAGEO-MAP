@@ -4,13 +4,13 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
 
-public class DrawRoute : MonoBehaviour
+public class DrawRouteController : MonoBehaviour
 {
     [SerializeField] GameObject startPointPrefab;
     [SerializeField] GameObject endPointPrefab;
     [SerializeField] GameObject pencilPrefab;
 
-    //GameObject pencilDot;
+    GameObject pencilDot;
     GameObject startPoint;
     GameObject endPoint;
 
@@ -33,21 +33,18 @@ public class DrawRoute : MonoBehaviour
 
     bool drawingAllowed;
 
-
-
-    private void Awake()
-    {
-        lr = GetComponent<LineRenderer>();
-        pencil = GetComponent<Pencil>();
-    }
+   
     // Start is called before the first frame update
     void Start()
     {
         //Instantiate Prefabs
-        //pencilDot = Instantiate(pencilPrefab);
+        pencilDot = Instantiate(pencilPrefab);
         startPoint = Instantiate(startPointPrefab);
 
+        lr = GetComponent<LineRenderer>();
 
+
+        pencil = pencilDot.GetComponent<Pencil>();
         startPos = "3_3";
         SetValidCoordinates();
         SetStartPoint();
@@ -89,7 +86,7 @@ public class DrawRoute : MonoBehaviour
 
         //Move start point and drawing point
         startPoint.transform.position = pencil.startCoord.pos;
-        transform.position = pencil.startCoord.pos;
+        pencilDot.transform.position = pencil.startCoord.pos;
         //point.SetActive(false);
 
         //Line renderer setup
@@ -222,7 +219,7 @@ public class DrawRoute : MonoBehaviour
         pencil.routeAllPoints.Add(nextCoord.name); // Add to the list of all coordinates
 
 
-        transform.position = nextCoord.pos; //Move to the next position
+        pencilDot.transform.position = nextCoord.pos; //Move to the next position
         pencil.lastCoord = pencil.currentCoord; //Set the current position as the last position
         pencil.currentCoord = nextCoord; // Set the next coordinate as the current coordinate
         
