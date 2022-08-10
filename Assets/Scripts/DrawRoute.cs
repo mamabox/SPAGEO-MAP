@@ -9,6 +9,7 @@ public class DrawRoute : MonoBehaviour
     [SerializeField] GameObject startPointPrefab;
     [SerializeField] GameObject endPointPrefab;
     [SerializeField] GameObject pencilPrefab;
+    [SerializeField] GameObject mapCam;
 
     //GameObject pencilDot;
     GameObject startPoint;
@@ -17,13 +18,16 @@ public class DrawRoute : MonoBehaviour
     Vector2 drawInput;  //player input for drawing
 
     LineRenderer lr;
-    
     Pencil pencil;
+
     float height = 41f;
     float multiplier = 35;
-    List<string> coordinates = new List<string> { "0_0", "0_1", "0_2", "1_2" }; // Test line to draw
+
+    // USED FOR TESTING 
+    List<string> testCoordinates = new List<string> { "0_0", "0_1", "0_2", "1_2" }; // Test line to draw
     List<Vector3> points = new List<Vector3>();
     Vector3[] pointsArray;
+
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
     List<string> urbanCoordinates = new List<string>();
     List<string> suburbCoordinates = new List<string>();
@@ -31,7 +35,7 @@ public class DrawRoute : MonoBehaviour
     private string startPos;
     private Vector3 startPosVector;
 
-    bool drawingAllowed;
+    bool drawingAllowed;    // Is drawing allowed during this scenario
 
 
 
@@ -40,45 +44,30 @@ public class DrawRoute : MonoBehaviour
         lr = GetComponent<LineRenderer>();
         pencil = GetComponent<Pencil>();
     }
+
     // Start is called before the first frame update
     void Start()
     {
         //Instantiate Prefabs
-        //pencilDot = Instantiate(pencilPrefab);
         startPoint = Instantiate(startPointPrefab);
 
 
-        startPos = "3_3";
+        startPos = "3_3";   // TESTING: start value
         SetValidCoordinates();
         SetStartPoint();
-        pointsArray = new Vector3[coordinates.Count];
+
         //Debug.Log("coord count: "+ coordinates.Count);
         //Debug.Log("count: " + pointsArray.Length);
 
-        // TEST 
-        StringToPoints(coordinates);
+        // TEST SECTION: Creates
+        pointsArray = new Vector3[testCoordinates.Count];
+        StringToPoints(testCoordinates);
         //SetupLine(pointsArray);
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    for (int i = 0; i < points.Length; i++)
-    //    {
-    //        lr.SetPosition(i, points[i].position);
-    //    }
-    //}
 
     private void SetStartPoint()
     {
-        //startPos = "3_3";
-        //string[] _coordString = startPos.Split(char.Parse(xyCoordSeparator));
-        //float[] _coord = { float.Parse(_coordString[0]), float.Parse(_coordString[1])};
-        //startPosVector = new Vector3(_coord[0] * multiplier, height, _coord[1] * multiplier);
-
-        
-
-
         //Initialise pencil coordinates / information
         pencil.startCoord = CreateCoordinate(startPos);
         pencil.currentCoord = CreateCoordinate(startPos);
@@ -86,10 +75,11 @@ public class DrawRoute : MonoBehaviour
         pencil.routeAllPoints.Add(startPos);
         pencil.route.Add(startPos);
 
-
         //Move start point and drawing point
         startPoint.transform.position = pencil.startCoord.pos;
         transform.position = pencil.startCoord.pos;
+
+        //TODO: SetActive for objects depending on drawingAllowed
         //point.SetActive(false);
 
         //Line renderer setup
@@ -97,6 +87,7 @@ public class DrawRoute : MonoBehaviour
         
     }
 
+    //Creates a Coordinate from a string in format "X_Y"
     private Coordinate CreateCoordinate(string coord)
     {
         Coordinate _coord = new Coordinate();
@@ -110,9 +101,10 @@ public class DrawRoute : MonoBehaviour
         _coord.pos = new Vector3(_coord.x * multiplier, height, _coord.z * multiplier);
 
         return _coord;
-
     }
 
+    // Stores in a list of coordinate ("X_Y", "X_Y") into the pointsarray
+    //TODO: should return array
     private void StringToPoints(List<string> route)
     {
         //Debug.Log("Route: " + string.Join(",",coordinates));
@@ -129,13 +121,14 @@ public class DrawRoute : MonoBehaviour
         pointsArray = points.ToArray();
     }
 
-    public void SetupLine(Vector3[] points)
+    //Render a line from a Vector3[]
+    public void RenderLineFromArray(Vector3[] points)
     {
         lr.positionCount = points.Length;
         lr.SetPositions(points);
     }
 
-    
+    // HANDLES PLAYER INPUT
     public void OnDrawInput(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -144,27 +137,27 @@ public class DrawRoute : MonoBehaviour
             if (drawInput == new Vector2(0, 1))  //UP
             {
                 Debug.Log("Draw UP");
-                RenderLine("UP");
+                RenderLineFromInput("UP");
             }
             else if (drawInput == new Vector2(0, -1)) //DOWN
             {
                 Debug.Log("Draw DOWN");
-                RenderLine("DOWN");
+                RenderLineFromInput("DOWN");
             }
             else if (drawInput == new Vector2(-1, 0)) //LEFT
             {
                 Debug.Log("Draw LEFT");
-                RenderLine("LEFT");
+                RenderLineFromInput("LEFT");
             }
             else if (drawInput == new Vector2(1, 0))  //RIGHT
             {
                 Debug.Log("Draw RIGHT");
-                RenderLine("RIGHT");
+                RenderLineFromInput("RIGHT");
             }
         }
     }
 
-    public void RenderLine(string direction)
+    public void RenderLineFromInput(string direction)
     {
         Coordinate _nextCoord;
         string _nextCoordString = "";
@@ -190,44 +183,39 @@ public class DrawRoute : MonoBehaviour
 
         // If the next coordinate is valid, move the pencil
         if (IsCoordValid(_nextCoord.name))
-            MovePencil(_nextCoord);
-
-
+            DrawNextPosition(_nextCoord);
     }
 
     //TODO: check if longer than 1
-    private void MovePencil(Coordinate nextCoord)
+    private void DrawNextPosition(Coordinate nextCoord)
     {
         int _routeLength = pencil.route.Count;
         //Debug.Log("_nextCoord pos: " + nextCoord.pos);
 
         // (1) Record coordinates
-        //if (pencil.lastCoord.name == nextCoord.name)  //IF tracing back step
-            if ((pencil.route.Count > 1) && (pencil.route.ElementAt(pencil.route.Count-2) == nextCoord.name))  //IF tracing back step
+        if ((pencil.route.Count > 1) && (pencil.route.ElementAt(pencil.route.Count-2) == nextCoord.name))  //IF tracing back step
         {
             //Delete the last point in the renderline
             lr.positionCount = pencil.route.Count - 1;
             pencil.route.RemoveAt(pencil.route.Count - 1);
-            
         }
         else
         {
-            //Add a point to the route render line
+            //ELSE Add a point to the route render line
             pencil.route.Add(nextCoord.name);
             lr.positionCount = pencil.route.Count;
             lr.SetPosition(pencil.route.Count-1, nextCoord.pos);
-            
         }
 
         pencil.routeAllPoints.Add(nextCoord.name); // Add to the list of all coordinates
 
-
-        transform.position = nextCoord.pos; //Move to the next position
+        transform.position = nextCoord.pos; //Move pencil to the next position
         pencil.lastCoord = pencil.currentCoord; //Set the current position as the last position
         pencil.currentCoord = nextCoord; // Set the next coordinate as the current coordinate
         
     }
 
+    //Stores the valid coordinates for drawing on the map
     private void SetValidCoordinates()
     {
         int urbanMinX = 0;
@@ -266,6 +254,8 @@ public class DrawRoute : MonoBehaviour
         //Debug.Log("TEST (-3,2): " + IsCoordValid("6_4"));
     }
 
+    //Checks if the coordinate is valid for the map.
+    //TODO: should have 3 options depending on mapview
     private bool IsCoordValid(string coord)
     {
         if (validCoordinates.Contains(coord))

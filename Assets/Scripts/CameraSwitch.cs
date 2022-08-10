@@ -42,26 +42,6 @@ public class CameraSwitch : MonoBehaviour
         
     }
 
-    //public void OnToggleView(InputAction.CallbackContext context)
-    //{
-       
-        
-    //        Debug.Log("Toggle view");
-    //        if (playerCam.activeInHierarchy && mapViewAllowed)    //IF in City view, show map
-    //        {
-
-    //            if (!mapViewTimeLimit) { }
-    //            //ShowMap();
-                
-    //        }
-    //        else // IF in  Map view, hide map
-    //        {
-                
-    //        }
-        
-
-    //}
-
 
     IEnumerator ShowMapTimeLimit()  //Only one step back allowed before moving forward
     {

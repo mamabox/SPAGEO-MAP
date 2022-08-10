@@ -253,6 +253,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Delete Line",
+                    "type": "Button",
+                    "id": "120e7369-49cf-45cc-aafc-eaf17ce7c7d4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -407,6 +416,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Change Camera View",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "762a2bfa-0bdb-47d7-b7ed-650c3e8544e7",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delete Line",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "89ef4919-2b2e-49f0-b07b-5eb7434cb3da",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delete Line",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
