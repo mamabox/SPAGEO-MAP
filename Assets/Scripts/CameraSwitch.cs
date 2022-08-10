@@ -10,6 +10,9 @@ public class CameraSwitch : MonoBehaviour
     public GameObject mapCam;
     public GameObject playerSymbol;
     [SerializeField] GameObject sidePanels;
+    [SerializeField] GameObject uiManager;
+
+    UIManager ui;
 
     [SerializeField] InputActionAsset playerControls;
     InputAction toggleView;
@@ -18,7 +21,12 @@ public class CameraSwitch : MonoBehaviour
     [SerializeField] bool mapViewTimeLimit = false;
     [SerializeField] bool mapViewAllowed = true;
     [SerializeField] int camView;
-    
+    public string activeCam;
+
+    void Awake()
+    {
+        ui = uiManager.GetComponent<UIManager>();
+    }
 
 
     // Start is called before the first frame update
@@ -39,7 +47,7 @@ public class CameraSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+  
     }
 
 
@@ -54,6 +62,7 @@ public class CameraSwitch : MonoBehaviour
         yield return new WaitForSeconds(mapViewTime);
         HideMap();
         mapViewAllowed = true;
+        activeCam = "map";
 
     }
 
@@ -67,6 +76,7 @@ public class CameraSwitch : MonoBehaviour
                 mapCam.SetActive(true);
                 playerSymbol.SetActive(true);
                 sidePanels.SetActive(true);
+                activeCam = "map";
             }
             else
                 StartCoroutine(ShowMapTimeLimit());
@@ -103,6 +113,7 @@ public class CameraSwitch : MonoBehaviour
         playerCam.SetActive(true); //City View
         mapCam.SetActive(false);
         sidePanels.SetActive(false);
+        activeCam = "player";
     }
 
 

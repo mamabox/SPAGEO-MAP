@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f1a1370d3cba74637ac008d7822357dd, type: 2}
     - target: {fileID: 8229829215111396395, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
       propertyPath: m_Name
-      value: Penci Dot
+      value: Pencil Dot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
@@ -178,5 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPointPrefab: {fileID: 781925570417346289, guid: 198ee91464973406babea95755f36e04, type: 3}
   endPointPrefab: {fileID: 2895595254448645937, guid: 2f0d8d31a0e7c48548871057b6977f22, type: 3}
-  pencilPrefab: {fileID: 0}
+  mapCam: {fileID: 0}
   xyCoordSeparator: _
+  drawingAllowed: 0

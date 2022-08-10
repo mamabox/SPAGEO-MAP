@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Show Help Menu",
+                    "type": "Button",
+                    "id": "1d01cb16-0ddb-46dd-a363-f75b8f75e792",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -220,6 +229,28 @@
                     "action": "Show Map",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad4f39eb-023c-4bc6-8343-9f39ff5f981c",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Help Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b428bb8b-5126-40f6-b848-fbafe3fb0678",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Help Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -267,6 +298,15 @@
                     "name": "Validate Route",
                     "type": "Button",
                     "id": "3e63bd4c-d941-4330-b37d-d0d5b18db2e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Show Help Menu",
+                    "type": "Button",
+                    "id": "56a7a6e6-4437-4e47-8549-9a7ac1d94886",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -469,6 +509,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Validate Route",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8cf9d54f-503f-4109-aa3c-bfe0064fa5f2",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Help Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f51190b-4b0b-47bd-a8a6-bbe4e0e89b44",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Help Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

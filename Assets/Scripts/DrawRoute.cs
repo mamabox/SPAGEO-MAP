@@ -51,7 +51,7 @@ public class DrawRoute : MonoBehaviour
     void Start()
     {
         //Instantiate Prefabs
-        startPoint = Instantiate(startPointPrefab);
+        
 
 
         startPos = "3_3";   // TESTING: start value
@@ -72,6 +72,8 @@ public class DrawRoute : MonoBehaviour
 
     private void SetStartPoint()
     {
+        startPoint = Instantiate(startPointPrefab);
+
         //Initialise pencil coordinates / information
         pencil.startCoord = CreateCoordinate(startPos);
         pencil.currentCoord = CreateCoordinate(startPos);
@@ -171,6 +173,11 @@ public class DrawRoute : MonoBehaviour
             pencil.routeAllPoints.Clear();
             pencil.route.Clear();
 
+            //Delete children (start and end point)
+            GameObject.Destroy(startPoint);
+            GameObject.Destroy(endPoint);
+   
+
             SetStartPoint();
             drawingAllowed = true;
         }
@@ -178,10 +185,15 @@ public class DrawRoute : MonoBehaviour
 
     public void OnValidateRoute(InputAction.CallbackContext context)
     {
-        endPoint = Instantiate(endPointPrefab);
-        endPoint.transform.position = pencil.currentCoord.pos;
-        drawingAllowed = false;
-        //TODO: SAVE ROUTE
+        if (context.started)
+        {
+            endPoint = Instantiate(endPointPrefab);
+            endPoint.transform.position = pencil.currentCoord.pos;
+            drawingAllowed = false;
+            //TODO: SAVE ROUTE
+
+        }
+
     }
 
     public void RenderLineFromInput(string direction)
