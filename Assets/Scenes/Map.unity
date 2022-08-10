@@ -1280,6 +1280,7 @@ MonoBehaviour:
   - {fileID: 1560342414}
   - {fileID: 1921581493}
   cameraMngr: {fileID: 1006376801}
+  isMenuOpen: 0
 --- !u!1 &648969454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2182,6 +2183,7 @@ MonoBehaviour:
   mapCam: {fileID: 1268009695}
   playerSymbol: {fileID: 1255940887}
   sidePanels: {fileID: 922528072}
+  uiManager: {fileID: 546927657}
   playerControls: {fileID: -944628639613478452, guid: 1c21cc90481be4e009135fda9cbc8424, type: 3}
   mapViewTime: 2
   mapViewTimeLimit: 0

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/* Handles the UI
+ * 
+ * 
+ * */
+
 public class UIManager : MonoBehaviour
 {
 
@@ -11,7 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject cameraMngr;
 
     private CameraSwitch camera;
-    public bool isMenuOpen; // bool that prevents certain actions when a dialog box or a menu is opened (e.g. changing camera views) 
+    public bool isMenuOpen; // can be used to prevent certain actions when a dialog box or a menu is opened (e.g. changing camera views, validating routes)
 
 
     private void Awake()
