@@ -55,6 +55,11 @@ public class DropPin : MonoBehaviour
     }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
     //Stores the valid coordinates for dropping pins on the map
     private bool IsValid()
     {
