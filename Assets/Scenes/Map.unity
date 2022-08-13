@@ -1265,7 +1265,12 @@ MonoBehaviour:
   dropPinPrefab: {fileID: 6485676169149719916, guid: c45e8a8a1646d49c28545d6330e99a79, type: 3}
   screenPosition: {x: 0, y: 0, z: 0}
   worldPosition: {x: 0, y: 0, z: 0}
+  rayPosition: {x: 0, y: 0, z: 0}
   camManager: {fileID: 1006376801}
+  pinParent: {fileID: 1638837047}
+  pinsLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &444569769
 GameObject:
   m_ObjectHideFlags: 0
@@ -4193,6 +4198,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b0baaebb-9760-470a-86fd-cee381368755
     m_ActionName: MapView/Drop Pin[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 422394513}
+        m_TargetAssemblyTypeName: DropPin, Assembly-CSharp
+        m_MethodName: OnDeletePin
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b98646c9-629f-44a5-bae1-ed3afd3acb2d
+    m_ActionName: MapView/Delete Pin[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: CityView
@@ -4636,7 +4657,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1638837048}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Dropped Pins
   m_TagString: Untagged
   m_Icon: {fileID: 0}

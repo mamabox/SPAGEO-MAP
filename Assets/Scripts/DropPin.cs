@@ -10,8 +10,13 @@ public class DropPin : MonoBehaviour
     [SerializeField] GameObject dropPinPrefab;
     [SerializeField] Vector3 screenPosition;
     [SerializeField] Vector3 worldPosition = new Vector3();
+    [SerializeField] Vector3 rayPosition = new Vector3();
     [SerializeField] GameObject camManager;
+    [SerializeField] GameObject pinParent;
+    [SerializeField] LayerMask pinsLayer;
+    Ray ray;
     private int blockSize = 35;
+    private int mapPosY = 40;   //Used for depth value
 
     GameObject follow;
     CameraSwitch cam;
@@ -30,10 +35,11 @@ public class DropPin : MonoBehaviour
     {
         if (cam.activeCam == "map")
         {
-             //Get Mouse position
+             //Get Mouse position on screen
             screenPosition = Mouse.current.position.ReadValue();
             //screenPosition.z = 40;
-            worldPosition = cam.mapCam.GetComponent<Camera>().ScreenToWorldPoint(screenPosition);
+            worldPosition = cam.mapCam.GetComponent<Camera>().ScreenToWorldPoint(screenPosition);   //Get world position from screen position
+            ray = cam.mapCam.GetComponent<Camera>().ScreenPointToRay(screenPosition);
             //follow.transform.position = new Vector3 (worldPosition.x, 40, worldPosition.z);
 
             //Make cursor visible
@@ -49,16 +55,33 @@ public class DropPin : MonoBehaviour
     public void OnDropPin(InputAction.CallbackContext context)
     {
         
-        if (context.performed) { 
-        if (IsValid())
-            Instantiate(dropPinPrefab, new Vector3(worldPosition.x, 40, worldPosition.z), Quaternion.identity);
-    }
+        if (context.performed)
+        { 
+            if (IsValid())
+                Instantiate(dropPinPrefab, new Vector3(worldPosition.x,mapPosY, worldPosition.z), Quaternion.identity, pinParent.transform); //Instantiate at depth value of map height
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void OnDeletePin(InputAction.CallbackContext context)
     {
-        
+        if (context.performed)
+        {
+            Debug.Log("Right click");
+            if (Physics.Raycast(ray, out RaycastHit hit, 10, pinsLayer))
+            {
+                rayPosition = hit.point;
+                if (hit.collider)
+                {
+                    Debug.Log("HIT");
+                    Destroy(hit.transform.gameObject);
+                }
+            }
+            else
+                Debug.Log(" NO hit");
+        }
     }
+
+
 
     //Stores the valid coordinates for dropping pins on the map
     private bool IsValid()
