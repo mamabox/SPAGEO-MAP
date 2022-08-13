@@ -4186,7 +4186,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 422394513}
         m_TargetAssemblyTypeName: DropPin, Assembly-CSharp
-        m_MethodName: OnDropPin
+        m_MethodName: OnDropDeletePin
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

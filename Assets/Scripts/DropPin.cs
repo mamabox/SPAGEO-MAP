@@ -69,6 +69,7 @@ public class DropPin : MonoBehaviour
             Debug.Log("Right click");
             if (Physics.Raycast(ray, out RaycastHit hit, 10, pinsLayer))
             {
+                
                 rayPosition = hit.point;
                 if (hit.collider)
                 {
@@ -78,6 +79,27 @@ public class DropPin : MonoBehaviour
             }
             else
                 Debug.Log(" NO hit");
+        }
+    }
+
+    public void OnDropDeletePin(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (IsValid())  // IF player clicks in a valid coordinate for the current mapView
+            {
+                if (Physics.Raycast(ray, out RaycastHit hit, 100, pinsLayer))    //IF there is already a pin at this position
+                {
+                    Debug.Log("DEL PIN");
+                    Destroy(hit.transform.gameObject);
+                }
+                else    // ELSE drop a pin
+                {
+                    Debug.Log("DROP PIN");
+                    Instantiate(dropPinPrefab, new Vector3(worldPosition.x, mapPosY, worldPosition.z), Quaternion.identity, pinParent.transform); //Instantiate at depth value of map height
+                }
+            }
+                
         }
     }
 
@@ -111,11 +133,11 @@ public class DropPin : MonoBehaviour
         if (worldPosition.x > urbanMin.x && worldPosition.x < urbanMax.x && worldPosition.z > urbanMin.y && worldPosition.z < urbanMax.y)
         {
             inUrban = true;
-            Debug.Log("In urban");
+            //Debug.Log("In urban");
         }
         else
         {   
-            Debug.Log("Out of urban");
+            //Debug.Log("Out of urban");
         }
 
 
@@ -123,11 +145,11 @@ public class DropPin : MonoBehaviour
         if (worldPosition.x > suburbMin.x && worldPosition.x < suburbMax.x && worldPosition.z > suburbMin.y && worldPosition.z < suburbMax.y)
         {
             inSuburb = true;
-            Debug.Log("In suburb");
+            //Debug.Log("In suburb");
         }
         else
         {
-            Debug.Log("Out of suburb");
+            //Debug.Log("Out of suburb");
         }
 
            if ((_viewNb == 1 && inUrban) || (_viewNb == 2 && inSuburb) || (_viewNb == 3 && (inUrban || inSuburb )))
@@ -141,7 +163,7 @@ public class DropPin : MonoBehaviour
         if ((position.x >=0 && position.x <= 245) && (position.z >= 0 && position.z <= 245))
             return true;
         else {
-            Debug.Log("Out of bond");
+            //Debug.Log("Out of bond");
             return false;
         }
             
