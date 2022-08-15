@@ -19,9 +19,10 @@ public class MapView : MonoBehaviour
     private int size;
     private GameObject mapCam;
 
-    [SerializeField] List<GameObject> sidePanels;   // 0 = enter text, 1 = draw route
-    [SerializeField] GameObject playerSymbol;
-    [SerializeField] GameObject playerRotSymbol;
+    
+    public GameObject playerSymbol;
+    public GameObject playerRotSymbol;
+    public GameObject startSymbol;
 
 
     void Awake()
@@ -58,5 +59,12 @@ public class MapView : MonoBehaviour
             mapCam.GetComponent<Camera>().orthographicSize = 207.5f;
         }
         mapCam.transform.position = cameraPosition; // Sets camera one of the 3 possible view
+    }
+
+    public void MapViewSettins(bool player, bool rotation, bool start)
+    {
+        playerSymbol.SetActive(player);
+        playerRotSymbol.SetActive(player);
+        startSymbol.SetActive(start);
     }
 }

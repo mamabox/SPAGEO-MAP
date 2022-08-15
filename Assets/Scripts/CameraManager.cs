@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
 {
     public GameObject playerCam;
     public GameObject mapCam;
-    public GameObject playerSymbol;
+    //public GameObject playerSymbol;
     private MapView mapView;
     const int mapPosY = 40;
     PlayerInput  playerInput;

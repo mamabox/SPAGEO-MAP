@@ -82,7 +82,7 @@ public class CameraSwitch : MonoBehaviour
         if (context.performed && mapViewAllowed)
         {
             if (!mapViewTimeLimit) {
-                Debug.Log("ShowMap");
+                //Debug.Log("ShowMap");
                 playerCam.SetActive(false); //Map View
                 mapCam.SetActive(true);
                 sidePanels.SetActive(true);
@@ -129,9 +129,9 @@ public class CameraSwitch : MonoBehaviour
         }
     }
 
-    private void HideMap()
+    public void HideMap()
     {
-        Debug.Log("HideMap");
+        //Debug.Log("HideMap");
         playerCam.SetActive(true); //City View
         mapCam.SetActive(false);
         sidePanels.SetActive(false);

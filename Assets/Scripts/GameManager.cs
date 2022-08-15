@@ -5,18 +5,21 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int activeScenario;
-    private GameObject scenarioManager;
-    private GameObject uiManager;
+    public int activeRoute;
+
+    private ScenarioManager scenarioManager;
+    private UIManager uiManager;
 
     private void Awake()
     {
-        scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager");
-        uiManager = GameObject.FindGameObjectWithTag("UIManager");
+        scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        activeScenario = 10;
     }
 
     void Start()
     {
-        
+        scenarioManager.sc10.StartScenario(); // FOR TESTING
     }
 
     
