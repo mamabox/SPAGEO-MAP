@@ -14,12 +14,13 @@ public class GameManager : MonoBehaviour
     {
         scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        activeScenario = 10;
+        
     }
 
     void Start()
     {
-        scenarioManager.sc10.StartScenario(); // FOR TESTING
+        activeScenario = 11;
+        scenarioManager.sc11.StartScenario(); // FOR TESTING
     }
 
     
