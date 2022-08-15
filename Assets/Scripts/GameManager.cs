@@ -9,18 +9,20 @@ public class GameManager : MonoBehaviour
 
     private ScenarioManager scenarioManager;
     private UIManager uiManager;
+    private CoordinatesManager coordManager;
 
     private void Awake()
     {
         scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        
+       coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
+
     }
 
     void Start()
     {
-        activeScenario = 11;
-        scenarioManager.sc11.StartScenario(); // FOR TESTING
+        activeScenario = 12;
+        scenarioManager.sc12.StartScenario(); // FOR TESTING
     }
 
     

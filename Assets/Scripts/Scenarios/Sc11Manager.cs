@@ -6,6 +6,7 @@ public class Sc11Manager : MonoBehaviour
 {
     private GameManager gameManager;
     private CameraManager camManager;
+    private DropPin dropPin;
     private MapView mapView;
     private UIManager uiManager;
     private GameObject playerObj;
@@ -22,10 +23,12 @@ public class Sc11Manager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
         mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
+        dropPin = GetComponent<DropPin>();
     }
 
     public void Start()
     {
+        dropPin.dropPinEnabled = true;
         SetupRoute();
 
     }
@@ -46,8 +49,6 @@ public class Sc11Manager : MonoBehaviour
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
 
-
-
     }
 
 
@@ -55,6 +56,7 @@ public class Sc11Manager : MonoBehaviour
     public void EndScenario()
     {
         Debug.Log(gameManager.activeScenario + ": EndScenario()");
+        dropPin.dropPinEnabled = false;
     }
 
     private void SetActiveUIElements()

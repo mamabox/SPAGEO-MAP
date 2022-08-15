@@ -102,7 +102,7 @@ public class CoordinatesManager : MonoBehaviour
     }
 
     //Stores the valid coordinates for dropping pins on the map
-    private bool IsDrawingCoordValid( Vector3 worldPosition)
+    public bool IsDrawingCoordValid(Vector3 worldPosition)
     {
         int _viewNb = mapView.mapViewNb;
 

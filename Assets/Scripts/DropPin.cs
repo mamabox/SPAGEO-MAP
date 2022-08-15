@@ -7,11 +7,13 @@ using UnityEngine.InputSystem;
 public class DropPin : MonoBehaviour
 {
     [SerializeField] bool cursorVisible;
+    public bool dropPinEnabled; //Boolean to determine if it is possible to drop pins
+
     [SerializeField] GameObject dropPinPrefab;
     [SerializeField] Vector3 screenPosition;
     [SerializeField] Vector3 worldPosition = new Vector3();
     [SerializeField] Vector3 rayPosition = new Vector3();
-    [SerializeField] GameObject camManagerOld;
+    //[SerializeField] GameObject camManagerOld;
     [SerializeField] GameObject pinParent;
     [SerializeField] LayerMask pinsLayer;
     Ray ray;
@@ -20,16 +22,20 @@ public class DropPin : MonoBehaviour
 
     //Camera
     private GameObject camManagerObj;
-    GameObject follow;
-    CameraSwitch camSwitch;
+    //GameObject follow;
+    //CameraSwitch camSwitch;
     CameraManager camManager;
+
+
+    private CoordinatesManager coordManager;
 
     private void Awake()
     {
         camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
-        camSwitch = camManagerObj.GetComponent<CameraSwitch>();
+        //camSwitch = camManagerObj.GetComponent<CameraSwitch>();
         camManager = camManagerObj.GetComponent<CameraManager>();
-
+        coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
+        
     }
 
     // Start is called before the first frame update
@@ -37,13 +43,13 @@ public class DropPin : MonoBehaviour
     {
         //follow = Instantiate(dropPinPrefab);
         cursorVisible = true;
-        
+        dropPinEnabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (camManager.activeCam == "map")
+        if (camManager.activeCam == "map" && dropPinEnabled)
         {
              //Get Mouse position on screen
             screenPosition = Mouse.current.position.ReadValue();
@@ -62,19 +68,42 @@ public class DropPin : MonoBehaviour
         }
     }
 
-    public void OnDropPin(InputAction.CallbackContext context)
+    public void OnDropDeletePin(InputAction.CallbackContext context)
     {
-        
-        if (context.performed)
-        { 
-            if (IsValid())
-                Instantiate(dropPinPrefab, new Vector3(worldPosition.x,mapPosY, worldPosition.z), Quaternion.identity, pinParent.transform); //Instantiate at depth value of map height
+        if (context.performed && dropPinEnabled)
+        {
+            if (coordManager.IsDrawingCoordValid(worldPosition))  // IF player clicks in a valid coordinate for the current mapView
+            {
+                if (Physics.Raycast(ray, out RaycastHit hit, 100, pinsLayer))    //IF there is already a pin at this position
+                {
+                    //Debug.Log("DEL PIN");
+                    Destroy(hit.transform.gameObject);
+                }
+                else    // ELSE drop a pin
+                {
+                    //Debug.Log("DROP PIN");
+                    Instantiate(dropPinPrefab, new Vector3(worldPosition.x, mapPosY, worldPosition.z), Quaternion.identity, pinParent.transform); //Instantiate at depth value of map height
+                }
+            }
+
         }
     }
 
+    //TODO: Delete obsolete
+    public void OnDropPin(InputAction.CallbackContext context)
+    {
+
+        if (context.performed && dropPinEnabled)
+        {
+            if (coordManager.IsDrawingCoordValid(worldPosition))
+                Instantiate(dropPinPrefab, new Vector3(worldPosition.x, mapPosY, worldPosition.z), Quaternion.identity, pinParent.transform); //Instantiate at depth value of map height
+        }
+    }
+
+    //TODO: Delete obsolete
     public void OnDeletePin(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && dropPinEnabled)
         {
             Debug.Log("Right click");
             if (Physics.Raycast(ray, out RaycastHit hit, 10, pinsLayer))
@@ -92,29 +121,10 @@ public class DropPin : MonoBehaviour
         }
     }
 
-    public void OnDropDeletePin(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (IsValid())  // IF player clicks in a valid coordinate for the current mapView
-            {
-                if (Physics.Raycast(ray, out RaycastHit hit, 100, pinsLayer))    //IF there is already a pin at this position
-                {
-                    Debug.Log("DEL PIN");
-                    Destroy(hit.transform.gameObject);
-                }
-                else    // ELSE drop a pin
-                {
-                    Debug.Log("DROP PIN");
-                    Instantiate(dropPinPrefab, new Vector3(worldPosition.x, mapPosY, worldPosition.z), Quaternion.identity, pinParent.transform); //Instantiate at depth value of map height
-                }
-            }
-                
-        }
-    }
+    
 
 
-
+    //TODO: DELETE, Moved to CoordinatesManager.cs
     //Stores the valid coordinates for dropping pins on the map
     private bool IsValid()
     {
@@ -167,7 +177,7 @@ public class DropPin : MonoBehaviour
         else
             return false;
     }
-
+    //TODO: DELETE, Moved to CoordinatesManager.cs
     private bool IsCoordValid(Vector3 position)
     {
         if ((position.x >=0 && position.x <= 245) && (position.z >= 0 && position.z <= 245))

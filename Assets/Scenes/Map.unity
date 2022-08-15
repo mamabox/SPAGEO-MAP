@@ -1253,6 +1253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorVisible: 0
+  dropPinEnabled: 0
   dropPinPrefab: {fileID: 6485676169149719916, guid: c45e8a8a1646d49c28545d6330e99a79, type: 3}
   screenPosition: {x: 0, y: 0, z: 0}
   worldPosition: {x: 0, y: 0, z: 0}
@@ -4596,7 +4597,7 @@ GameObject:
   - component: {fileID: 1745131188}
   m_Layer: 0
   m_Name: Coordinates Manager
-  m_TagString: Untagged
+  m_TagString: CoordinatesManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4628,6 +4629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ccc1ec068e74ffdaadf602edfa1255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xyCoordSeparator: _
 --- !u!1 &1824423233
 GameObject:
   m_ObjectHideFlags: 0
