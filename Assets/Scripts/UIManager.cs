@@ -11,23 +11,24 @@ using UnityEngine.InputSystem;
 public class UIManager : MonoBehaviour
 {
 
+    [SerializeField] GameObject debugMenu;
     [SerializeField] GameObject helpMenu;
     [SerializeField] GameObject[] helpMenuImgs;
-    [SerializeField] GameObject cameraMngr;
+    //[SerializeField] GameObject cameraMngr;
 
-    private CameraSwitch camera;
+    private CameraManager camManager;
     public bool isMenuOpen; // can be used to prevent certain actions when a dialog box or a menu is opened (e.g. changing camera views, validating routes)
 
 
     private void Awake()
     {
-        camera = cameraMngr.GetComponent<CameraSwitch>();
+        camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        debugMenu.SetActive(true);
     }
 
     // Update is called once per frame
@@ -35,12 +36,12 @@ public class UIManager : MonoBehaviour
     {
         if (helpMenu.activeInHierarchy)
         {
-            if (camera.activeCam == "player")
+            if (camManager.activeCam == "player")
             {
                 helpMenuImgs[0].SetActive(true);
                 helpMenuImgs[1].SetActive(false);
             }
-            else if (camera.activeCam == "map")
+            else if (camManager.activeCam == "map")
             {
                 helpMenuImgs[0].SetActive(false);
                 helpMenuImgs[1].SetActive(true);
@@ -60,6 +61,18 @@ public class UIManager : MonoBehaviour
             helpMenu.SetActive(true);
             isMenuOpen = true;
      
+        }
+    }
+
+    public void ShowHideDebugMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (debugMenu.activeInHierarchy) // IF active, hide
+                debugMenu.SetActive(false);
+            else    // IF inactive, show
+                debugMenu.SetActive(true);
+
         }
     }
 }

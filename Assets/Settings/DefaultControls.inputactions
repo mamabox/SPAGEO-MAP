@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Show Hide Debug Menu",
+                    "type": "Button",
+                    "id": "43061779-7a34-4f6e-a5ab-28d48f0ed4a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -211,7 +220,7 @@
                 {
                     "name": "",
                     "id": "9d63928b-32fd-4fad-8d36-714d0e518d52",
-                    "path": "<Keyboard>/v",
+                    "path": "<Keyboard>/#(V)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -244,11 +253,33 @@
                 {
                     "name": "",
                     "id": "b428bb8b-5126-40f6-b848-fbafe3fb0678",
-                    "path": "<Keyboard>/m",
+                    "path": "<Keyboard>/#(M)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Show Help Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9324b0ed-1d47-43e2-975c-f72b9ff04c28",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Hide Debug Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2687a97-1c28-4ce6-bc0a-7b80148fbc79",
+                    "path": "<Keyboard>/#(D)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Hide Debug Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -266,6 +297,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Show Hide Debug Menu",
+                    "type": "Button",
+                    "id": "c6800edc-5b87-4b12-a730-810205ce0cea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Hide Map",
@@ -571,6 +611,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Delete Pin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "779cc7d7-68d9-4fc1-b990-d7736cbcf3a5",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Hide Debug Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b62a8583-2ffd-4812-9138-1d2dd80089eb",
+                    "path": "<Keyboard>/#(D)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show Hide Debug Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

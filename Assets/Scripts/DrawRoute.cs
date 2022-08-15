@@ -10,7 +10,7 @@ public class DrawRoute : MonoBehaviour
     [SerializeField] GameObject endPointPrefab;
     //[SerializeField] GameObject pencilPrefab;
     [SerializeField] GameObject mapCam;
-    private GameObject cameraManagerObj;
+    private GameObject camManagerObj;
 
     //GameObject pencilDot;
     GameObject startPoint;
@@ -45,10 +45,10 @@ public class DrawRoute : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
         pencil = GetComponent<Pencil>();
-        cameraManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
+        camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
 
         //mapView = mapCam.GetComponent<MapView>(); //TODO: OLD ref, delete
-        mapView = cameraManagerObj.GetComponent<MapView>();
+        mapView = camManagerObj.GetComponent<MapView>();
     }
 
     // Start is called before the first frame update

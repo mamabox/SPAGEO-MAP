@@ -43,7 +43,7 @@ public class DropPin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (camSwitch.activeCam == "map")
+        if (camManager.activeCam == "map")
         {
              //Get Mouse position on screen
             screenPosition = Mouse.current.position.ReadValue();

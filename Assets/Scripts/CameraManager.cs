@@ -11,6 +11,7 @@ public class CameraManager : MonoBehaviour
     private MapView mapView;
     const int mapPosY = 40;
     PlayerInput  playerInput;
+    public string activeCam;
 
     private void Awake()
     {

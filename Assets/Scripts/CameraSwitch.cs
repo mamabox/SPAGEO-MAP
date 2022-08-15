@@ -28,7 +28,7 @@ public class CameraSwitch : MonoBehaviour
     [SerializeField] bool mapViewTimeLimit = false;
     [SerializeField] bool mapViewAllowed = true;
     [SerializeField] int camView;
-    public string activeCam;
+    //private string activeCam;
 
     void Awake()
     {
@@ -64,7 +64,7 @@ public class CameraSwitch : MonoBehaviour
         yield return new WaitForSeconds(mapViewTime);
         HideMap();
         mapViewAllowed = true;
-        activeCam = "map";
+        camManager.activeCam = "map";
 
     }
 
@@ -86,7 +86,7 @@ public class CameraSwitch : MonoBehaviour
                 playerCam.SetActive(false); //Map View
                 mapCam.SetActive(true);
                 sidePanels.SetActive(true);
-                activeCam = "map";
+                camManager.activeCam = "map";
                 playerInput.SwitchCurrentActionMap("MapView");
             }
             else
@@ -135,7 +135,7 @@ public class CameraSwitch : MonoBehaviour
         playerCam.SetActive(true); //City View
         mapCam.SetActive(false);
         sidePanels.SetActive(false);
-        activeCam = "player";
+        camManager.activeCam = "player";
         playerInput.SwitchCurrentActionMap("PlayerView");
     }
 
