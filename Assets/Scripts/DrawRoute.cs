@@ -17,10 +17,12 @@ public class DrawRoute : MonoBehaviour
     GameObject startPoint;
     GameObject endPoint;
 
-    Vector2 drawInput;  //player input for drawing
+    [SerializeField] GameObject drawRouteParent;
+
+    [SerializeField] Vector2 drawInput;  //player input for drawing
 
     LineRenderer lr;
-    Pencil pencil;
+    public Pencil pencil;
     MapView mapView;
 
     float height = 41f;
@@ -44,8 +46,8 @@ public class DrawRoute : MonoBehaviour
 
     private void Awake()
     {
-        lr = GetComponent<LineRenderer>();
-        pencil = GetComponent<Pencil>();
+        
+        //pencil = GetComponent<Pencil>();
         camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
         coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
 
@@ -53,12 +55,18 @@ public class DrawRoute : MonoBehaviour
         mapView = camManagerObj.GetComponent<MapView>();
     }
 
+    public void SetPencil(Pencil activePencil)
+    {
+        pencil = activePencil;
+        lr = pencil.GetComponent<LineRenderer>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         startPos = "3_3";   // TESTING: start value
 
-        SetStartPoint();
+        //SetStartPoint();
 
         //Debug.Log("coord count: "+ coordinates.Count);
         //Debug.Log("count: " + pointsArray.Length);
@@ -71,45 +79,7 @@ public class DrawRoute : MonoBehaviour
         drawingAllowed = false;  //TODO: trigger in different mode
     }
 
-
-    private void SetStartPoint()
-    {
-        startPoint = Instantiate(startPointPrefab);
-
-        //Initialise pencil coordinates / information
-        pencil.startCoord = CreateCoordinate(startPos);
-        pencil.currentCoord = CreateCoordinate(startPos);
-        pencil.lastCoord = CreateCoordinate(startPos);
-        pencil.routeAllPoints.Add(startPos);
-        pencil.route.Add(startPos);
-
-        //Move start point and drawing point
-        startPoint.transform.position = pencil.startCoord.pos;
-        transform.position = pencil.startCoord.pos;
-
-        //TODO: SetActive for objects depending on drawingAllowed
-        //point.SetActive(false);
-
-        //Line renderer setup
-        lr.SetPosition(0,pencil.startCoord.pos);
-        
-    }
-
-    //Creates a Coordinate from a string in format "X_Y"
-    private Coordinate CreateCoordinate(string coord)
-    {
-        Coordinate _coord = new Coordinate();
-        string[] _coordString = coord.Split(char.Parse(xyCoordSeparator));
-        float[] _coordFloat = { float.Parse(_coordString[0]), float.Parse(_coordString[1]) };
-        Vector3 _pos = new Vector3(_coordFloat[0] * multiplier, height, _coordFloat[1] * multiplier);
-
-        _coord.name = coord;
-        _coord.x = float.Parse(_coordString[0]);
-        _coord.z = float.Parse(_coordString[1]);
-        _coord.pos = new Vector3(_coord.x * multiplier, height, _coord.z * multiplier);
-
-        return _coord;
-    }
+  
 
     // Stores in a list of coordinate ("X_Y", "X_Y") into the pointsarray
     //TODO: should return array
@@ -139,6 +109,13 @@ public class DrawRoute : MonoBehaviour
     // HANDLES PLAYER INPUT
     public void OnDrawInput(InputAction.CallbackContext context)
     {
+        if (context.performed)
+            Debug.Log("OnDrawInput.performed");
+        else if (context.started)
+            Debug.Log("OnDrawInput.started");
+        else if (context.canceled)
+            Debug.Log("OnDrawInput.canceled");
+
         if (context.performed && drawingAllowed)
         {
             drawInput = context.ReadValue<Vector2>();
@@ -165,28 +142,33 @@ public class DrawRoute : MonoBehaviour
         }
     }
 
-    public void DrawInput(Vector2 drawInput)
+    public void RenderLineFromInput(string direction)
     {
-        if (drawInput == new Vector2(0, 1))  //UP
+        Coordinate _nextCoord;
+        string _nextCoordString = "";
+
+        if (direction == "UP")
         {
-            Debug.Log("Draw UP");
-            RenderLineFromInput("UP");
+            _nextCoordString = pencil.currentCoord.x + xyCoordSeparator + (pencil.currentCoord.z + 1);
         }
-        else if (drawInput == new Vector2(0, -1)) //DOWN
+        else if (direction == "DOWN")
         {
-            Debug.Log("Draw DOWN");
-            RenderLineFromInput("DOWN");
+            _nextCoordString = pencil.currentCoord.x + xyCoordSeparator + (pencil.currentCoord.z - 1);
         }
-        else if (drawInput == new Vector2(-1, 0)) //LEFT
+        else if (direction == "LEFT")
         {
-            Debug.Log("Draw LEFT");
-            RenderLineFromInput("LEFT");
+            _nextCoordString = (pencil.currentCoord.x - 1) + xyCoordSeparator + pencil.currentCoord.z;
         }
-        else if (drawInput == new Vector2(1, 0))  //RIGHT
+        else if (direction == "RIGHT")
         {
-            Debug.Log("Draw RIGHT");
-            RenderLineFromInput("RIGHT");
+            _nextCoordString = (pencil.currentCoord.x + 1) + xyCoordSeparator + pencil.currentCoord.z;
         }
+        Debug.Log("Next coord string: " + _nextCoordString);
+        _nextCoord = CreateCoordinate(_nextCoordString);
+
+        // If the next coordinate is valid, move the pencil
+        if (coordManager.IsCoordValid(_nextCoord.name))
+            DrawNextPosition(_nextCoord);
     }
 
     public void OnDeleteLine(InputAction.CallbackContext context)
@@ -222,34 +204,9 @@ public class DrawRoute : MonoBehaviour
 
     }
 
-    public void RenderLineFromInput(string direction)
-    {
-        Coordinate _nextCoord;
-        string _nextCoordString = "";
 
-        if (direction == "UP")
-        {
-            _nextCoordString = pencil.currentCoord.x + xyCoordSeparator + (pencil.currentCoord.z + 1);
-        }
-        else if (direction == "DOWN")
-        {
-            _nextCoordString = pencil.currentCoord.x + xyCoordSeparator + (pencil.currentCoord.z - 1);
-        }
-        else if (direction == "LEFT")
-        {
-            _nextCoordString = (pencil.currentCoord.x - 1) + xyCoordSeparator + pencil.currentCoord.z;
-        }
-        else if (direction == "RIGHT")
-        {
-            _nextCoordString = (pencil.currentCoord.x + 1) + xyCoordSeparator + pencil.currentCoord.z;
-        }
-        Debug.Log("Next coord string: " + _nextCoordString);
-        _nextCoord = CreateCoordinate(_nextCoordString);
 
-        // If the next coordinate is valid, move the pencil
-        if (coordManager.IsCoordValid(_nextCoord.name))
-            DrawNextPosition(_nextCoord);
-    }
+
 
     //TODO: check if longer than 1
     private void DrawNextPosition(Coordinate nextCoord)
@@ -279,6 +236,74 @@ public class DrawRoute : MonoBehaviour
         pencil.currentCoord = nextCoord; // Set the next coordinate as the current coordinate
         
     }
+
+    //TODO: DELETE - Moved to Pencil.cs
+    private void SetStartPoint()
+    {
+        startPoint = Instantiate(startPointPrefab);
+
+
+        //Initialise pencil coordinates / information
+        pencil.startCoord = CreateCoordinate(startPos);
+        pencil.currentCoord = CreateCoordinate(startPos);
+        pencil.lastCoord = CreateCoordinate(startPos);
+        pencil.routeAllPoints.Add(startPos);
+        pencil.route.Add(startPos);
+
+        //Move start point and drawing point
+        startPoint.transform.position = pencil.startCoord.pos;
+        transform.position = pencil.startCoord.pos;
+
+        //TODO: SetActive for objects depending on drawingAllowed
+        //point.SetActive(false);
+
+        //Line renderer setup
+        lr.SetPosition(0, pencil.startCoord.pos);
+
+    }
+
+    //TODO: DELETE - Moved to Pencil.cs
+    //Creates a Coordinate from a string in format "X_Y"
+    private Coordinate CreateCoordinate(string coord)
+    {
+        Coordinate _coord = new Coordinate();
+        string[] _coordString = coord.Split(char.Parse(xyCoordSeparator));
+        float[] _coordFloat = { float.Parse(_coordString[0]), float.Parse(_coordString[1]) };
+        Vector3 _pos = new Vector3(_coordFloat[0] * multiplier, height, _coordFloat[1] * multiplier);
+
+        _coord.name = coord;
+        _coord.x = float.Parse(_coordString[0]);
+        _coord.z = float.Parse(_coordString[1]);
+        _coord.pos = new Vector3(_coord.x * multiplier, height, _coord.z * multiplier);
+
+        return _coord;
+    }
+
+    //TODO: TO delete, using OnDrawInput instead
+    public void DrawInput(Vector2 drawInput)
+    {
+        if (drawInput == new Vector2(0, 1))  //UP
+        {
+            Debug.Log("Draw UP");
+            RenderLineFromInput("UP");
+        }
+        else if (drawInput == new Vector2(0, -1)) //DOWN
+        {
+            Debug.Log("Draw DOWN");
+            RenderLineFromInput("DOWN");
+        }
+        else if (drawInput == new Vector2(-1, 0)) //LEFT
+        {
+            Debug.Log("Draw LEFT");
+            RenderLineFromInput("LEFT");
+        }
+        else if (drawInput == new Vector2(1, 0))  //RIGHT
+        {
+            Debug.Log("Draw RIGHT");
+            RenderLineFromInput("RIGHT");
+        }
+    }
+
 
     //TODO: Delete - moved to CoordinatesManager.cs
     //Stores the valid coordinates for drawing on the map

@@ -1218,6 +1218,7 @@ GameObject:
   - component: {fileID: 422394516}
   - component: {fileID: 422394515}
   - component: {fileID: 422394514}
+  - component: {fileID: 422394518}
   m_Layer: 0
   m_Name: Scenario Manager
   m_TagString: ScenarioManager
@@ -1334,6 +1335,26 @@ MonoBehaviour:
   sc10: {fileID: 0}
   sc11: {fileID: 0}
   sc12: {fileID: 0}
+--- !u!114 &422394518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422394511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e7c3bc37d304e7592b1f1cf4f23db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPointPrefab: {fileID: 0}
+  endPointPrefab: {fileID: 0}
+  mapCam: {fileID: 0}
+  drawRouteParent: {fileID: 0}
+  drawInput: {x: 0, y: 0}
+  pencil: {fileID: 0}
+  xyCoordSeparator: _
+  drawingAllowed: 0
 --- !u!1 &444569769
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,7 +3744,7 @@ MonoBehaviour:
     m_ActionName: Default/Toggle Views[/Keyboard/v]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1445695922}
+      - m_Target: {fileID: 422394518}
         m_TargetAssemblyTypeName: DrawRoute, Assembly-CSharp
         m_MethodName: OnDrawInput
         m_Mode: 0
@@ -3771,7 +3792,7 @@ MonoBehaviour:
     m_ActionName: MapView/Change Camera View[/Keyboard/c]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1445695922}
+      - m_Target: {fileID: 422394518}
         m_TargetAssemblyTypeName: DrawRoute, Assembly-CSharp
         m_MethodName: OnDeleteLine
         m_Mode: 0
@@ -4039,7 +4060,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 374023391}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19e7c3bc37d304e7592b1f1cf4f23db0, type: 3}
   m_Name: 
