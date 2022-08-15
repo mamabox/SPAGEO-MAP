@@ -46,6 +46,8 @@ public class Sc11Manager : MonoBehaviour
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
 
+
+
     }
 
 

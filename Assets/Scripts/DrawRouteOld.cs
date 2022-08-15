@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
 
-public class DrawRoute : MonoBehaviour
+public class DrawRouteOld : MonoBehaviour
 {
     [SerializeField] GameObject startPointPrefab;
     [SerializeField] GameObject endPointPrefab;

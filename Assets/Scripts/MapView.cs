@@ -67,4 +67,5 @@ public class MapView : MonoBehaviour
         playerRotSymbol.SetActive(player);
         startSymbol.SetActive(start);
     }
+
 }
