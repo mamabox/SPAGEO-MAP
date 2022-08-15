@@ -15,6 +15,18 @@ public class Sc12Manager : MonoBehaviour
     [SerializeField] bool showPlayerSymbolRot;
     [SerializeField] bool showStartSymbol;
 
+    [SerializeField] GameObject pencilPrefab;
+    [SerializeField] GameObject startPointPrefab;
+    [SerializeField] GameObject endPointPrefab;
+
+    GameObject pencilDot;
+    GameObject startPoint;
+    GameObject endPoint;
+
+    LineRenderer lr;
+    Pencil pencil;
+    string startPos;
+
 
     private void Awake()
     {
@@ -23,13 +35,25 @@ public class Sc12Manager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
         mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
-        drawRoute = GetComponent<DrawRoute>();
+        
     }
 
     public void Start()
     {
-        drawRoute.drawingAllowed = true;
+        
         SetupRoute();
+        pencilDot = Instantiate(pencilPrefab); //TODO: instantiate as parent
+        pencilDot.name = "NEW PENCIL";
+        startPoint = Instantiate(pencilDot.GetComponent<Pencil>().startPointPrefab);
+        startPoint.name = "NEW STARTPT";
+        endPoint = Instantiate(pencilDot.GetComponent<Pencil>().endPointPrefab);
+        endPoint.name = "NEW ENDPT";
+
+        lr = pencilDot.GetComponent<LineRenderer>();
+        pencil = pencilDot.GetComponent<Pencil>();
+        drawRoute = pencil.GetComponent<DrawRoute>();
+
+        startPos = "3_3";
 
     }
 
@@ -48,7 +72,7 @@ public class Sc12Manager : MonoBehaviour
         uiManager.HideUIParents();
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
-
+        drawRoute.drawingAllowed = true;
     }
 
 

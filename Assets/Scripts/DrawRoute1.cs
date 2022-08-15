@@ -4,14 +4,13 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
 
-public class DrawRoute : MonoBehaviour
+public class DrawRoute1 : MonoBehaviour
 {
     [SerializeField] GameObject startPointPrefab;
     [SerializeField] GameObject endPointPrefab;
     //[SerializeField] GameObject pencilPrefab;
     [SerializeField] GameObject mapCam;
     private GameObject camManagerObj;
-    private CoordinatesManager coordManager;
 
     //GameObject pencilDot;
     GameObject startPoint;
@@ -47,7 +46,6 @@ public class DrawRoute : MonoBehaviour
         lr = GetComponent<LineRenderer>();
         pencil = GetComponent<Pencil>();
         camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
-        coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
 
         //mapView = mapCam.GetComponent<MapView>(); //TODO: OLD ref, delete
         mapView = camManagerObj.GetComponent<MapView>();
@@ -56,8 +54,12 @@ public class DrawRoute : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPos = "3_3";   // TESTING: start value
+        //Instantiate Prefabs
+        
 
+
+        startPos = "3_3";   // TESTING: start value
+        SetValidCoordinates();
         SetStartPoint();
 
         //Debug.Log("coord count: "+ coordinates.Count);
@@ -68,7 +70,7 @@ public class DrawRoute : MonoBehaviour
         StringToPoints(testCoordinates);
         //SetupLine(pointsArray);
 
-        drawingAllowed = false;  //TODO: trigger in different mode
+        drawingAllowed = true;  //TODO: trigger in different mode
     }
 
 
@@ -247,7 +249,7 @@ public class DrawRoute : MonoBehaviour
         _nextCoord = CreateCoordinate(_nextCoordString);
 
         // If the next coordinate is valid, move the pencil
-        if (coordManager.IsCoordValid(_nextCoord.name))
+        if (IsCoordValid(_nextCoord.name))
             DrawNextPosition(_nextCoord);
     }
 
@@ -280,7 +282,6 @@ public class DrawRoute : MonoBehaviour
         
     }
 
-    //TODO: Delete - moved to CoordinatesManager.cs
     //Stores the valid coordinates for drawing on the map
     private void SetValidCoordinates()
     {
@@ -320,8 +321,8 @@ public class DrawRoute : MonoBehaviour
         //Debug.Log("TEST (-3,2): " + IsCoordValid("6_4"));
     }
 
-    
-    //TODO: Delete - moved to CoordinatesManager.cs
+    //Checks if a coordinate is part of the current mapView
+    //TODO: should have 3 options depending on mapview
     private bool IsCoordValid(string coord)
     {
         if ((mapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 2 &&

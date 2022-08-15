@@ -1258,7 +1258,6 @@ MonoBehaviour:
   screenPosition: {x: 0, y: 0, z: 0}
   worldPosition: {x: 0, y: 0, z: 0}
   rayPosition: {x: 0, y: 0, z: 0}
-  camManagerOld: {fileID: 0}
   pinParent: {fileID: 1638837047}
   pinsLayer:
     serializedVersion: 2
@@ -1275,6 +1274,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e460b86f8e564e76a00edd45d0d6db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiElements:
+  - {fileID: 268807950}
+  - {fileID: 1907336327}
+  showPlayerSymbol: 0
+  showPlayerSymbolRot: 0
+  showStartSymbol: 0
+  pencilPrefab: {fileID: 3224112528724391522, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
+  startPointPrefab: {fileID: 0}
+  endPointPrefab: {fileID: 0}
 --- !u!114 &422394515
 MonoBehaviour:
   m_ObjectHideFlags: 0

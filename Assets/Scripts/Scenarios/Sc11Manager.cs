@@ -28,7 +28,7 @@ public class Sc11Manager : MonoBehaviour
 
     public void Start()
     {
-        dropPin.dropPinEnabled = true;
+        
         SetupRoute();
 
     }
@@ -48,7 +48,7 @@ public class Sc11Manager : MonoBehaviour
         uiManager.HideUIParents();
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
-
+        dropPin.dropPinEnabled = true;
     }
 
 

@@ -55,6 +55,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f1a1370d3cba74637ac008d7822357dd, type: 2}
+    - target: {fileID: 2976212862350305067, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
+      propertyPath: endPointPrefab
+      value: 
+      objectReference: {fileID: 2895595254448645937, guid: 2f0d8d31a0e7c48548871057b6977f22, type: 3}
+    - target: {fileID: 2976212862350305067, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
+      propertyPath: startPointPrefab
+      value: 
+      objectReference: {fileID: 781925570417346289, guid: 198ee91464973406babea95755f36e04, type: 3}
     - target: {fileID: 8229829215111396395, guid: 369ad2e74a95a476ab120c507f0e3e1c, type: 3}
       propertyPath: m_Name
       value: Pencil Dot

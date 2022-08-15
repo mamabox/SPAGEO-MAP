@@ -10,6 +10,9 @@ public class Pencil : MonoBehaviour
     public List<string> routeAllPoints;
     public List<string> route;
 
+    public GameObject startPointPrefab;
+    public GameObject endPointPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
