@@ -2,7 +2,7 @@
     "name": "DefaultControls",
     "maps": [
         {
-            "name": "CityView",
+            "name": "PlayerView",
             "id": "4b309267-b163-4a9b-8b06-e50edf231b85",
             "actions": [
                 {

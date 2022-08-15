@@ -137,7 +137,7 @@ public class DrawRoute : MonoBehaviour
     // HANDLES PLAYER INPUT
     public void OnDrawInput(InputAction.CallbackContext context)
     {
-        if (context.started && drawingAllowed)
+        if (context.performed && drawingAllowed)
         {
             drawInput = context.ReadValue<Vector2>();
             if (drawInput == new Vector2(0, 1))  //UP
@@ -165,7 +165,7 @@ public class DrawRoute : MonoBehaviour
 
     public void OnDeleteLine(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             lr.positionCount = 1;   //remove all points
 
@@ -185,7 +185,7 @@ public class DrawRoute : MonoBehaviour
 
     public void OnValidateRoute(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             endPoint = Instantiate(endPointPrefab);
             endPoint.transform.position = pencil.currentCoord.pos;

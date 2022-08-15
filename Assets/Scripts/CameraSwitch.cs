@@ -12,6 +12,10 @@ public class CameraSwitch : MonoBehaviour
     [SerializeField] GameObject sidePanels;
     [SerializeField] GameObject uiManager;
 
+    //Player
+    private GameObject playerObj;
+    private PlayerInput playerInput;
+
     UIManager ui;
 
     [SerializeField] InputActionAsset playerControls;
@@ -26,30 +30,22 @@ public class CameraSwitch : MonoBehaviour
     void Awake()
     {
         ui = uiManager.GetComponent<UIManager>();
-    }
+        //MapActions() //Map actions
 
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerInput = playerObj.GetComponent<PlayerInput>();
+}
 
-    // Start is called before the first frame update
     void Start()
     {
         camView = 1;
         HideMap();
-        /*
-        var gameplayActionMap = playerControls.FindActionMap("City View");
-        toggleView = gameplayActionMap.FindAction("Toggle View");
-
-        toggleView.performed += OnToggleView;
-        toggleView.canceled -= OnToggleView;
-        toggleView.Enable();
-        */
     }
 
-    // Update is called once per frame
     void Update()
     {
   
     }
-
 
     IEnumerator ShowMapTimeLimit()  //Show map for a specific duration
     {
@@ -68,7 +64,7 @@ public class CameraSwitch : MonoBehaviour
 
     public void OnShowMap(InputAction.CallbackContext context)  //Show map
     {
-        if (context.started && mapViewAllowed)
+        if (context.performed && mapViewAllowed)
         {
             if (!mapViewTimeLimit) {
                 Debug.Log("ShowMap");
@@ -77,6 +73,7 @@ public class CameraSwitch : MonoBehaviour
                 playerSymbol.SetActive(true);
                 sidePanels.SetActive(true);
                 activeCam = "map";
+                playerInput.SwitchCurrentActionMap("mapView");
             }
             else
                 StartCoroutine(ShowMapTimeLimit());
@@ -87,7 +84,7 @@ public class CameraSwitch : MonoBehaviour
     public void OnSetMapView(InputAction.CallbackContext context)
     {
         int maxCamView = 3;
-        if(context.started)
+        if(context.performed)
            {
             
             if (camView < maxCamView)
@@ -101,9 +98,10 @@ public class CameraSwitch : MonoBehaviour
 
     public void OnHideMap(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             HideMap();
+            
         }
     }
 
@@ -114,7 +112,19 @@ public class CameraSwitch : MonoBehaviour
         mapCam.SetActive(false);
         sidePanels.SetActive(false);
         activeCam = "player";
+        playerInput.SwitchCurrentActionMap("playerView");
     }
 
+    //Example of how to map actions in code VS in Editor
+    void MapActions()
+    {
+        var playerViewActionMap = playerControls.FindActionMap("PlayerView");
+        var mapViewActionMap = playerControls.FindActionMap("MapView");
+        toggleView = playerViewActionMap.FindAction("Show Map");
+
+        toggleView.performed += OnShowMap;
+        toggleView.canceled -= OnShowMap;
+        toggleView.Enable();
+    }
 
 }
