@@ -20,6 +20,8 @@ public class MapView : MonoBehaviour
     private GameObject mapCam;
 
     [SerializeField] List<GameObject> sidePanels;   // 0 = enter text, 1 = draw route
+    [SerializeField] GameObject playerSymbol;
+    [SerializeField] GameObject playerRotSymbol;
 
 
     void Awake()
@@ -55,6 +57,6 @@ public class MapView : MonoBehaviour
             cameraPosition = new Vector3(315, 45, 62.5f);
             mapCam.GetComponent<Camera>().orthographicSize = 207.5f;
         }
-        transform.position = cameraPosition; // Sets camera one of the 3 possible view
+        mapCam.transform.position = cameraPosition; // Sets camera one of the 3 possible view
     }
 }

@@ -6,9 +6,7 @@ using UnityEngine.InputSystem;
 public class CameraSwitch : MonoBehaviour
 {
 
-    public GameObject playerCam;
-    public GameObject mapCam;
-    public GameObject playerSymbol;
+    
     [SerializeField] GameObject sidePanels;
     [SerializeField] GameObject uiManager;
 
@@ -17,7 +15,9 @@ public class CameraSwitch : MonoBehaviour
     private PlayerInput playerInput;
 
     //Camera
-    CameraManager camManager;
+    private CameraManager camManager;
+    private GameObject playerCam;
+    private GameObject mapCam;
 
     UIManager ui;
 
@@ -38,6 +38,8 @@ public class CameraSwitch : MonoBehaviour
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerInput = playerObj.GetComponent<PlayerInput>();
         camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
+        playerCam = camManager.playerCam;
+        mapCam = camManager.mapCam;
 }
 
     void Start()
@@ -68,16 +70,24 @@ public class CameraSwitch : MonoBehaviour
 
     public void OnShowMap(InputAction.CallbackContext context)  //Show map
     {
+        /*
+        if (context.performed)
+            Debug.Log("OnShowMap.performed");
+        else if (context.started)
+            Debug.Log("OnShowMap.started");
+        else if (context.canceled)
+            Debug.Log("OnShowMap.canceled");
+        */
+
         if (context.performed && mapViewAllowed)
         {
             if (!mapViewTimeLimit) {
                 Debug.Log("ShowMap");
                 playerCam.SetActive(false); //Map View
                 mapCam.SetActive(true);
-                playerSymbol.SetActive(true);
                 sidePanels.SetActive(true);
                 activeCam = "map";
-                playerInput.SwitchCurrentActionMap("mapView");
+                playerInput.SwitchCurrentActionMap("MapView");
             }
             else
                 StartCoroutine(ShowMapTimeLimit());
@@ -87,7 +97,15 @@ public class CameraSwitch : MonoBehaviour
 
     public void OnSetMapView(InputAction.CallbackContext context)
     {
-        int maxCamView = 3;
+        /*
+        if (context.performed)
+            Debug.Log("OnSetMapView.performed");
+        else if (context.started)
+            Debug.Log("OnSetMapView.started");
+        else if (context.canceled)
+            Debug.Log("OnSetMapView.canceled");
+        */
+            int maxCamView = 3;
         if(context.performed)
            {
             
@@ -118,7 +136,7 @@ public class CameraSwitch : MonoBehaviour
         mapCam.SetActive(false);
         sidePanels.SetActive(false);
         activeCam = "player";
-        playerInput.SwitchCurrentActionMap("playerView");
+        playerInput.SwitchCurrentActionMap("PlayerView");
     }
 
     //Example of how to map actions in code VS in Editor
