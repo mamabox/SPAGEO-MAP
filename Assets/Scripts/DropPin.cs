@@ -11,35 +11,45 @@ public class DropPin : MonoBehaviour
     [SerializeField] Vector3 screenPosition;
     [SerializeField] Vector3 worldPosition = new Vector3();
     [SerializeField] Vector3 rayPosition = new Vector3();
-    [SerializeField] GameObject camManager;
+    [SerializeField] GameObject camManagerOld;
     [SerializeField] GameObject pinParent;
     [SerializeField] LayerMask pinsLayer;
     Ray ray;
     private int blockSize = 35;
     private int mapPosY = 40;   //Used for depth value
 
+    //Camera
+    private GameObject camManagerObj;
     GameObject follow;
-    CameraSwitch cam;
+    CameraSwitch camSwitch;
+    CameraManager camManager;
+
+    private void Awake()
+    {
+        camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
+        camSwitch = camManagerObj.GetComponent<CameraSwitch>();
+        camManager = camManagerObj.GetComponent<CameraManager>();
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         //follow = Instantiate(dropPinPrefab);
         cursorVisible = true;
-        cam = camManager.GetComponent<CameraSwitch>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (cam.activeCam == "map")
+        if (camSwitch.activeCam == "map")
         {
              //Get Mouse position on screen
             screenPosition = Mouse.current.position.ReadValue();
             //screenPosition.z = 40;
-            worldPosition = cam.mapCam.GetComponent<Camera>().ScreenToWorldPoint(screenPosition);   //Get world position from screen position
-            ray = cam.mapCam.GetComponent<Camera>().ScreenPointToRay(screenPosition);
+            worldPosition = camSwitch.mapCam.GetComponent<Camera>().ScreenToWorldPoint(screenPosition);   //Get world position from screen position
+            ray = camSwitch.mapCam.GetComponent<Camera>().ScreenPointToRay(screenPosition);
             //follow.transform.position = new Vector3 (worldPosition.x, 40, worldPosition.z);
 
             //Make cursor visible
@@ -108,7 +118,7 @@ public class DropPin : MonoBehaviour
     //Stores the valid coordinates for dropping pins on the map
     private bool IsValid()
     {
-        int _viewNb = cam.mapCam.GetComponent<MapView>().viewNb;
+        int _viewNb = camSwitch.mapCam.GetComponent<MapView>().mapViewNb;
 
         int urbanMinX = 0;
         int urbanMaxX = 7;

@@ -10,6 +10,7 @@ public class DrawRoute : MonoBehaviour
     [SerializeField] GameObject endPointPrefab;
     //[SerializeField] GameObject pencilPrefab;
     [SerializeField] GameObject mapCam;
+    private GameObject cameraManagerObj;
 
     //GameObject pencilDot;
     GameObject startPoint;
@@ -44,7 +45,10 @@ public class DrawRoute : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
         pencil = GetComponent<Pencil>();
-        mapView = mapCam.GetComponent<MapView>();
+        cameraManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
+
+        //mapView = mapCam.GetComponent<MapView>(); //TODO: OLD ref, delete
+        mapView = cameraManagerObj.GetComponent<MapView>();
     }
 
     // Start is called before the first frame update
@@ -297,8 +301,8 @@ public class DrawRoute : MonoBehaviour
     //TODO: should have 3 options depending on mapview
     private bool IsCoordValid(string coord)
     {
-        if ((mapView.viewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.viewNb == 2 &&
-            suburViewCoordinates.Contains(coord)) || (mapView.viewNb == 3 && validCoordinates.Contains(coord)))
+        if ((mapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 2 &&
+            suburViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 3 && validCoordinates.Contains(coord)))
             return true;
         else
             return false;

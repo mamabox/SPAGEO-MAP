@@ -16,6 +16,9 @@ public class CameraSwitch : MonoBehaviour
     private GameObject playerObj;
     private PlayerInput playerInput;
 
+    //Camera
+    CameraManager camManager;
+
     UIManager ui;
 
     [SerializeField] InputActionAsset playerControls;
@@ -34,6 +37,7 @@ public class CameraSwitch : MonoBehaviour
 
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerInput = playerObj.GetComponent<PlayerInput>();
+        camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
 }
 
     void Start()
@@ -92,7 +96,9 @@ public class CameraSwitch : MonoBehaviour
             else
                 camView = 1;
             //Debug.Log("Change cam view to #" + camView);
-            mapCam.GetComponent<MapView>().SetCameraView(camView);
+            //mapCam.GetComponent<MapView>().SetCameraView(camView); //TODO: OLD, to delete
+            this.GetComponent<MapView>().SetCameraView(camView);
+
         }
     }
 

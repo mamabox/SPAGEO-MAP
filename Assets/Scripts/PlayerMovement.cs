@@ -24,12 +24,11 @@ public class PlayerMovement : MonoBehaviour
     
 
 
-    void Start()
+    void Awake()
     {
-        var cityActionMap = GetComponent<PlayerInput>().actions.FindActionMap("City View");
-        var mapActionMap = GetComponent<PlayerInput>().actions.FindActionMap("Map View");
+        var cityActionMap = GetComponent<PlayerInput>().actions.FindActionMap("playerView");
+        var mapActionMap = GetComponent<PlayerInput>().actions.FindActionMap("MapView");
         character = GetComponent<CharacterController>();
-        ;
     }
 
 
