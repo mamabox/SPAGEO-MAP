@@ -182,8 +182,8 @@ public class DrawRoute : MonoBehaviour
             pencil.route.Clear();
 
             //Delete children (start and end point)
-            GameObject.Destroy(startPoint);
-            GameObject.Destroy(endPoint);
+            Destroy(pencil.startPoint);
+            Destroy(pencil.endPoint);
    
 
             SetStartPoint();
