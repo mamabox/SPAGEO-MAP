@@ -6,7 +6,7 @@ public class Sc12Manager : MonoBehaviour
 {
     private GameManager gameManager;
     private CameraManager camManager;
-    private DrawRoute drawRoute;
+    public DrawRoute drawRoute;
     private MapView mapView;
     private UIManager uiManager;
     private GameObject playerObj;
@@ -21,7 +21,7 @@ public class Sc12Manager : MonoBehaviour
 
     [SerializeField] GameObject drawRouteParent;
 
-    GameObject route;
+    public GameObject route;
     GameObject startPoint;
     GameObject endPoint;
 

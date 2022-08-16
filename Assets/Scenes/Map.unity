@@ -1204,6 +1204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e460b86f8e564e76a00edd45d0d6db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawRoute: {fileID: 0}
   uiElements:
   - {fileID: 268807950}
   - {fileID: 1907336327}
@@ -1212,6 +1213,7 @@ MonoBehaviour:
   showStartSymbol: 0
   DrawRoutePrefab: {fileID: 5110377995319837807, guid: d90c45c8bc77c4590a546c6a040260ea, type: 3}
   drawRouteParent: {fileID: 1907336327}
+  route: {fileID: 0}
 --- !u!114 &422394515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3652,8 +3654,8 @@ MonoBehaviour:
     m_ActionName: Default/Toggle Views[/Keyboard/v]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DrawRoute, Assembly-CSharp
+      - m_Target: {fileID: 1457131281}
+        m_TargetAssemblyTypeName: PlayerActionsManager, Assembly-CSharp
         m_MethodName: OnDrawInput
         m_Mode: 0
         m_Arguments:
@@ -3971,6 +3973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1457131280}
+  - component: {fileID: 1457131281}
   m_Layer: 0
   m_Name: Player Controller
   m_TagString: Untagged
@@ -3994,6 +3997,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1457131281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457131279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5181006d1e9a40a7b15486478466a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1537065918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3889420553373653430, guid: 16cba6ac0bff442eea9c9aa679a70dc9, type: 3}

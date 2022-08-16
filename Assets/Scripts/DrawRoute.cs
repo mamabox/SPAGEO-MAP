@@ -152,6 +152,33 @@ public class DrawRoute : MonoBehaviour
         }
     }
 
+    public void DrawInput(Vector2 drawInput)
+    {
+        if (drawingAllowed)
+        {
+            if (drawInput == new Vector2(0, 1))  //UP
+            {
+                Debug.Log("Draw UP");
+                RenderLineFromInput("UP");
+            }
+            else if (drawInput == new Vector2(0, -1)) //DOWN
+            {
+                Debug.Log("Draw DOWN");
+                RenderLineFromInput("DOWN");
+            }
+            else if (drawInput == new Vector2(-1, 0)) //LEFT
+            {
+                Debug.Log("Draw LEFT");
+                RenderLineFromInput("LEFT");
+            }
+            else if (drawInput == new Vector2(1, 0))  //RIGHT
+            {
+                Debug.Log("Draw RIGHT");
+                RenderLineFromInput("RIGHT");
+            }
+        }
+    }
+
     public void RenderLineFromInput(string direction)
     {
         Coordinate _nextCoord;
@@ -270,7 +297,7 @@ public class DrawRoute : MonoBehaviour
     }
 
     //TODO: TO delete, using OnDrawInput instead
-    public void DrawInput(Vector2 drawInput)
+    public void DrawInput2(Vector2 drawInput)
     {
         if (drawInput == new Vector2(0, 1))  //UP
         {
