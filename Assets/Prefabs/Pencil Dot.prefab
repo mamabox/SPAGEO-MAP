@@ -172,20 +172,3 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &-1767813988269256361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3224112528724391522}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19e7c3bc37d304e7592b1f1cf4f23db0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPointPrefab: {fileID: 781925570417346289, guid: 198ee91464973406babea95755f36e04, type: 3}
-  endPointPrefab: {fileID: 2895595254448645937, guid: 2f0d8d31a0e7c48548871057b6977f22, type: 3}
-  mapCam: {fileID: 0}
-  xyCoordSeparator: _
-  drawingAllowed: 0

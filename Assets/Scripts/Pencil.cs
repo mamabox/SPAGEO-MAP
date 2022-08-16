@@ -10,8 +10,8 @@ public class Pencil : MonoBehaviour
     public List<string> routeAllPoints;
     public List<string> route;
 
-    public GameObject startPointPrefab;
-    public GameObject endPointPrefab;
+    //public GameObject startPointPrefab;
+    //public GameObject endPointPrefab;
 
     public GameObject startPoint;
     public GameObject endPoint;
@@ -31,7 +31,7 @@ public class Pencil : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-  
+   
      
     }
 
@@ -41,32 +41,32 @@ public class Pencil : MonoBehaviour
         
     }
 
-    public void SetStartPoint( string startPos)
-    {
-        startPoint = Instantiate(startPointPrefab);
-        startPoint.name = "NEW STARTPT";
-        endPoint = Instantiate(endPointPrefab);
-        endPoint.name = "NEW ENDPT";
-        endPoint.SetActive(false);
+    //public void SetStartPoint( string startPos)
+    //{
+    //    startPoint = Instantiate(startPointPrefab);
+    //    startPoint.name = "NEW STARTPT";
+    //    endPoint = Instantiate(endPointPrefab);
+    //    endPoint.name = "NEW ENDPT";
+    //    endPoint.SetActive(false);
 
-        //Initialise pencil coordinates / information
-        startCoord = CreateCoordinate(startPos);
-        currentCoord = CreateCoordinate(startPos);
-        lastCoord = CreateCoordinate(startPos);
-        routeAllPoints.Add(startPos);
-        route.Add(startPos);
+    //    //Initialise pencil coordinates / information
+    //    startCoord = CreateCoordinate(startPos);
+    //    currentCoord = CreateCoordinate(startPos);
+    //    lastCoord = CreateCoordinate(startPos);
+    //    routeAllPoints.Add(startPos);
+    //    route.Add(startPos);
 
-        //Move start point and drawing point
-        startPoint.transform.position = startCoord.pos;
-        transform.position = startCoord.pos;
+    //    //Move start point and drawing point
+    //    startPoint.transform.position = startCoord.pos;
+    //    transform.position = startCoord.pos;
 
-        //TODO: SetActive for objects depending on drawingAllowed
-        //point.SetActive(false);
+    //    //TODO: SetActive for objects depending on drawingAllowed
+    //    //point.SetActive(false);
 
-        //Line renderer setup
-        lr.SetPosition(0, startCoord.pos);
+    //    //Line renderer setup
+    //    lr.SetPosition(0, startCoord.pos);
 
-    }
+    //}
 
     //Creates a Coordinate from a string in format "X_Y"
     private Coordinate CreateCoordinate(string coord)

@@ -6,24 +6,22 @@ using UnityEngine.InputSystem;
 
 public class DrawRoute : MonoBehaviour
 {
-    [SerializeField] GameObject startPointPrefab;
-    [SerializeField] GameObject endPointPrefab;
-    //[SerializeField] GameObject pencilPrefab;
-    [SerializeField] GameObject mapCam;
+
     private GameObject camManagerObj;
     private CoordinatesManager coordManager;
+    MapView mapView;
 
-    //GameObject pencilDot;
-    GameObject startPoint;
-    GameObject endPoint;
+    public GameObject pencilDot;
+    [SerializeField] GameObject startPoint;
+    [SerializeField] GameObject endPoint;
 
-    [SerializeField] GameObject drawRouteParent;
+    
 
     [SerializeField] Vector2 drawInput;  //player input for drawing
 
     LineRenderer lr;
-    public Pencil pencil;
-    MapView mapView;
+    private Pencil pencil;
+    
 
     float height = 41f;
     float multiplier = 35;
@@ -32,54 +30,66 @@ public class DrawRoute : MonoBehaviour
     List<string> testCoordinates = new List<string> { "0_0", "0_1", "0_2", "1_2" }; // Test line to draw
     List<Vector3> points = new List<Vector3>();
     Vector3[] pointsArray;
+    private string startPos;    // FOR TESTING
+    private Vector3 startPosVector;
 
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
+
     List<string> urbanViewCoordinates = new List<string>();
     List<string> suburViewCoordinates = new List<string>();
     List<string> validCoordinates = new List<string>();
-    private string startPos;
-    private Vector3 startPosVector;
 
     public bool drawingAllowed;    // Is drawing allowed during this scenario
 
-
-
     private void Awake()
     {
-        
-        //pencil = GetComponent<Pencil>();
+ 
         camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
         coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
-
-        //mapView = mapCam.GetComponent<MapView>(); //TODO: OLD ref, delete
         mapView = camManagerObj.GetComponent<MapView>();
+
+        pencil = pencilDot.GetComponent<Pencil>();
+        lr = pencilDot.GetComponent<LineRenderer>();
     }
 
-    public void SetPencil(Pencil activePencil)
-    {
-        pencil = activePencil;
-        lr = pencil.GetComponent<LineRenderer>();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         startPos = "3_3";   // TESTING: start value
-
-        //SetStartPoint();
-
-        //Debug.Log("coord count: "+ coordinates.Count);
-        //Debug.Log("count: " + pointsArray.Length);
-
-        // TEST SECTION: Creates
-        pointsArray = new Vector3[testCoordinates.Count];
-        StringToPoints(testCoordinates);
-        //SetupLine(pointsArray);
+        
 
         drawingAllowed = false;  //TODO: trigger in different mode
+
+        pointsArray = new Vector3[testCoordinates.Count];
+        StringToPoints(testCoordinates);
+
+        //SetupLine(pointsArray);
     }
 
-  
+    //Called from scenario 12
+    public void SetStartPoint(string pos)
+    {
+        //Initialise pencil coordinates / information
+        pencil.startCoord = CreateCoordinate(pos);
+        pencil.currentCoord = CreateCoordinate(pos);
+        pencil.lastCoord = CreateCoordinate(pos);
+        pencil.routeAllPoints.Add(pos);
+        pencil.route.Add(pos);
+
+        //Move pencil dot and start point
+        transform.position = pencil.startCoord.pos;
+        startPoint.transform.position = pencil.startCoord.pos;
+        endPoint.transform.position = pencil.startCoord.pos;
+        endPoint.SetActive(false);  //hide end point
+
+        //TODO: SetActive for objects depending on drawingAllowed
+        //point.SetActive(false);
+
+        //Line renderer setup
+        lr.SetPosition(0, pencil.startCoord.pos);
+
+    }
 
     // Stores in a list of coordinate ("X_Y", "X_Y") into the pointsarray
     //TODO: should return array
@@ -182,11 +192,11 @@ public class DrawRoute : MonoBehaviour
             pencil.route.Clear();
 
             //Delete children (start and end point)
-            Destroy(pencil.startPoint);
-            Destroy(pencil.endPoint);
+            //Destroy(pencil.startPoint);
+            //Destroy(pencil.endPoint);
    
 
-            SetStartPoint();
+            SetStartPoint(startPos);
             drawingAllowed = true;
         }
     }
@@ -195,8 +205,10 @@ public class DrawRoute : MonoBehaviour
     {
         if (context.performed)
         {
-            endPoint = Instantiate(endPointPrefab);
-            endPoint.transform.position = pencil.currentCoord.pos;
+            //pencil.endPoint.transform.position = pencil.currentCoord.pos;
+            endPoint.SetActive(true);
+            Debug.Log("endPoint position = " + pencil.endPoint.transform.position.x);
+            pencil.endPoint.transform.position = pencil.transform.position;
             drawingAllowed = false;
             //TODO: SAVE ROUTE
 
@@ -237,30 +249,8 @@ public class DrawRoute : MonoBehaviour
         
     }
 
-    //TODO: DELETE - Moved to Pencil.cs
-    private void SetStartPoint()
-    {
-        startPoint = Instantiate(startPointPrefab);
-
-
-        //Initialise pencil coordinates / information
-        pencil.startCoord = CreateCoordinate(startPos);
-        pencil.currentCoord = CreateCoordinate(startPos);
-        pencil.lastCoord = CreateCoordinate(startPos);
-        pencil.routeAllPoints.Add(startPos);
-        pencil.route.Add(startPos);
-
-        //Move start point and drawing point
-        startPoint.transform.position = pencil.startCoord.pos;
-        transform.position = pencil.startCoord.pos;
-
-        //TODO: SetActive for objects depending on drawingAllowed
-        //point.SetActive(false);
-
-        //Line renderer setup
-        lr.SetPosition(0, pencil.startCoord.pos);
-
-    }
+  
+   
 
     //TODO: DELETE - Moved to Pencil.cs
     //Creates a Coordinate from a string in format "X_Y"

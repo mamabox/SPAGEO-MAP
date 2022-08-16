@@ -15,11 +15,13 @@ public class Sc12Manager : MonoBehaviour
     [SerializeField] bool showPlayerSymbolRot;
     [SerializeField] bool showStartSymbol;
 
-    [SerializeField] GameObject pencilPrefab;
-    [SerializeField] GameObject startPointPrefab;
-    [SerializeField] GameObject endPointPrefab;
+    [SerializeField] GameObject DrawRoutePrefab;
+    //[SerializeField] GameObject startPointPrefab;
+    //[SerializeField] GameObject endPointPrefab;
 
-    GameObject pencilDot;
+    [SerializeField] GameObject drawRouteParent;
+
+    GameObject route;
     GameObject startPoint;
     GameObject endPoint;
 
@@ -35,7 +37,7 @@ public class Sc12Manager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
         mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
-        drawRoute = GetComponent<DrawRoute>();
+        
         
     }
 
@@ -62,18 +64,20 @@ public class Sc12Manager : MonoBehaviour
         uiManager.HideUIParents();
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
-        drawRoute.drawingAllowed = true;
+        
 
-        pencilDot = Instantiate(pencilPrefab); //TODO: instantiate as parent
-        pencilDot.name = "NEW PENCIL";
-        //lr = pencilDot.GetComponent<LineRenderer>();
-        pencil = pencilDot.GetComponent<Pencil>();
-        drawRoute.SetPencil(pencil);
+        route = Instantiate(DrawRoutePrefab, drawRouteParent.transform); //TODO: instantiate as parent
+        route.name = "NEW ROUTE";
+        drawRoute = route.GetComponent<DrawRoute>();
+        //lr = route.GetComponent<LineRenderer>();
+        pencil = drawRoute.pencilDot.GetComponent<Pencil>();
+        drawRoute.drawingAllowed = true;
+        //drawRoute.SetPencil(pencilDot);
 
         //drawRoute = pencil.GetComponent<DrawRoute>();
 
         startPos = "3_3";
-        pencil.SetStartPoint(startPos);
+        drawRoute.SetStartPoint(startPos);
     }
 
 
