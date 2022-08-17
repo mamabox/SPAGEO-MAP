@@ -6,6 +6,7 @@ public class Sc12Manager : MonoBehaviour
 {
     private GameManager gameManager;
     private CameraManager camManager;
+    private ScenarioManager scenarioManager;
     public DrawRoute drawRoute;
     private MapView mapView;
     private UIManager uiManager;
@@ -37,7 +38,7 @@ public class Sc12Manager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
         mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
-        
+        scenarioManager = GetComponent<ScenarioManager>();
         
     }
 
@@ -71,7 +72,7 @@ public class Sc12Manager : MonoBehaviour
         drawRoute = route.GetComponent<DrawRoute>();
         //lr = route.GetComponent<LineRenderer>();
         pencil = drawRoute.pencilDot.GetComponent<Pencil>();
-        drawRoute.drawingAllowed = true;
+        scenarioManager.drawingAllowed = true;
         //drawRoute.SetPencil(pencilDot);
 
         //drawRoute = pencil.GetComponent<DrawRoute>();

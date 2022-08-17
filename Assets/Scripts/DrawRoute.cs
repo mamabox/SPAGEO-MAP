@@ -9,6 +9,7 @@ public class DrawRoute : MonoBehaviour
 
     private GameObject camManagerObj;
     private CoordinatesManager coordManager;
+    private ScenarioManager scenarioManager;
     MapView mapView;
 
     public GameObject pencilDot;
@@ -47,6 +48,7 @@ public class DrawRoute : MonoBehaviour
         camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
         coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
         mapView = camManagerObj.GetComponent<MapView>();
+        scenarioManager = GameObject.FindGameObjectWithTag("ScemarioManager").GetComponent<ScenarioManager>();
 
         pencil = pencilDot.GetComponent<Pencil>();
         lr = pencilDot.GetComponent<LineRenderer>();
@@ -154,7 +156,7 @@ public class DrawRoute : MonoBehaviour
 
     public void DrawInput(Vector2 drawInput)
     {
-        if (drawingAllowed)
+        if (scenarioManager.drawingAllowed)
         {
             if (drawInput == new Vector2(0, 1))  //UP
             {

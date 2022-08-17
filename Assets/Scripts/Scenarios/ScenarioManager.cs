@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScenarioManager : MonoBehaviour
 {
+    public bool drawingAllowed;
+
     // Scenario managers
     public Sc10Manager sc10;
     public Sc11Manager sc11;
@@ -11,9 +13,13 @@ public class ScenarioManager : MonoBehaviour
 
     private void Awake()
     {
+        // Scenario Managers
         sc10 = GetComponent<Sc10Manager>();
         sc11 = GetComponent<Sc11Manager>();
         sc12 = GetComponent<Sc12Manager>();
+
+        // Variables
+        drawingAllowed = false;
     }
 
     void Start()

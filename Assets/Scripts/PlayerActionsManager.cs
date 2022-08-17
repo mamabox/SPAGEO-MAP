@@ -22,17 +22,17 @@ public class PlayerActionsManager : MonoBehaviour
     // HANDLES PLAYER INPUT
     public void OnDrawInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
-            Debug.Log("OnDrawInput.performed");
-        else if (context.started)
-            Debug.Log("OnDrawInput.started");
-        else if (context.canceled)
-            Debug.Log("OnDrawInput.canceled");
+        //if (context.performed)
+        //    Debug.Log("OnDrawInput.performed");
+        //else if (context.started)
+        //    Debug.Log("OnDrawInput.started");
+        //else if (context.canceled)
+        //    Debug.Log("OnDrawInput.canceled");
 
         if (context.performed && scenario == 12)
             {
                 Vector2 drawInput = context.ReadValue<Vector2>();//player input for drawing
-            Debug.Log("Context.x: " + drawInput.x + "Context.y: " + drawInput.y);
+            //Debug.Log("Context.x: " + drawInput.x + "Context.y: " + drawInput.y);
                 scenarioManager.sc12.route.GetComponent<DrawRoute>().DrawInput(drawInput);
             }
     }
