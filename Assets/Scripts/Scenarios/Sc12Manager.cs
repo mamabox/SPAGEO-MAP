@@ -28,7 +28,7 @@ public class Sc12Manager : MonoBehaviour
 
     LineRenderer lr;
     Pencil pencil;
-    string startPos;
+    public string startPos;
 
 
     private void Awake()

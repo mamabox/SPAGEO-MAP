@@ -1016,6 +1016,7 @@ MonoBehaviour:
   DrawRoutePrefab: {fileID: 5110377995319837807, guid: d90c45c8bc77c4590a546c6a040260ea, type: 3}
   drawRouteParent: {fileID: 1907336327}
   route: {fileID: 0}
+  startPos: 
 --- !u!114 &422394515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3659,9 +3660,9 @@ MonoBehaviour:
     m_ActionName: MapView/Change Camera View[/Keyboard/c]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1457131279}
-        m_TargetAssemblyTypeName: DrawRoute, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1457131281}
+        m_TargetAssemblyTypeName: PlayerActionsManager, Assembly-CSharp
+        m_MethodName: OnNewAttempt
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3675,8 +3676,8 @@ MonoBehaviour:
     m_ActionName: MapView/Delete Line[/Keyboard/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DrawRoute, Assembly-CSharp
+      - m_Target: {fileID: 1457131281}
+        m_TargetAssemblyTypeName: PlayerActionsManager, Assembly-CSharp
         m_MethodName: OnValidateRoute
         m_Mode: 0
         m_Arguments:

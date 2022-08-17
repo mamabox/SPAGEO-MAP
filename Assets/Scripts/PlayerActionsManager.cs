@@ -34,8 +34,30 @@ public class PlayerActionsManager : MonoBehaviour
                 scenarioManager.sc12.route.GetComponent<DrawRoute>().DrawInput(drawInput);
             }
     }
-    
 
-    
+    public void OnValidateRoute(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (gameManager.activeScenario == 12)
+            {
+                scenarioManager.sc12.route.GetComponent<DrawRoute>().ValidateRoute();
+            }
+        }
+
+    }
+
+    public void OnNewAttempt(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            //SC12: reset the line
+            if (gameManager.activeScenario == 12)
+            {
+                scenarioManager.sc12.route.GetComponent<DrawRoute>().ResetLine();
+            }
+
+        }
+    }
 
 }

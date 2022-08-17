@@ -10,6 +10,8 @@ public class DrawRoute : MonoBehaviour
     private GameObject camManagerObj;
     private CoordinatesManager coordManager;
     private ScenarioManager scenarioManager;
+    private GameManager gameManager;
+
     MapView mapView;
 
     public GameObject pencilObj;
@@ -22,7 +24,7 @@ public class DrawRoute : MonoBehaviour
 
     LineRenderer lr;
     private Pencil pencil;
-    
+  
 
     float height = 41f;
     float multiplier = 35;
@@ -45,6 +47,7 @@ public class DrawRoute : MonoBehaviour
     private void Awake()
     {
         //Debug.Log("game object attached to: " + this.name);
+        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
         camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
         coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
         mapView = camManagerObj.GetComponent<MapView>();
@@ -58,20 +61,15 @@ public class DrawRoute : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPos = "3_3";   // TESTING: start value
-        
-
-        drawingAllowed = false;  //TODO: trigger in different mode
-
         pointsArray = new Vector3[testCoordinates.Count];
         StringToPoints(testCoordinates);
-
         //SetupLine(pointsArray);
     }
 
     //Called from scenario 12
     public void SetStartPoint(string pos)
     {
+        startPos = pos; //Stores the start position for a reset
         //Initialise pencil coordinates / information
         pencil.startCoord = CreateCoordinate(pos);
         pencil.currentCoord = CreateCoordinate(pos);
@@ -80,7 +78,7 @@ public class DrawRoute : MonoBehaviour
         pencil.route.Add(pos);
 
         //Move pencil dot and start point
-        transform.position = pencil.startCoord.pos;
+        pencil.transform.position = pencil.startCoord.pos;
         startPoint.transform.position = pencil.startCoord.pos;
         endPoint.transform.position = pencil.startCoord.pos;
         endPoint.SetActive(false);  //hide end point
@@ -91,6 +89,18 @@ public class DrawRoute : MonoBehaviour
         //Line renderer setup
         lr.SetPosition(0, pencil.startCoord.pos);
 
+    }
+
+    public void ResetLine()
+    {
+        lr.positionCount = 1;   //remove all points
+
+        //Delete routes
+        pencil.routeAllPoints.Clear();
+        pencil.route.Clear();
+
+        SetStartPoint(startPos);    //Reset the start postion
+        scenarioManager.drawingAllowed = true;  // Allow drawing
     }
 
     // Stores in a list of coordinate ("X_Y", "X_Y") into the pointsarray
@@ -119,40 +129,40 @@ public class DrawRoute : MonoBehaviour
     }
 
     // HANDLES PLAYER INPUT
-    public void OnDrawInput(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            Debug.Log("OnDrawInput.performed");
-        else if (context.started)
-            Debug.Log("OnDrawInput.started");
-        else if (context.canceled)
-            Debug.Log("OnDrawInput.canceled");
+    //public void OnDrawInput(InputAction.CallbackContext context)
+    //{
+    //    if (context.performed)
+    //        Debug.Log("OnDrawInput.performed");
+    //    else if (context.started)
+    //        Debug.Log("OnDrawInput.started");
+    //    else if (context.canceled)
+    //        Debug.Log("OnDrawInput.canceled");
 
-        if (context.performed && drawingAllowed)
-        {
-            drawInput = context.ReadValue<Vector2>();
-            if (drawInput == new Vector2(0, 1))  //UP
-            {
-                Debug.Log("Draw UP");
-                RenderLineFromInput("UP");
-            }
-            else if (drawInput == new Vector2(0, -1)) //DOWN
-            {
-                Debug.Log("Draw DOWN");
-                RenderLineFromInput("DOWN");
-            }
-            else if (drawInput == new Vector2(-1, 0)) //LEFT
-            {
-                Debug.Log("Draw LEFT");
-                RenderLineFromInput("LEFT");
-            }
-            else if (drawInput == new Vector2(1, 0))  //RIGHT
-            {
-                Debug.Log("Draw RIGHT");
-                RenderLineFromInput("RIGHT");
-            }
-        }
-    }
+    //    if (context.performed && drawingAllowed)
+    //    {
+    //        drawInput = context.ReadValue<Vector2>();
+    //        if (drawInput == new Vector2(0, 1))  //UP
+    //        {
+    //            Debug.Log("Draw UP");
+    //            RenderLineFromInput("UP");
+    //        }
+    //        else if (drawInput == new Vector2(0, -1)) //DOWN
+    //        {
+    //            Debug.Log("Draw DOWN");
+    //            RenderLineFromInput("DOWN");
+    //        }
+    //        else if (drawInput == new Vector2(-1, 0)) //LEFT
+    //        {
+    //            Debug.Log("Draw LEFT");
+    //            RenderLineFromInput("LEFT");
+    //        }
+    //        else if (drawInput == new Vector2(1, 0))  //RIGHT
+    //        {
+    //            Debug.Log("Draw RIGHT");
+    //            RenderLineFromInput("RIGHT");
+    //        }
+    //    }
+    //}
 
     public void DrawInput(Vector2 drawInput)
     {
@@ -160,22 +170,22 @@ public class DrawRoute : MonoBehaviour
         {
             if (drawInput == new Vector2(0, 1))  //UP
             {
-                Debug.Log("Draw UP");
+                //Debug.Log("Draw UP");
                 RenderLineFromInput("UP");
             }
             else if (drawInput == new Vector2(0, -1)) //DOWN
             {
-                Debug.Log("Draw DOWN");
+                //Debug.Log("Draw DOWN");
                 RenderLineFromInput("DOWN");
             }
             else if (drawInput == new Vector2(-1, 0)) //LEFT
             {
-                Debug.Log("Draw LEFT");
+                //Debug.Log("Draw LEFT");
                 RenderLineFromInput("LEFT");
             }
             else if (drawInput == new Vector2(1, 0))  //RIGHT
             {
-                Debug.Log("Draw RIGHT");
+                //Debug.Log("Draw RIGHT");
                 RenderLineFromInput("RIGHT");
             }
         }
@@ -202,7 +212,7 @@ public class DrawRoute : MonoBehaviour
         {
             _nextCoordString = (pencil.currentCoord.x + 1) + xyCoordSeparator + pencil.currentCoord.z;
         }
-        Debug.Log("Next coord string: " + _nextCoordString);
+        //Debug.Log("Next coord string: " + _nextCoordString);
         _nextCoord = CreateCoordinate(_nextCoordString);
 
         // If the next coordinate is valid, move the pencil
@@ -230,26 +240,21 @@ public class DrawRoute : MonoBehaviour
         }
     }
 
-    public void OnValidateRoute(InputAction.CallbackContext context)
+    // Sets the end point to the current pencil position and disables further drawing
+    public void ValidateRoute()
     {
-        if (context.performed)
-        {
+            endPoint.transform.position = pencil.transform.position; //Move the endPoint to current pencil position
             //pencil.endPoint.transform.position = pencil.currentCoord.pos;
             endPoint.SetActive(true);
-            Debug.Log("endPoint position = " + pencil.endPoint.transform.position.x);
-            pencil.endPoint.transform.position = pencil.transform.position;
-            drawingAllowed = false;
+            //Debug.Log("endPoint position = " + pencil.endPoint.transform.position.x);
+            
+            scenarioManager.drawingAllowed = false;
             //TODO: SAVE ROUTE
-
-        }
 
     }
 
-
-
-
-
-    //TODO: check if longer than 1
+    // 1. Adds or delete coordinates to the list of route coordinates
+    // 2. Adds or deletes points to the pencil's line renderer
     private void DrawNextPosition(Coordinate nextCoord)
     {
         int _routeLength = pencil.route.Count;
@@ -272,16 +277,13 @@ public class DrawRoute : MonoBehaviour
 
         pencil.routeAllPoints.Add(nextCoord.name); // Add to the list of all coordinates
 
-        transform.position = nextCoord.pos; //Move pencil to the next position
+        pencil.transform.position = nextCoord.pos; //Move pencil to the next position
         pencil.lastCoord = pencil.currentCoord; //Set the current position as the last position
         pencil.currentCoord = nextCoord; // Set the next coordinate as the current coordinate
         
     }
 
-  
-   
-
-    //TODO: DELETE - Moved to Pencil.cs
+ 
     //Creates a Coordinate from a string in format "X_Y"
     private Coordinate CreateCoordinate(string coord)
     {
@@ -324,55 +326,55 @@ public class DrawRoute : MonoBehaviour
     }
 
 
-    //TODO: Delete - moved to CoordinatesManager.cs
-    //Stores the valid coordinates for drawing on the map
-    private void SetValidCoordinates()
-    {
-        int urbanMinX = 0;
-        int urbanMaxX = 7;
-        int urbanMinY = 0;
-        int urbanMaxY = 7;
-        int suburbMinX = 4;
-        int suburbMaxX = 11;
-        int suburbMinY = -4;
-        int suburbMaxY  = 3;
+    ////TODO: Delete - moved to CoordinatesManager.cs
+    ////Stores the valid coordinates for drawing on the map
+    //private void SetValidCoordinates()
+    //{
+    //    int urbanMinX = 0;
+    //    int urbanMaxX = 7;
+    //    int urbanMinY = 0;
+    //    int urbanMaxY = 7;
+    //    int suburbMinX = 4;
+    //    int suburbMaxX = 11;
+    //    int suburbMinY = -4;
+    //    int suburbMaxY  = 3;
 
-        // Urban coordinates
-        for (int x = urbanMinX; x <= urbanMaxX; x++)
-        {
-            for (int y = urbanMinY; y <= urbanMaxY; y++)
-            {
-                string _coord = x + xyCoordSeparator + y;
-                urbanViewCoordinates.Add(_coord);
-            }
-        }
+    //    // Urban coordinates
+    //    for (int x = urbanMinX; x <= urbanMaxX; x++)
+    //    {
+    //        for (int y = urbanMinY; y <= urbanMaxY; y++)
+    //        {
+    //            string _coord = x + xyCoordSeparator + y;
+    //            urbanViewCoordinates.Add(_coord);
+    //        }
+    //    }
 
-        // Subburb coordinates
-        for (int x = suburbMinX; x <= suburbMaxX; x++)
-        {
-            for (int y = suburbMinY; y <= suburbMaxY; y++)
-            {
-                string _coord = x + xyCoordSeparator + y;
-                suburViewCoordinates.Add(_coord);
-            }
-        }
+    //    // Subburb coordinates
+    //    for (int x = suburbMinX; x <= suburbMaxX; x++)
+    //    {
+    //        for (int y = suburbMinY; y <= suburbMaxY; y++)
+    //        {
+    //            string _coord = x + xyCoordSeparator + y;
+    //            suburViewCoordinates.Add(_coord);
+    //        }
+    //    }
 
-        validCoordinates = urbanViewCoordinates.Union(suburViewCoordinates).ToList(); //Union of both sets of coordinates without duplicates
+    //    validCoordinates = urbanViewCoordinates.Union(suburViewCoordinates).ToList(); //Union of both sets of coordinates without duplicates
 
-        //Debug.Log("validCoordinates: " + urbanCoordinates.Count+ "|" + suburbCoordinates.Count + "|"+ validCoordinates.Count + "): " + string.Join(",", validCoordinates));
-        //Debug.Log("TEST (3,4): " + IsCoordValid("3_4"));
-        //Debug.Log("TEST (-3,2): " + IsCoordValid("6_4"));
-    }
+    //    //Debug.Log("validCoordinates: " + urbanCoordinates.Count+ "|" + suburbCoordinates.Count + "|"+ validCoordinates.Count + "): " + string.Join(",", validCoordinates));
+    //    //Debug.Log("TEST (3,4): " + IsCoordValid("3_4"));
+    //    //Debug.Log("TEST (-3,2): " + IsCoordValid("6_4"));
+    //}
 
     
-    //TODO: Delete - moved to CoordinatesManager.cs
-    private bool IsCoordValid(string coord)
-    {
-        if ((mapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 2 &&
-            suburViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 3 && validCoordinates.Contains(coord)))
-            return true;
-        else
-            return false;
-    }
+    ////TODO: Delete - moved to CoordinatesManager.cs
+    //private bool IsCoordValid(string coord)
+    //{
+    //    if ((mapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 2 &&
+    //        suburViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 3 && validCoordinates.Contains(coord)))
+    //        return true;
+    //    else
+    //        return false;
+    //}
     
 }
