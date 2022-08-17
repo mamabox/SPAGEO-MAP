@@ -64,6 +64,10 @@ public class PlayerActionsManager : MonoBehaviour
             {
                 scenarioManager.sc12.route.GetComponent<DrawRoute>().ResetLine();
             }
+            else if (gameManager.activeScenario == 11)
+            {
+                scenarioManager.sc11.dropPin.DeleteAllPins();
+            }
 
         }
     }
@@ -72,25 +76,30 @@ public class PlayerActionsManager : MonoBehaviour
 
     public void OnSwitchScenario(int scenario)
     {
-            if (scenario == 10)
-            {
+        if (gameManager.activeScenario == 10)
+            scenarioManager.sc10.EndScenario();
+        else if (gameManager.activeScenario == 11)
             scenarioManager.sc11.EndScenario();
+        else if (gameManager.activeScenario == 12)
             scenarioManager.sc12.EndScenario();
+
+        gameManager.activeScenario = scenario;
+
+        if (scenario == 10)
+            {
                 scenarioManager.sc10.StartScenario();
             
             }
             else if (scenario == 11)
             {
-            scenarioManager.sc10.EndScenario();
-            scenarioManager.sc11.EndScenario();
+
             scenarioManager.sc11.StartScenario();
             }
             else if (scenario == 12)
             {
-            scenarioManager.sc10.EndScenario();
-            scenarioManager.sc11.EndScenario();
+
             scenarioManager.sc12.StartScenario();
             }
-
+        gameManager.activeScenario = scenario;
     }
 }

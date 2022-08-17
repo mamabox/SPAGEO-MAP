@@ -43,6 +43,7 @@ public class Sc10Manager : MonoBehaviour
         Debug.Log(gameManager.activeScenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
         uiManager.HideUIParents();
+        uiManager.ShowSidePanel(0);
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
 

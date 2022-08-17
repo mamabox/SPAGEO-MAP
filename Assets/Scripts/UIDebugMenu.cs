@@ -19,7 +19,7 @@ public class UIDebugMenu : MonoBehaviour
 
     void Start()
     {
-        shortcutsTxt.text = "(M) Help - (D) Debug";
+        shortcutsTxt.text = "(M) Help - (V) Toggle Player/Map view - (C) Change MapView - (D) Debug - (X) New attempt - (SPACE) Validate ";
     }
 
     

@@ -121,6 +121,11 @@ public class DropPin : MonoBehaviour
         }
     }
 
+    public void DeleteAllPins()
+    {
+        foreach (Transform child in pinParent.transform)
+            Destroy(child.gameObject);
+    }
     
 
 

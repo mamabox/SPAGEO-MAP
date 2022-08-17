@@ -6,7 +6,7 @@ public class Sc11Manager : MonoBehaviour
 {
     private GameManager gameManager;
     private CameraManager camManager;
-    private DropPin dropPin;
+    public DropPin dropPin;
     private MapView mapView;
     private UIManager uiManager;
     private GameObject playerObj;
@@ -46,6 +46,7 @@ public class Sc11Manager : MonoBehaviour
         Debug.Log(gameManager.activeScenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
         uiManager.HideUIParents();
+        uiManager.ShowSidePanel(1);
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
         dropPin.dropPinEnabled = true;
@@ -59,6 +60,7 @@ public class Sc11Manager : MonoBehaviour
         {
             Debug.Log(gameManager.activeScenario + ": EndScenario()");
             dropPin.dropPinEnabled = false;
+            dropPin.DeleteAllPins();
         }
     }
 

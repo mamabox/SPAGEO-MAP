@@ -63,6 +63,7 @@ public class Sc12Manager : MonoBehaviour
         Debug.Log(gameManager.activeScenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
         uiManager.HideUIParents();
+        uiManager.ShowSidePanel(2);
         SetActiveUIElements();
         mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
         
@@ -88,6 +89,7 @@ public class Sc12Manager : MonoBehaviour
         if (gameManager.activeScenario == 12)
         {
             Debug.Log(gameManager.activeScenario + ": EndScenario()");
+            scenarioManager.sc12.route.GetComponent<DrawRoute>().ResetLine();
             scenarioManager.drawingAllowed = false;
         }
     }

@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        activeScenario = 12;
-        scenarioManager.sc12.StartScenario(); // FOR TESTING
+        activeScenario = 10;
+        scenarioManager.sc10.StartScenario(); // FOR TESTING
     }
 
     
