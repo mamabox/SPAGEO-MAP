@@ -38,7 +38,7 @@ public class Sc12Manager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
         mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
-        scenarioManager = GetComponent<ScenarioManager>();
+        scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
         
     }
 
@@ -85,8 +85,11 @@ public class Sc12Manager : MonoBehaviour
 
     public void EndScenario()
     {
-        Debug.Log(gameManager.activeScenario + ": EndScenario()");
-        scenarioManager.drawingAllowed = false;
+        if (gameManager.activeScenario == 12)
+        {
+            Debug.Log(gameManager.activeScenario + ": EndScenario()");
+            scenarioManager.drawingAllowed = false;
+        }
     }
 
     private void SetActiveUIElements()

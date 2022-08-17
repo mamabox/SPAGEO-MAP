@@ -52,7 +52,10 @@ public class Sc10Manager : MonoBehaviour
 
     public void EndScenario()
     {
-        Debug.Log(gameManager.activeScenario + ": EndScenario()");
+        if (gameManager.activeScenario == 10)
+        {
+            Debug.Log(gameManager.activeScenario + ": EndScenario()");
+        }
     }
 
     private void SetActiveUIElements()

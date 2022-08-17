@@ -14,13 +14,12 @@ public class UIDebugMenu : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
-        //gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();    
+        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();  
     }
 
     void Start()
     {
-        shortcutsTxt.text = "0 - SC10 | 1 - SC11 | 2 - SC12/SC13 | (M) Help - (D) Debug";
+        shortcutsTxt.text = "(M) Help - (D) Debug";
     }
 
     

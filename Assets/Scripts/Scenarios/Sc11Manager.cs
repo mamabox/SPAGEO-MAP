@@ -55,8 +55,11 @@ public class Sc11Manager : MonoBehaviour
 
     public void EndScenario()
     {
-        Debug.Log(gameManager.activeScenario + ": EndScenario()");
-        dropPin.dropPinEnabled = false;
+        if (gameManager.activeScenario == 11)
+        {
+            Debug.Log(gameManager.activeScenario + ": EndScenario()");
+            dropPin.dropPinEnabled = false;
+        }
     }
 
     private void SetActiveUIElements()

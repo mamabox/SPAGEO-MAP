@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * Handles Player action input for map and player view
+*/
+
 public class PlayerActionsManager : MonoBehaviour
 {
     private GameManager gameManager;
@@ -17,7 +21,11 @@ public class PlayerActionsManager : MonoBehaviour
         scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
     }
 
-    // HANDLES PLAYER INPUT
+    // (1) BOTH PLAYER AND MAP VIEW
+
+    // (2) PLAYER VIEW ONLY
+
+    // (3) MAP VIEW ONLY
     public void OnDrawInput(InputAction.CallbackContext context)
     {
         //if (context.performed)
@@ -60,4 +68,29 @@ public class PlayerActionsManager : MonoBehaviour
         }
     }
 
+    // (4) DEBUG
+
+    public void OnSwitchScenario(int scenario)
+    {
+            if (scenario == 10)
+            {
+            scenarioManager.sc11.EndScenario();
+            scenarioManager.sc12.EndScenario();
+                scenarioManager.sc10.StartScenario();
+            
+            }
+            else if (scenario == 11)
+            {
+            scenarioManager.sc10.EndScenario();
+            scenarioManager.sc11.EndScenario();
+            scenarioManager.sc11.StartScenario();
+            }
+            else if (scenario == 12)
+            {
+            scenarioManager.sc10.EndScenario();
+            scenarioManager.sc11.EndScenario();
+            scenarioManager.sc12.StartScenario();
+            }
+
+    }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
 
+/*
+ * Draws lines in Map view
+ * 
+ * */
+
 public class DrawRoute : MonoBehaviour
 {
 
@@ -91,17 +96,7 @@ public class DrawRoute : MonoBehaviour
 
     }
 
-    public void ResetLine()
-    {
-        lr.positionCount = 1;   //remove all points
 
-        //Delete routes
-        pencil.routeAllPoints.Clear();
-        pencil.route.Clear();
-
-        SetStartPoint(startPos);    //Reset the start postion
-        scenarioManager.drawingAllowed = true;  // Allow drawing
-    }
 
     // Stores in a list of coordinate ("X_Y", "X_Y") into the pointsarray
     //TODO: should return array
@@ -129,40 +124,6 @@ public class DrawRoute : MonoBehaviour
     }
 
     // HANDLES PLAYER INPUT
-    //public void OnDrawInput(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //        Debug.Log("OnDrawInput.performed");
-    //    else if (context.started)
-    //        Debug.Log("OnDrawInput.started");
-    //    else if (context.canceled)
-    //        Debug.Log("OnDrawInput.canceled");
-
-    //    if (context.performed && drawingAllowed)
-    //    {
-    //        drawInput = context.ReadValue<Vector2>();
-    //        if (drawInput == new Vector2(0, 1))  //UP
-    //        {
-    //            Debug.Log("Draw UP");
-    //            RenderLineFromInput("UP");
-    //        }
-    //        else if (drawInput == new Vector2(0, -1)) //DOWN
-    //        {
-    //            Debug.Log("Draw DOWN");
-    //            RenderLineFromInput("DOWN");
-    //        }
-    //        else if (drawInput == new Vector2(-1, 0)) //LEFT
-    //        {
-    //            Debug.Log("Draw LEFT");
-    //            RenderLineFromInput("LEFT");
-    //        }
-    //        else if (drawInput == new Vector2(1, 0))  //RIGHT
-    //        {
-    //            Debug.Log("Draw RIGHT");
-    //            RenderLineFromInput("RIGHT");
-    //        }
-    //    }
-    //}
 
     public void DrawInput(Vector2 drawInput)
     {
@@ -190,6 +151,31 @@ public class DrawRoute : MonoBehaviour
             }
         }
     }
+
+    public void ResetLine()
+    {
+        lr.positionCount = 1;   //remove all points
+
+        //Delete routes
+        pencil.routeAllPoints.Clear();
+        pencil.route.Clear();
+
+        SetStartPoint(startPos);    //Reset the start postion
+        scenarioManager.drawingAllowed = true;  // Allow drawing
+    }
+
+    public void ValidateRoute()
+    {
+        endPoint.transform.position = pencil.transform.position; //Move the endPoint to current pencil position
+                                                                 //pencil.endPoint.transform.position = pencil.currentCoord.pos;
+        endPoint.SetActive(true);
+        //Debug.Log("endPoint position = " + pencil.endPoint.transform.position.x);
+
+        scenarioManager.drawingAllowed = false;
+        //TODO: SAVE ROUTE
+
+    }
+
 
     public void RenderLineFromInput(string direction)
     {
@@ -241,17 +227,7 @@ public class DrawRoute : MonoBehaviour
     }
 
     // Sets the end point to the current pencil position and disables further drawing
-    public void ValidateRoute()
-    {
-            endPoint.transform.position = pencil.transform.position; //Move the endPoint to current pencil position
-            //pencil.endPoint.transform.position = pencil.currentCoord.pos;
-            endPoint.SetActive(true);
-            //Debug.Log("endPoint position = " + pencil.endPoint.transform.position.x);
-            
-            scenarioManager.drawingAllowed = false;
-            //TODO: SAVE ROUTE
 
-    }
 
     // 1. Adds or delete coordinates to the list of route coordinates
     // 2. Adds or deletes points to the pencil's line renderer
@@ -324,57 +300,5 @@ public class DrawRoute : MonoBehaviour
             RenderLineFromInput("RIGHT");
         }
     }
-
-
-    ////TODO: Delete - moved to CoordinatesManager.cs
-    ////Stores the valid coordinates for drawing on the map
-    //private void SetValidCoordinates()
-    //{
-    //    int urbanMinX = 0;
-    //    int urbanMaxX = 7;
-    //    int urbanMinY = 0;
-    //    int urbanMaxY = 7;
-    //    int suburbMinX = 4;
-    //    int suburbMaxX = 11;
-    //    int suburbMinY = -4;
-    //    int suburbMaxY  = 3;
-
-    //    // Urban coordinates
-    //    for (int x = urbanMinX; x <= urbanMaxX; x++)
-    //    {
-    //        for (int y = urbanMinY; y <= urbanMaxY; y++)
-    //        {
-    //            string _coord = x + xyCoordSeparator + y;
-    //            urbanViewCoordinates.Add(_coord);
-    //        }
-    //    }
-
-    //    // Subburb coordinates
-    //    for (int x = suburbMinX; x <= suburbMaxX; x++)
-    //    {
-    //        for (int y = suburbMinY; y <= suburbMaxY; y++)
-    //        {
-    //            string _coord = x + xyCoordSeparator + y;
-    //            suburViewCoordinates.Add(_coord);
-    //        }
-    //    }
-
-    //    validCoordinates = urbanViewCoordinates.Union(suburViewCoordinates).ToList(); //Union of both sets of coordinates without duplicates
-
-    //    //Debug.Log("validCoordinates: " + urbanCoordinates.Count+ "|" + suburbCoordinates.Count + "|"+ validCoordinates.Count + "): " + string.Join(",", validCoordinates));
-    //    //Debug.Log("TEST (3,4): " + IsCoordValid("3_4"));
-    //    //Debug.Log("TEST (-3,2): " + IsCoordValid("6_4"));
-    //}
-
-    
-    ////TODO: Delete - moved to CoordinatesManager.cs
-    //private bool IsCoordValid(string coord)
-    //{
-    //    if ((mapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 2 &&
-    //        suburViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 3 && validCoordinates.Contains(coord)))
-    //        return true;
-    //    else
-    //        return false;
-    //}
     
 }
