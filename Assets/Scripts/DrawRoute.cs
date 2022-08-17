@@ -12,7 +12,7 @@ public class DrawRoute : MonoBehaviour
     private ScenarioManager scenarioManager;
     MapView mapView;
 
-    public GameObject pencilDot;
+    public GameObject pencilObj;
     [SerializeField] GameObject startPoint;
     [SerializeField] GameObject endPoint;
 
@@ -44,14 +44,14 @@ public class DrawRoute : MonoBehaviour
 
     private void Awake()
     {
- 
+        //Debug.Log("game object attached to: " + this.name);
         camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
         coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
         mapView = camManagerObj.GetComponent<MapView>();
-        scenarioManager = GameObject.FindGameObjectWithTag("ScemarioManager").GetComponent<ScenarioManager>();
+        scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
 
-        pencil = pencilDot.GetComponent<Pencil>();
-        lr = pencilDot.GetComponent<LineRenderer>();
+        pencil = pencilObj.GetComponent<Pencil>();
+        lr = pencilObj.GetComponent<LineRenderer>();
     }
 
 

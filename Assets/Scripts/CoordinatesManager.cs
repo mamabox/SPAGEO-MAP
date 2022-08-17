@@ -85,9 +85,15 @@ public class CoordinatesManager : MonoBehaviour
     {
         if ((mapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 2 &&
             suburViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 3 && validCoordinates.Contains(coord)))
+        {
+            Debug.Log("Coord valid");
             return true;
+        }
         else
+        {
+            Debug.Log("Coord NOT valid");
             return false;
+        }
     }
 
     //Stores the valid min and max coordinates for drawing on the map in the urban and suburb section

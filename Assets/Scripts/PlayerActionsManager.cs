@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerActionsManager : MonoBehaviour
 {
-    [SerializeField] int scenario;
     private GameManager gameManager;
     private ScenarioManager scenarioManager;
 
@@ -16,7 +15,6 @@ public class PlayerActionsManager : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
         scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
-        scenario = gameManager.activeScenario;
     }
 
     // HANDLES PLAYER INPUT
@@ -29,7 +27,7 @@ public class PlayerActionsManager : MonoBehaviour
         //else if (context.canceled)
         //    Debug.Log("OnDrawInput.canceled");
 
-        if (context.performed && scenario == 12)
+        if (context.performed && gameManager.activeScenario == 12)
             {
                 Vector2 drawInput = context.ReadValue<Vector2>();//player input for drawing
             //Debug.Log("Context.x: " + drawInput.x + "Context.y: " + drawInput.y);

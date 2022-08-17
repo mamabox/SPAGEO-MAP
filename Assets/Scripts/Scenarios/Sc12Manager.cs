@@ -69,16 +69,16 @@ public class Sc12Manager : MonoBehaviour
 
         route = Instantiate(DrawRoutePrefab, drawRouteParent.transform); //TODO: instantiate as parent
         route.name = "NEW ROUTE";
-        drawRoute = route.GetComponent<DrawRoute>();
+        //drawRoute = route.GetComponent<DrawRoute>();
         //lr = route.GetComponent<LineRenderer>();
-        pencil = drawRoute.pencilDot.GetComponent<Pencil>();
+        //pencil = drawRoute.pencilObj.GetComponent<Pencil>();
         scenarioManager.drawingAllowed = true;
         //drawRoute.SetPencil(pencilDot);
 
         //drawRoute = pencil.GetComponent<DrawRoute>();
 
         startPos = "3_3";
-        drawRoute.SetStartPoint(startPos);
+        route.GetComponent<DrawRoute>().SetStartPoint(startPos);
     }
 
 
@@ -86,7 +86,7 @@ public class Sc12Manager : MonoBehaviour
     public void EndScenario()
     {
         Debug.Log(gameManager.activeScenario + ": EndScenario()");
-        drawRoute.drawingAllowed = false;
+        scenarioManager.drawingAllowed = false;
     }
 
     private void SetActiveUIElements()

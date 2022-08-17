@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     {
         scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
         uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-       coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
+        coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
 
     }
 

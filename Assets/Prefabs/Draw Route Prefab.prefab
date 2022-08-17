@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e7c3bc37d304e7592b1f1cf4f23db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pencilDot: {fileID: 351773248731799319}
+  pencilObj: {fileID: 351773248731799319}
   startPoint: {fileID: 6134142010704406752}
   endPoint: {fileID: 5434768830620760199}
   drawInput: {x: 0, y: 0}
@@ -62,7 +62,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3224112528724391522, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
       propertyPath: m_Name
-      value: Pencil Dot
+      value: Pencil
+      objectReference: {fileID: 0}
+    - target: {fileID: 5803461544020334508, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
+      propertyPath: m_Positions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5850225315028427916, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
       propertyPath: m_RootOrder
@@ -108,6 +112,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8630518143620410722, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
+      propertyPath: route.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630518143620410722, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
+      propertyPath: routeAllPoints.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0749b90f03b04055bb9b21761b4f349, type: 3}
 --- !u!1 &351773248731799319 stripped
@@ -129,7 +141,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 781925570417346289, guid: 198ee91464973406babea95755f36e04, type: 3}
       propertyPath: m_Name
-      value: Start Dot
+      value: Start
       objectReference: {fileID: 0}
     - target: {fileID: 8599483330817283103, guid: 198ee91464973406babea95755f36e04, type: 3}
       propertyPath: m_RootOrder
@@ -196,7 +208,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2895595254448645937, guid: 2f0d8d31a0e7c48548871057b6977f22, type: 3}
       propertyPath: m_Name
-      value: End Dot
+      value: End
       objectReference: {fileID: 0}
     - target: {fileID: 6170297781529572831, guid: 2f0d8d31a0e7c48548871057b6977f22, type: 3}
       propertyPath: m_RootOrder
