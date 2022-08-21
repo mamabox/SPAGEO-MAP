@@ -25,16 +25,16 @@ public class ScenarioManager : MonoBehaviour
 
     public void SwitchToScenario(int scenario)
     {
-        if (GameManager.activeScenario == 10)
+        if (GameManager.gameData.scenario == 10)
             Singleton.Instance.scenarioMngr.sc10.EndScenario();
-        else if (GameManager.activeScenario == 11)
+        else if (GameManager.gameData.scenario == 11)
             Singleton.Instance.scenarioMngr.sc11.EndScenario();
-        else if (GameManager.activeScenario == 12)
+        else if (GameManager.gameData.scenario == 12)
             Singleton.Instance.scenarioMngr.sc12.EndScenario();
 
-        GameManager.activeScenario = scenario;
+        GameManager.gameData.scenario = scenario;
 
-        switch (GameManager.activeScenario)
+        switch (GameManager.gameData.scenario)
         {
             case 10:
                 Singleton.Instance.scenarioMngr.sc10.StartScenario();

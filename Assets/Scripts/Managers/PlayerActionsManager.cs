@@ -39,7 +39,7 @@ public class PlayerActionsManager : MonoBehaviour
         if (context.performed)
         {
             //Debug.Log("DrawPerformed");
-            switch (GameManager.activeScenario)
+            switch (GameManager.gameData.scenario)
             {
                 case 12:
                     Vector2 drawInput = context.ReadValue<Vector2>(); //player input for drawing
@@ -55,7 +55,7 @@ public class PlayerActionsManager : MonoBehaviour
     {
         if (context.performed)
         {
-            if (GameManager.activeScenario == 12)
+            if (GameManager.gameData.scenario == 12)
             {
                 Singleton.Instance.scenarioMngr.sc12.route.GetComponent<DrawRoute>().ValidateRoute();
             }
@@ -67,7 +67,7 @@ public class PlayerActionsManager : MonoBehaviour
     {
         if (context.performed)
         {
-            switch (GameManager.activeScenario)
+            switch (GameManager.gameData.scenario)
             {
                 case 11:
                     Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();

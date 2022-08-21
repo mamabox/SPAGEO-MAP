@@ -24,6 +24,6 @@ public class UIDebugMenu : MonoBehaviour
     void Update()
     {
         //Scenario info
-        scenarioInfoTxt.text = "SC: " + GameManager.activeScenario;
+        scenarioInfoTxt.text = "SC: " + GameManager.gameData.scenario;
     }
 }
