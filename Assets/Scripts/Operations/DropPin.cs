@@ -92,7 +92,7 @@ public class DropPin : MonoBehaviour
 
     public void DropDeletePin()
     {
-        if (coordManager.IsDrawingCoordValid(worldPosition) && Singleton.Instance.operationsMngr.dropPinEnabled)  // IF player clicks in a valid coordinate for the current mapView + dropPin is allowed
+        if (Singleton.Instance.coordinatesMngr.IsDrawingCoordValid(worldPosition) && Singleton.Instance.operationsMngr.dropPinEnabled)  // IF player clicks in a valid coordinate for the current mapView + dropPin is allowed
         {
             if (Physics.Raycast(ray, out RaycastHit hit, 100, pinsLayer))    //IF there is already a pin at this position
             {
@@ -141,8 +141,12 @@ public class DropPin : MonoBehaviour
 
     public void DeleteAllPins()
     {
-        foreach (Transform child in pinParent.transform)
-            Destroy(child.gameObject);
+        if (Singleton.Instance.operationsMngr.dropPinEnabled)
+        {
+            foreach (Transform child in pinParent.transform)
+                Destroy(child.gameObject);
+        }
+
     }
     
 

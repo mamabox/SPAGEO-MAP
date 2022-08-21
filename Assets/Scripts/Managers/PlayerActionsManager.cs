@@ -28,9 +28,9 @@ public class PlayerActionsManager : MonoBehaviour
     // (3) MAP VIEW ONLY
     public void OnDropDeletePin(InputAction.CallbackContext context)
     {
-        if (context.performed && gameManager.activeScenario == 11)
+        if (context.performed)
         {
-            Singleton.Instance.scenarioMngr.sc11.dropPin.DropDeletePin();
+            Singleton.Instance.operationsMngr.dropPin.DropDeletePin();
         }
     }
 
@@ -67,16 +67,16 @@ public class PlayerActionsManager : MonoBehaviour
     {
         if (context.performed)
         {
-            //SC12: reset the line
-            if (gameManager.activeScenario == 12)
+            switch (Singleton.Instance.gameMngr.activeScenario)
             {
-                scenarioManager.sc12.route.GetComponent<DrawRoute>().ResetLine();
-            }
-            else if (gameManager.activeScenario == 11)
-            {
-                scenarioManager.sc11.dropPin.DeleteAllPins();
-            }
+                case 11:
+                    Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();
+                    break;
 
+                case 12:
+                    Singleton.Instance.scenarioMngr.sc12.route.GetComponent<DrawRoute>().ResetLine();
+                    break;
+            }
         }
     }
 
@@ -115,4 +115,6 @@ public class PlayerActionsManager : MonoBehaviour
     {
         Debug.Log("Submit answer");
     }
+
+
 }

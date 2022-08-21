@@ -29,12 +29,12 @@ public class Sc11Manager : MonoBehaviour
     public void Start()
     {
         
-        SetupRoute();
+        
 
     }
 
     //TODO: pull data from file
-    public void SetupRoute()
+    public void SetRouteSettings()
     {
         showPlayerSymbol = true;
         showPlayerSymbolRot = true;
@@ -43,6 +43,8 @@ public class Sc11Manager : MonoBehaviour
 
     public void StartScenario()
     {
+        SetRouteSettings();
+
         Debug.Log(Singleton.Instance.gameMngr.activeScenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
         Singleton.Instance.UIMngr.HideUIParents();
@@ -59,9 +61,9 @@ public class Sc11Manager : MonoBehaviour
 
     public void EndScenario()
     {
-        if (gameManager.activeScenario == 11)
+        if (Singleton.Instance.gameMngr.activeScenario == 11)
         {
-            Debug.Log(gameManager.activeScenario + ": EndScenario()");
+            Debug.Log(Singleton.Instance.gameMngr.activeScenario + ": EndScenario()");
             Singleton.Instance.operationsMngr.dropPinEnabled = false;
             Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();
         }
