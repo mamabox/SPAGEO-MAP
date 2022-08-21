@@ -45,7 +45,7 @@ public class Sc11Manager : MonoBehaviour
     {
         SetRouteSettings();
 
-        Debug.Log(Singleton.Instance.gameMngr.activeScenario + ": StartScenario()");
+        Debug.Log(GameManager.activeScenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
         Singleton.Instance.UIMngr.HideUIParents();
         Singleton.Instance.UIMngr.ShowSidePanel(1);
@@ -61,9 +61,9 @@ public class Sc11Manager : MonoBehaviour
 
     public void EndScenario()
     {
-        if (Singleton.Instance.gameMngr.activeScenario == 11)
+        if (GameManager.activeScenario == 11)
         {
-            Debug.Log(Singleton.Instance.gameMngr.activeScenario + ": EndScenario()");
+            Debug.Log(GameManager.activeScenario + ": EndScenario()");
             Singleton.Instance.operationsMngr.dropPinEnabled = false;
             Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();
         }

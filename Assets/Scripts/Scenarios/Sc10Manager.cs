@@ -44,7 +44,7 @@ public class Sc10Manager : MonoBehaviour
 
     public void StartScenario()
     {
-        Debug.Log(Singleton.Instance.gameMngr.activeScenario + ": StartScenario()");
+        Debug.Log(GameManager.activeScenario + ": StartScenario()");
         //Debug.Log(gameManager.activeScenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
 
@@ -64,9 +64,9 @@ public class Sc10Manager : MonoBehaviour
 
     public void EndScenario()
     {
-        if (Singleton.Instance.gameMngr.activeScenario == 10)
+        if (GameManager.activeScenario == 10)
         {
-            Debug.Log(Singleton.Instance.gameMngr.activeScenario + ": EndScenario()");
+            Debug.Log(GameManager.activeScenario + ": EndScenario()");
         }
     }
 

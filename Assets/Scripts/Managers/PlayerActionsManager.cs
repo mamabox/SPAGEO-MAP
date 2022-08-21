@@ -47,7 +47,7 @@ public class PlayerActionsManager : MonoBehaviour
         if (context.performed)
         {
             //Debug.Log("DrawPerformed");
-            switch (Singleton.Instance.gameMngr.activeScenario)
+            switch (GameManager.activeScenario)
             {
                 case 12:
                     Vector2 drawInput = context.ReadValue<Vector2>(); //player input for drawing
@@ -63,7 +63,7 @@ public class PlayerActionsManager : MonoBehaviour
     {
         if (context.performed)
         {
-            if (gameManager.activeScenario == 12)
+            if (GameManager.activeScenario == 12)
             {
                 scenarioManager.sc12.route.GetComponent<DrawRoute>().ValidateRoute();
             }
@@ -75,7 +75,7 @@ public class PlayerActionsManager : MonoBehaviour
     {
         if (context.performed)
         {
-            switch (Singleton.Instance.gameMngr.activeScenario)
+            switch (GameManager.activeScenario)
             {
                 case 11:
                     Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();
@@ -92,14 +92,14 @@ public class PlayerActionsManager : MonoBehaviour
 
     public void OnSwitchScenario(int scenario)
     {
-        if (gameManager.activeScenario == 10)
+        if (GameManager.activeScenario == 10)
             scenarioManager.sc10.EndScenario();
-        else if (gameManager.activeScenario == 11)
+        else if (GameManager.activeScenario == 11)
             scenarioManager.sc11.EndScenario();
-        else if (gameManager.activeScenario == 12)
+        else if (GameManager.activeScenario == 12)
             scenarioManager.sc12.EndScenario();
 
-        gameManager.activeScenario = scenario;
+        GameManager.activeScenario = scenario;
 
         if (scenario == 10)
             {
@@ -116,7 +116,7 @@ public class PlayerActionsManager : MonoBehaviour
 
             scenarioManager.sc12.StartScenario();
             }
-        gameManager.activeScenario = scenario;
+        GameManager.activeScenario = scenario;
     }
 
     public void OnSubmitAnswer()

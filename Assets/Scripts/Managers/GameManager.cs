@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int activeScenario;
-    public int activeRoute;
+    public static int activeScenario;
+    public static int activeRoute;
 
     private ScenarioManager scenarioManager;
     private UIManager uiManager;
