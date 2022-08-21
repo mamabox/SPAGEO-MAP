@@ -69,7 +69,7 @@ public class Sc12Manager : MonoBehaviour
         
 
         route = Instantiate(DrawRoutePrefab, drawRouteParent.transform); //TODO: instantiate as parent
-        route.name = "NEW ROUTE";
+        route.name = "Drawn route";
         //drawRoute = route.GetComponent<DrawRoute>();
         //lr = route.GetComponent<LineRenderer>();
         //pencil = drawRoute.pencilObj.GetComponent<Pencil>();

@@ -8,7 +8,7 @@ public class CoordinatesManager : MonoBehaviour
     private CameraManager camManager;
     private MapView mapView;
 
-    public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
+    public const string xyCoordSeparator = "_"; //TODO: Convert to CHAR
     List<string> urbanViewCoordinates = new List<string>();
     List<string> suburViewCoordinates = new List<string>();
     List<string> validCoordinates = new List<string>();
@@ -154,5 +154,21 @@ public class CoordinatesManager : MonoBehaviour
             return false;
         }
 
+    }
+
+    //Creates a Coordinate from a string in format "X_Y"
+    public Coordinate CreateCoordinate(string coord, float posY)
+    {
+        Coordinate _coord = new Coordinate();
+        string[] _coordString = coord.Split(char.Parse(xyCoordSeparator));
+        float[] _coordFloat = { float.Parse(_coordString[0]), float.Parse(_coordString[1]) };
+        Vector3 _pos = new Vector3(_coordFloat[0] * EnvironmentManager.blockSize, posY, _coordFloat[1] * EnvironmentManager.blockSize);
+
+        _coord.name = coord;
+        _coord.x = float.Parse(_coordString[0]);
+        _coord.z = float.Parse(_coordString[1]);
+        _coord.pos = new Vector3(_coord.x * EnvironmentManager.blockSize, posY, _coord.z * EnvironmentManager.blockSize);
+
+        return _coord;
     }
 }
