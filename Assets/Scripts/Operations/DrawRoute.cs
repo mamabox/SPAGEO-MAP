@@ -12,12 +12,12 @@ using UnityEngine.InputSystem;
 public class DrawRoute : MonoBehaviour
 {
 
-    private GameObject camManagerObj;
-    private CoordinatesManager coordManager;
-    private ScenarioManager scenarioManager;
-    private GameManager gameManager;
+    //private GameObject camManagerObj;
+    //private CoordinatesManager coordManager;
+    //private ScenarioManager scenarioManager;
+    //private GameManager gameManager;
 
-    MapView mapView;
+    //MapView mapView;
 
     public GameObject pencilObj;
     [SerializeField] GameObject startPoint;
@@ -43,20 +43,20 @@ public class DrawRoute : MonoBehaviour
 
     public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
 
-    List<string> urbanViewCoordinates = new List<string>();
-    List<string> suburViewCoordinates = new List<string>();
-    List<string> validCoordinates = new List<string>();
+    //List<string> urbanViewCoordinates = new List<string>();
+   // List<string> suburViewCoordinates = new List<string>();
+    //List<string> validCoordinates = new List<string>();
 
-    public bool drawingAllowed;    // Is drawing allowed during this scenario
+    //public bool drawingAllowed;    // Is drawing allowed during this scenario
 
     private void Awake()
     {
         //Debug.Log("game object attached to: " + this.name);
-        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
-        camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
-        coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
-        mapView = camManagerObj.GetComponent<MapView>();
-        scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
+        //gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        //camManagerObj = GameObject.FindGameObjectWithTag("CameraManager");
+        //coordManager = GameObject.FindGameObjectWithTag("CoordinatesManager").GetComponent<CoordinatesManager>();
+        //mapView = camManagerObj.GetComponent<MapView>();
+        //scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
 
         pencil = pencilObj.GetComponent<Pencil>();
         lr = pencilObj.GetComponent<LineRenderer>();
@@ -127,7 +127,7 @@ public class DrawRoute : MonoBehaviour
 
     public void DrawInput(Vector2 drawInput)
     {
-        if (scenarioManager.drawingAllowed)
+        if (Singleton.Instance.operationsMngr.drawingAllowed)
         {
             if (drawInput == new Vector2(0, 1))  //UP
             {
@@ -161,7 +161,7 @@ public class DrawRoute : MonoBehaviour
         pencil.route.Clear();
 
         SetStartPoint(startPos);    //Reset the start postion
-        scenarioManager.drawingAllowed = true;  // Allow drawing
+        Singleton.Instance.operationsMngr.drawingAllowed = true;  // Allow drawing
     }
 
     public void ValidateRoute()
@@ -171,7 +171,7 @@ public class DrawRoute : MonoBehaviour
         endPoint.SetActive(true);
         //Debug.Log("endPoint position = " + pencil.endPoint.transform.position.x);
 
-        scenarioManager.drawingAllowed = false;
+        Singleton.Instance.operationsMngr.drawingAllowed = false;
         //TODO: SAVE ROUTE
 
     }
@@ -202,7 +202,7 @@ public class DrawRoute : MonoBehaviour
         _nextCoord = CreateCoordinate(_nextCoordString);
 
         // If the next coordinate is valid, move the pencil
-        if (coordManager.IsCoordValid(_nextCoord.name))
+        if (Singleton.Instance.coordinatesMngr.IsCoordValid(_nextCoord.name))
             DrawNextPosition(_nextCoord);
     }
 
@@ -222,7 +222,7 @@ public class DrawRoute : MonoBehaviour
    
 
             SetStartPoint(startPos);
-            drawingAllowed = true;
+            Singleton.Instance.operationsMngr.drawingAllowed = true;
         }
     }
 

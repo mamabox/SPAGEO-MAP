@@ -8,6 +8,7 @@ public class OperationsManager : MonoBehaviour
     public DropPin dropPin;
 
     public bool dropPinEnabled;
+    public bool drawingAllowed;
 
     private void Awake()
     {

@@ -36,6 +36,7 @@ public class PlayerActionsManager : MonoBehaviour
 
     public void OnDrawInput(InputAction.CallbackContext context)
     {
+        //Debug.Log("Draw");
         //if (context.performed)
         //    Debug.Log("OnDrawInput.performed");
         //else if (context.started)
@@ -43,11 +44,18 @@ public class PlayerActionsManager : MonoBehaviour
         //else if (context.canceled)
         //    Debug.Log("OnDrawInput.canceled");
 
-        if (context.performed && gameManager.activeScenario == 12)
+        if (context.performed)
+        {
+            //Debug.Log("DrawPerformed");
+            switch (Singleton.Instance.gameMngr.activeScenario)
             {
-                Vector2 drawInput = context.ReadValue<Vector2>();//player input for drawing
-            //Debug.Log("Context.x: " + drawInput.x + "Context.y: " + drawInput.y);
-                scenarioManager.sc12.route.GetComponent<DrawRoute>().DrawInput(drawInput);
+                case 12:
+                    Vector2 drawInput = context.ReadValue<Vector2>(); //player input for drawing
+                    //Debug.Log("Context.x: " + drawInput.x + "Context.y: " + drawInput.y);
+                    Singleton.Instance.scenarioMngr.sc12.route.GetComponent<DrawRoute>().DrawInput(drawInput);
+                    break;
+            }
+
             }
     }
 
