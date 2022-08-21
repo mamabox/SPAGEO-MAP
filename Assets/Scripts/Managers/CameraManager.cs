@@ -7,15 +7,14 @@ public class CameraManager : MonoBehaviour
 {
     public GameObject playerCam;
     public GameObject mapCam;
-    //public GameObject playerSymbol;
+   
     public MapView mapView;
-    const int mapPosY = 40;
-    PlayerInput  playerInput;
+
     public string activeCam;
 
     private void Awake()
     {
-        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
+
         mapView = GetComponent<MapView>();
     }
 

@@ -45,12 +45,12 @@ public class Sc11Manager : MonoBehaviour
     {
         SetRouteSettings();
 
-        Debug.Log(GameManager.activeScenario + ": StartScenario()");
+        //Debug.Log(GameManager.activeScenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
         Singleton.Instance.UIMngr.HideUIParents();
         Singleton.Instance.UIMngr.ShowSidePanel(1);
         SetActiveUIElements();
-        Singleton.Instance.cameraMngr.mapView.MapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
+        Singleton.Instance.cameraMngr.mapView.SetMapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
         Singleton.Instance.operationsMngr.dropPinEnabled = true;
     }
 
@@ -63,7 +63,7 @@ public class Sc11Manager : MonoBehaviour
     {
         if (GameManager.activeScenario == 11)
         {
-            Debug.Log(GameManager.activeScenario + ": EndScenario()");
+            Debug.LogFormat("EndScenario({0})", GameManager.activeScenario);
             Singleton.Instance.operationsMngr.dropPinEnabled = false;
             Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();
         }

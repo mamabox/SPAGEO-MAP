@@ -5,8 +5,8 @@ using System.Linq;
 
 public class CoordinatesManager : MonoBehaviour
 {
-    private CameraManager camManager;
-    private MapView mapView;
+    //private CameraManager camManager;
+    //private MapView mapView;
 
     public const string xyCoordSeparator = "_"; //TODO: Convert to CHAR
     List<string> urbanViewCoordinates = new List<string>();
@@ -33,8 +33,8 @@ public class CoordinatesManager : MonoBehaviour
 
     public void Awake()
     {
-        camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
-        mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
+        //camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
+        //mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
     }
 
     void Start()
@@ -83,8 +83,8 @@ public class CoordinatesManager : MonoBehaviour
     //TODO: should have 3 options depending on mapview
     public bool IsCoordValid(string coord)
     {
-        if ((mapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 2 &&
-            suburViewCoordinates.Contains(coord)) || (mapView.mapViewNb == 3 && validCoordinates.Contains(coord)))
+        if ((MapView.mapViewNb == 1 && urbanViewCoordinates.Contains(coord)) || (MapView.mapViewNb == 2 &&
+            suburViewCoordinates.Contains(coord)) || (MapView.mapViewNb == 3 && validCoordinates.Contains(coord)))
         {
             //Debug.Log("Coord valid");
             return true;
@@ -110,7 +110,7 @@ public class CoordinatesManager : MonoBehaviour
     //Stores the valid coordinates for dropping pins on the map
     public bool IsDrawingCoordValid(Vector3 worldPosition)
     {
-        int _viewNb = mapView.mapViewNb;
+        int _viewNb = MapView.mapViewNb;
 
         bool inUrban = false;
         bool inSuburb = false;

@@ -65,7 +65,7 @@ public class Sc12Manager : MonoBehaviour
         Singleton.Instance.UIMngr.HideUIParents();
         Singleton.Instance.UIMngr.ShowSidePanel(2);
         SetActiveUIElements();
-        Singleton.Instance.cameraMngr.mapView.MapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
+        Singleton.Instance.cameraMngr.mapView.SetMapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
         
 
         route = Instantiate(DrawRoutePrefab, drawRouteParent.transform); //TODO: instantiate as parent

@@ -39,7 +39,7 @@ public class Sc10Manager : MonoBehaviour
         showPlayerSymbolRot = true;
         showStartSymbol = true;
 
-        Singleton.Instance.cameraMngr.mapView.MapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
+        Singleton.Instance.cameraMngr.mapView.SetMapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
     }
 
     public void StartScenario()

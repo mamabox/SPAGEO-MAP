@@ -5,7 +5,6 @@ using TMPro;
 
 public class UIDebugMenu : MonoBehaviour
 {
-    private GameManager gameManager;
 
     //Debug UI elements
     [SerializeField] TextMeshProUGUI scenarioInfoTxt;
@@ -14,7 +13,6 @@ public class UIDebugMenu : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();  
     }
 
     void Start()

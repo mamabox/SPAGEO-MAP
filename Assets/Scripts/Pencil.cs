@@ -20,8 +20,6 @@ public class Pencil : MonoBehaviour
 
     public LineRenderer lr; // Route rendered using List<string> route coordinates
 
-    public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
-    float height = 41f;
-    float multiplier = 35;
+    //public string xyCoordSeparator = "_"; //TODO: Convert to CHAR
 
 }

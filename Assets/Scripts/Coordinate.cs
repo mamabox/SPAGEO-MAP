@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coordinate
+public struct Coordinate
 {
         public string name;
         public float x;
         public float z;
         public string carDir;
         public Vector3 pos;
-        public CarDir cardinalDir;
+        public CardinalDir cardinalDir; // In what cardinal direction should the player point if moved back to this coordinate
 
-    public enum CarDir
+    public enum CardinalDir
     {
         N,NE,E,SE,S,SW,W,NW
     }
 
     //TODO: rename to public Coordinate
-    public void CoordinateConstructor (string coord, int posY)
+    public void CoordinateConstructor(string coord, float posY)
     {
         
         string[] _coordString = coord.Split(char.Parse(CoordinatesManager.xyCoordSeparator));

@@ -9,16 +9,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerActionsManager : MonoBehaviour
 {
-    private GameManager gameManager;
-    private ScenarioManager scenarioManager;
-
-    private bool drawingAllowed;
-    Vector2 drawInput;  //player input for drawing
-
     private void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
-        scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
     }
 
     // (1) BOTH PLAYER AND MAP VIEW
@@ -65,7 +57,7 @@ public class PlayerActionsManager : MonoBehaviour
         {
             if (GameManager.activeScenario == 12)
             {
-                scenarioManager.sc12.route.GetComponent<DrawRoute>().ValidateRoute();
+                Singleton.Instance.scenarioMngr.sc12.route.GetComponent<DrawRoute>().ValidateRoute();
             }
         }
 
@@ -92,31 +84,7 @@ public class PlayerActionsManager : MonoBehaviour
 
     public void OnSwitchScenario(int scenario)
     {
-        if (GameManager.activeScenario == 10)
-            scenarioManager.sc10.EndScenario();
-        else if (GameManager.activeScenario == 11)
-            scenarioManager.sc11.EndScenario();
-        else if (GameManager.activeScenario == 12)
-            scenarioManager.sc12.EndScenario();
-
-        GameManager.activeScenario = scenario;
-
-        if (scenario == 10)
-            {
-                scenarioManager.sc10.StartScenario();
-            
-            }
-            else if (scenario == 11)
-            {
-
-            scenarioManager.sc11.StartScenario();
-            }
-            else if (scenario == 12)
-            {
-
-            scenarioManager.sc12.StartScenario();
-            }
-        GameManager.activeScenario = scenario;
+        Singleton.Instance.scenarioMngr.SwitchToScenario(scenario);
     }
 
     public void OnSubmitAnswer()
