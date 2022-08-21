@@ -26,6 +26,14 @@ public class PlayerActionsManager : MonoBehaviour
     // (2) PLAYER VIEW ONLY
 
     // (3) MAP VIEW ONLY
+    public void OnDropDeletePin(InputAction.CallbackContext context)
+    {
+        if (context.performed && gameManager.activeScenario == 11)
+        {
+            Singleton.Instance.scenarioMngr.sc11.dropPin.DropDeletePin();
+        }
+    }
+
     public void OnDrawInput(InputAction.CallbackContext context)
     {
         //if (context.performed)
@@ -101,5 +109,10 @@ public class PlayerActionsManager : MonoBehaviour
             scenarioManager.sc12.StartScenario();
             }
         gameManager.activeScenario = scenario;
+    }
+
+    public void OnSubmitAnswer()
+    {
+        Debug.Log("Submit answer");
     }
 }

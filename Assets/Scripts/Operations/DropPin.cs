@@ -49,7 +49,7 @@ public class DropPin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (camManager.activeCam == "map" && dropPinEnabled)
+        if (camManager.activeCam == "map" && Singleton.Instance.operationsMngr.dropPinEnabled)
         {
              //Get Mouse position on screen
             screenPosition = Mouse.current.position.ReadValue();
@@ -68,6 +68,7 @@ public class DropPin : MonoBehaviour
         }
     }
 
+    //REMOVE: Now in player input
     public void OnDropDeletePin(InputAction.CallbackContext context)
     {
         if (context.performed && dropPinEnabled)
@@ -86,6 +87,23 @@ public class DropPin : MonoBehaviour
                 }
             }
 
+        }
+    }
+
+    public void DropDeletePin()
+    {
+        if (coordManager.IsDrawingCoordValid(worldPosition) && Singleton.Instance.operationsMngr.dropPinEnabled)  // IF player clicks in a valid coordinate for the current mapView + dropPin is allowed
+        {
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, pinsLayer))    //IF there is already a pin at this position
+            {
+                //Debug.Log("DEL PIN");
+                Destroy(hit.transform.gameObject);
+            }
+            else    // ELSE drop a pin
+            {
+                //Debug.Log("DROP PIN");
+                Instantiate(dropPinPrefab, new Vector3(worldPosition.x, mapPosY, worldPosition.z), Quaternion.identity, pinParent.transform); //Instantiate at depth value of map height
+            }
         }
     }
 

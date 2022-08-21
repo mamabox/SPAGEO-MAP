@@ -61,7 +61,7 @@ public class MapView : MonoBehaviour
         mapCam.transform.position = cameraPosition; // Sets camera one of the 3 possible view
     }
 
-    public void MapViewSettins(bool player, bool rotation, bool start)
+    public void MapViewSettings(bool player, bool rotation, bool start)
     {
         playerSymbol.SetActive(player);
         playerRotSymbol.SetActive(player);
