@@ -11,10 +11,10 @@ public struct Coordinate
         public Vector3 pos;
         public CardinalDir cardinalDir; // In what cardinal direction should the player point if moved back to this coordinate
 
-    public enum CardinalDir
-    {
-        N,NE,E,SE,S,SW,W,NW
-    }
+    //public enum CardinalDir
+    //{
+    //    N,NE,E,SE,S,SW,W,NW
+    //}
 
     //TODO: rename to public Coordinate
     public void CoordinateConstructor(string coord, float posY)

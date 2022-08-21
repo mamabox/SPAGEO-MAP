@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public enum CardinalDir
+{
+    N, NE, E, SE, S, SW, W, NW
+}
+
 public class CoordinatesManager : MonoBehaviour
 {
     //private CameraManager camManager;
@@ -11,7 +16,7 @@ public class CoordinatesManager : MonoBehaviour
     public const string xyCoordSeparator = "_"; //TODO: Convert to CHAR
     List<string> urbanViewCoordinates = new List<string>();
     List<string> suburViewCoordinates = new List<string>();
-    List<string> validCoordinates = new List<string>();
+    public List<string> validCoordinates = new List<string>();
 
     Vector2 urbanMin = new Vector2();
     Vector2 urbanMax = new Vector2();
@@ -31,16 +36,20 @@ public class CoordinatesManager : MonoBehaviour
 
     private int blockSize = 35;
 
+    public enum CardinalDirOld
+    {
+        N, NE, E, SE, S, SW, W, NW
+    }
+
     public void Awake()
     {
-        //camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
-        //mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
+        SetValidCoordinates();
+        SetCoordinatesLimits();
     }
 
     void Start()
     {
-        SetValidCoordinates();
-        SetCoordinatesLimits();
+
     }
 
     // Update is called once per frame

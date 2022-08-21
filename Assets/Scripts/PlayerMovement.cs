@@ -64,6 +64,9 @@ public class PlayerMovement : MonoBehaviour
         rotateVector = new Vector3(0,rotateInput, 0);
     }
 
+    public void GotoCoordinate(string coordStr, CardinalDir dir)
+    {
 
+    }
 
 }

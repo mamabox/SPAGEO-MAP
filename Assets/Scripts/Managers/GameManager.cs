@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static int activeScenario;
     public static int activeRoute;
+    public static GameData gameData;
 
     //private ScenarioManager scenarioManager;
     //private UIManager uiManager;
@@ -21,7 +22,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // TEST configuration
         activeScenario = 10;
+        gameData.scenario = 10;
         Singleton.Instance.scenarioMngr.sc10.StartScenario(); // FOR TESTING
     }
 

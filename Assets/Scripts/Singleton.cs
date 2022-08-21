@@ -17,6 +17,7 @@ public class Singleton : MonoBehaviour
     public EnvironmentManager environmentMngr { get; private set; }
     public CoordinatesManager coordinatesMngr { get; private set; }
     public GameManager gameMngr { get; private set; }
+    public IntersectionsManager intersectionsMngr { get; private set; }
     public OperationsManager operationsMngr { get; private set; }
     public PlayerActionsManager playerInputMngr { get; private set; }
     public ScenarioManager scenarioMngr { get; private set; }
@@ -46,6 +47,7 @@ public class Singleton : MonoBehaviour
         environmentMngr = GetComponentInChildren<EnvironmentManager>();
         coordinatesMngr = GetComponentInChildren<CoordinatesManager>();
         gameMngr = GetComponentInChildren<GameManager>();
+        intersectionsMngr = GetComponentInChildren<IntersectionsManager>();
         operationsMngr = GetComponentInChildren<OperationsManager>();
         playerInputMngr = GetComponentInChildren<PlayerActionsManager>();
         scenarioMngr = GetComponentInChildren<ScenarioManager>();
