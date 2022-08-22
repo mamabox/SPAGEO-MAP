@@ -11,7 +11,10 @@ public class IntersectionsManager : MonoBehaviour
     public Collider lastIntersectionCollider;
     public Coordinate lastIntersection;
 
+    CardinalDir _exitedFrom;
+
     private float posY = 1f;
+    private float intersectionExitMargin = 5f;
     public bool inIntersection;
 
     void Start()
@@ -65,13 +68,19 @@ public class IntersectionsManager : MonoBehaviour
         else // IF the player has already started her route
         {
 
-            _enteredFrom = DirectionFromLastIntersection(lastIntersection, _thisIntersection);
-            Debug.LogFormat("ENTER ({0}) from {1}", _thisIntersection.name, _enteredFrom.ToString());
             //TODO: IF player did not go trace back to the last intersection
             if (_thisIntersection.name != lastIntersection.name)
             {
+                _enteredFrom = DirectionFromLastIntersection(lastIntersection, _thisIntersection);
+                Debug.LogFormat("ENTER ({0}) heading {1}", _thisIntersection.name, _enteredFrom.ToString());
                 AddToPlayerRoute(_thisIntersection);
             }
+            else // Re-entering same intersection
+            {
+                _enteredFrom = Singleton.Instance.coordinatesMngr.OppositeCardDir(_exitedFrom);
+                Debug.LogFormat("RE-ENTER ({0}) heading {1}", _thisIntersection.name, _enteredFrom.ToString());
+                    }
+
             
         }
 
@@ -86,8 +95,22 @@ public class IntersectionsManager : MonoBehaviour
     }
 
     // WHEN PLAYER LEAVES AN INTERSECTION
-    public void OnIntersectionExit(Collider other) {
-        Debug.LogFormat("EXIT ({0})", other.gameObject.GetComponent<Intersection>().coord.name);
+    public void OnIntersectionExit(Collider other)
+    {
+        Coordinate _thisIntersection = other.gameObject.GetComponent<Intersection>().coord;
+        
+
+        if (GameManager.gameData.playerRoute.Count == 0)
+        {
+            Debug.LogFormat("EXIT ({0}", _thisIntersection.name);
+        }
+        else
+        {
+            _exitedFrom = DirectionFromLastIntersection(lastIntersection);
+            Debug.LogFormat("EXIT ({0} heading {1})", _thisIntersection.name, _exitedFrom.ToString());
+        }
+
+        
         inIntersection = false;
     }
 
@@ -119,6 +142,29 @@ public class IntersectionsManager : MonoBehaviour
         }
         return _cardDir;
         
+    }
+
+    public CardinalDir DirectionFromLastIntersection(Coordinate last)
+    {
+        CardinalDir _cardDir;
+        if (last.pos.x - GameManager.player.transform.position.x > intersectionExitMargin)
+        {
+            _cardDir = CardinalDir.W;
+        }
+        else if (last.pos.x - GameManager.player.transform.position.x < -intersectionExitMargin)
+        {
+            _cardDir = CardinalDir.E;
+        }
+        else if (last.pos.z - GameManager.player.transform.position.z > intersectionExitMargin)
+        {
+            _cardDir = CardinalDir.S;
+        }
+        else
+        {
+            _cardDir = CardinalDir.N;
+        }
+        return _cardDir;
+
     }
 
     //UNDONE: 

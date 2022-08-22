@@ -181,4 +181,16 @@ public class CoordinatesManager : MonoBehaviour
 
         return _coord;
     }
+
+    public CardinalDir OppositeCardDir(CardinalDir dir)
+    {
+        if (dir == CardinalDir.N)
+            return CardinalDir.S;
+        else if (dir == CardinalDir.S)
+            return CardinalDir.N;
+        else if (dir == CardinalDir.W)
+            return CardinalDir.E;
+        else
+            return CardinalDir.W;
+    }
 }

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
         //Initialise variables
         started = false;
         ended = false;
