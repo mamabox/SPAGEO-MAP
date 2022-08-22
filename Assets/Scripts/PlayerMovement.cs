@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!hasMoved)
+            hasMoved = true;
         moveInput = context.ReadValue<float>();
         moveVector = new Vector3(moveInput, 0, 0);
     }

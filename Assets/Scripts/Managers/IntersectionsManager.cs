@@ -12,6 +12,7 @@ public class IntersectionsManager : MonoBehaviour
     public Coordinate lastIntersection;
 
     CardinalDir _exitedFrom;
+    CardinalDir _enteredFrom;
 
     private float posY = 1f;
     private float intersectionExitMargin = 5f;
@@ -44,7 +45,7 @@ public class IntersectionsManager : MonoBehaviour
     public void OnIntersectionEnter(Collider other) {
 
         Coordinate _thisIntersection = other.gameObject.GetComponent<Intersection>().coord;
-        CardinalDir _enteredFrom;
+        //CardinalDir _enteredFrom;
 
         //lastIntersectionCollider = other;
         inIntersection = true;
@@ -54,16 +55,20 @@ public class IntersectionsManager : MonoBehaviour
             if (!PlayerMovement.hasMoved)
             {
                 Debug.LogFormat("START in {0}", _thisIntersection.name);
+                
+                _enteredFrom = DirectionFromLastIntersection(_thisIntersection);
                 AddToPlayerRoute(_thisIntersection);
+                //GameManager.gameData.playerRouteWithDirNew.Add(_thisIntersection.name + _enteredFrom.ToString());
+                //AddToPlayerRouteDir(_thisIntersection, _enteredFrom);
             }
             else
             {
                 Debug.LogFormat("ENTER ({0})", _thisIntersection.name);
-                AddToPlayerRoute(_thisIntersection);
-                //TODO: Calculate directions
-                //GameManager.gameData.playerRouteWithDir.Add(other.gameObject.GetComponent<Intersection>().coord.name);
-                //GameManager.gameData.playerRouteCoordWithDir.Add(other.gameObject.GetComponent<Intersection>().coord);
+                _enteredFrom = Singleton.Instance.coordinatesMngr.OppositeCardDir(DirectionFromLastIntersection(_thisIntersection));
+                AddToPlayerRouteAll(_thisIntersection,_enteredFrom);
+  
             }
+
         }
         else // IF the player has already started her route
         {
@@ -73,13 +78,16 @@ public class IntersectionsManager : MonoBehaviour
             {
                 _enteredFrom = DirectionFromLastIntersection(lastIntersection, _thisIntersection);
                 Debug.LogFormat("ENTER ({0}) heading {1}", _thisIntersection.name, _enteredFrom.ToString());
-                AddToPlayerRoute(_thisIntersection);
+                AddToPlayerRouteAll(_thisIntersection, _enteredFrom);
+                //GameManager.gameData.playerRouteWithDir.Add(_thisIntersection.name + _enteredFrom.ToString());
             }
             else // Re-entering same intersection
             {
                 _enteredFrom = Singleton.Instance.coordinatesMngr.OppositeCardDir(_exitedFrom);
                 Debug.LogFormat("RE-ENTER ({0}) heading {1}", _thisIntersection.name, _enteredFrom.ToString());
-                    }
+                GameManager.gameData.playerRouteWithDir.RemoveAt(GameManager.gameData.playerRouteWithDir.Count - 1);
+                GameManager.gameData.playerRouteWithDirNew.Add(_thisIntersection.name + _enteredFrom.ToString());
+            }
 
             
         }
@@ -90,8 +98,30 @@ public class IntersectionsManager : MonoBehaviour
     private void AddToPlayerRoute(Coordinate _coord)
     {
         GameManager.gameData.playerRoute.Add(_coord.name);
-        GameManager.gameData.playerRouteCoord.Add(_coord);
-        
+        GameManager.gameData.playerRouteCoord.Add(_coord);  
+    }
+
+    private void RemoveFromPlayerRouteDir(Coordinate _coord)
+    {
+        GameManager.gameData.playerRouteWithDir.RemoveAt(GameManager.gameData.playerRouteWithDir.Count - 1);
+        //GameManager.gameData.playerRouteWithDirCoord.RemoveAt(GameManager.gameData.playerRoute.Count - 1);
+    }
+
+    private void AddToPlayerRouteAll(Coordinate _coord, CardinalDir dir)
+    {
+        AddToPlayerRoute(_coord);
+        AddToPlayerRouteDir(_coord, dir);
+    }
+
+    private void AddToPlayerRouteDir(Coordinate _coord, CardinalDir dir)
+    {
+        //To avoid repeat, only add the direction if it's different (there was a turn)
+        string _temp = _coord.name + dir.ToString();
+
+            GameManager.gameData.playerRouteWithDir.Add(_coord.name + dir.ToString());
+            GameManager.gameData.playerRouteWithDirNew.Add(_coord.name + dir.ToString());
+       
+
     }
 
     // WHEN PLAYER LEAVES AN INTERSECTION
@@ -103,11 +133,18 @@ public class IntersectionsManager : MonoBehaviour
         if (GameManager.gameData.playerRoute.Count == 0)
         {
             Debug.LogFormat("EXIT ({0}", _thisIntersection.name);
+            //AddToPlayerRouteDir(_thisIntersection, _exitedFrom);
         }
         else
         {
             _exitedFrom = DirectionFromLastIntersection(lastIntersection);
             Debug.LogFormat("EXIT ({0} heading {1})", _thisIntersection.name, _exitedFrom.ToString());
+            if (_enteredFrom != _exitedFrom) // if not exiting from the samme direciton I entered in
+            {
+                AddToPlayerRouteDir(_thisIntersection, _exitedFrom);
+            }
+
+            
         }
 
         
