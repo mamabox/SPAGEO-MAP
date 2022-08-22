@@ -41,6 +41,7 @@ public class IntersectionsManager : MonoBehaviour
     public void OnIntersectionEnter(Collider other) {
 
         Coordinate _thisIntersection = other.gameObject.GetComponent<Intersection>().coord;
+        CardinalDir _enteredFrom;
 
         //lastIntersectionCollider = other;
         inIntersection = true;
@@ -49,7 +50,7 @@ public class IntersectionsManager : MonoBehaviour
             //IF the player started in this intersection
             if (!PlayerMovement.hasMoved)
             {
-                Debug.LogFormat("STARTER in {0}", _thisIntersection.name);
+                Debug.LogFormat("START in {0}", _thisIntersection.name);
                 AddToPlayerRoute(_thisIntersection);
             }
             else
@@ -63,7 +64,9 @@ public class IntersectionsManager : MonoBehaviour
         }
         else // IF the player has already started her route
         {
-            Debug.LogFormat("ENTER ({0})", _thisIntersection.name);
+
+            _enteredFrom = DirectionFromLastIntersection(lastIntersection, _thisIntersection);
+            Debug.LogFormat("ENTER ({0}) from {1}", _thisIntersection.name, _enteredFrom.ToString());
             //TODO: IF player did not go trace back to the last intersection
             if (_thisIntersection.name != lastIntersection.name)
             {
@@ -97,9 +100,25 @@ public class IntersectionsManager : MonoBehaviour
     //UNDONE: Return cardinal direction
     public CardinalDir DirectionFromLastIntersection(Coordinate last, Coordinate current)
     {
-        CardinalDir _cardDir = CardinalDir.N;
-
+        CardinalDir _cardDir;
+        if (last.x - current.x > 0)
+        {
+            _cardDir = CardinalDir.W;
+        }
+        else if (last.x - current.x < 0)
+        {
+            _cardDir = CardinalDir.E;
+        }
+        else if (last.z - current.z > 0)
+        {
+            _cardDir = CardinalDir.S;
+        }
+        else
+        {
+            _cardDir = CardinalDir.N;
+        }
         return _cardDir;
+        
     }
 
     //UNDONE: 
