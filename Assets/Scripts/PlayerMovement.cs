@@ -10,8 +10,17 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveVector;
     Vector3 rotateVector;
 
+    //
+    public static Vector3 startCoord;
+    public static Vector3 startRotation;
+    public static Vector3 lastPosition;
 
-   
+    [SerializeField] Vector3 rotation;
+
+    public static bool tookStep;
+    public static bool hasMoved;
+
+
     InputActionAsset playerControls;
     [SerializeField] float speed = 6f;
     [SerializeField] float lookSpeed = 50f;
@@ -29,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         var cityActionMap = GetComponent<PlayerInput>().actions.FindActionMap("playerView");
         var mapActionMap = GetComponent<PlayerInput>().actions.FindActionMap("MapView");
         character = GetComponent<CharacterController>();
+
+        hasMoved = false;   //used to determine if player started the scenario in an intersectin
     }
 
 
@@ -70,13 +81,16 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Intersection") { }
-        Singleton.Instance.intersectionsMngr.OnIntersectionEnter(other);
+        if (other.tag == "Intersection") {
+            Singleton.Instance.intersectionsMngr.OnIntersectionEnter(other);
+                }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Intersection") { }
-        Singleton.Instance.intersectionsMngr.OnIntersectionExit(other);
+        if (other.tag == "Intersection")
+        {
+            Singleton.Instance.intersectionsMngr.OnIntersectionExit(other);
+        }
     }
 }

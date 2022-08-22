@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameData gameData;
+    public static GameObject player;
 
     public static bool started;
     public static bool ended;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         //Initialise variables
         started = false;
         ended = false;

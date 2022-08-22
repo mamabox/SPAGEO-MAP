@@ -22,6 +22,7 @@ public class Singleton : MonoBehaviour
     public PlayerActionsManager playerInputMngr { get; private set; }
     public ScenarioManager scenarioMngr { get; private set; }
     public UIManager UIMngr { get; private set; }
+    //public PlayerMovement playerMovement { get; private set; }
     
 
     private void Awake()
@@ -52,6 +53,7 @@ public class Singleton : MonoBehaviour
         playerInputMngr = GetComponentInChildren<PlayerActionsManager>();
         scenarioMngr = GetComponentInChildren<ScenarioManager>();
         UIMngr = GetComponentInChildren<UIManager>();
+        //playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     
     }
 }
