@@ -6,15 +6,25 @@ public class GameManager : MonoBehaviour
 {
     public static GameData gameData;
 
+    public static bool started;
+    public static bool ended;
+    public static bool isPaused;
+
+    
+
     private void Awake()
     {
-
+        //Initialise variables
+        started = false;
+        ended = false;
+        started = false;
     }
 
     void Start()
     {
         // TEST configuration
-        gameData.scenario = 10;
+        gameData = new GameData(10, 0); //This should happen from the menu
+        started = true;
         Singleton.Instance.scenarioMngr.sc10.StartScenario(); // FOR TESTING
     }
 

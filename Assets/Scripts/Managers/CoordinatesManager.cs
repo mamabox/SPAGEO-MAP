@@ -14,6 +14,7 @@ public class CoordinatesManager : MonoBehaviour
     //private MapView mapView;
 
     public const string xyCoordSeparator = "_"; //TODO: Convert to CHAR
+    public const char xyCoordCharSeparator = '_';
     List<string> urbanViewCoordinates = new List<string>();
     List<string> suburViewCoordinates = new List<string>();
     public List<string> validCoordinates = new List<string>();

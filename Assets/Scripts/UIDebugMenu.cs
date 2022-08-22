@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class UIDebugMenu : MonoBehaviour
 {
 
     //Debug UI elements
-    [SerializeField] TextMeshProUGUI scenarioInfoTxt;
-    [SerializeField] TextMeshProUGUI shortcutsTxt;
+    [SerializeField] TextMeshProUGUI routeTxt;
+    [SerializeField] TextMeshProUGUI routeDirTxt;
+    [SerializeField] TextMeshProUGUI routeValidationTxt;
+    [SerializeField] TextMeshProUGUI positionTxt;
+    [SerializeField] TextMeshProUGUI rotationTxt;
 
+    private char coordSeparator = ',';
 
     private void Awake()
     {
@@ -17,13 +22,16 @@ public class UIDebugMenu : MonoBehaviour
 
     void Start()
     {
-        shortcutsTxt.text = "(M) Help - (V) Toggle Player/Map view - (C) Change MapView - (D) Debug - (X) New attempt - (SPACE) Validate ";
     }
 
     
     void Update()
     {
-        //Scenario info
-        scenarioInfoTxt.text = "SC: " + GameManager.gameData.scenario;
+        if (GameManager.started)
+        {
+            routeTxt.text = "R: " + String.Join(coordSeparator, GameManager.gameData.playerRoute);
+            routeDirTxt.text = "RD: " + String.Join(coordSeparator, GameManager.gameData.playerRouteWithDir);
+        }
+        
     }
 }

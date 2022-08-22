@@ -68,5 +68,15 @@ public class PlayerMovement : MonoBehaviour
     {
 
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Intersection") { }
+        Singleton.Instance.intersectionsMngr.OnIntersectionEnter(other);
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Intersection") { }
+        Singleton.Instance.intersectionsMngr.OnIntersectionExit(other);
+    }
 }

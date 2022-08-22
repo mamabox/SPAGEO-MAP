@@ -61,7 +61,7 @@ public class Sc12Manager : MonoBehaviour
     {
         SetRouteSettigs();
 
-        Debug.Log(GameManager.gameData.scenario + ": StartScenario()");
+        //Debug.Log(GameManager.gameData.scenario + ": StartScenario()");
         Singleton.Instance.UIMngr.HideUIParents();
         Singleton.Instance.UIMngr.ShowSidePanel(2);
         SetActiveUIElements();
@@ -86,7 +86,7 @@ public class Sc12Manager : MonoBehaviour
     {
         if (GameManager.gameData.scenario == 12)
         {
-            Debug.Log(GameManager.gameData.scenario + ": EndScenario()");
+            //Debug.Log(GameManager.gameData.scenario + ": EndScenario()");
             Singleton.Instance.scenarioMngr.sc12.route.GetComponent<DrawRoute>().ResetLine();
             Singleton.Instance.operationsMngr.drawingAllowed = false;
         }

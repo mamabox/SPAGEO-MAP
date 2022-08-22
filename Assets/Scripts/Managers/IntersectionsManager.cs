@@ -37,11 +37,14 @@ public class IntersectionsManager : MonoBehaviour
 
     // WHEN PLAYER ENTERS AN INTERSECTION
     public void OnIntersectionEnter(Collider other) {
+        Debug.Log("ENTER intersection");
+        lastIntersectionCollider = other;
         inInterseciton = true;
     }
 
     // WHEN PLAYER LEAVES AN INTERSECTION
     public void OnIntersectionExit(Collider other) {
+        Debug.Log("EXIT intersection");
         inInterseciton = false;
     }
 

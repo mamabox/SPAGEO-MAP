@@ -63,7 +63,7 @@ public class Sc11Manager : MonoBehaviour
     {
         if (GameManager.gameData.scenario == 11)
         {
-            Debug.LogFormat("EndScenario({0})", GameManager.gameData.scenario);
+            //Debug.LogFormat("EndScenario({0})", GameManager.gameData.scenario);
             Singleton.Instance.operationsMngr.dropPinEnabled = false;
             Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();
         }
