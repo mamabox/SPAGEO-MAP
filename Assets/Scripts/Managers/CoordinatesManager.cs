@@ -39,7 +39,7 @@ public class CoordinatesManager : MonoBehaviour
 
     public enum CardinalDirOld
     {
-        N, NE, E, SE, S, SW, W, NW
+        X,N, NE, E, SE, S, SW, W, NW
     }
 
     public void Awake()

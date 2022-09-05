@@ -15,6 +15,7 @@ public class IntersectionsManager : MonoBehaviour
 
     CardinalDir _exitedFrom;
     CardinalDir _enteredFrom;
+    CardinalDir _quarterTurn;
 
     private float posY = 1f;
     private float intersectionExitMargin = 5f;
@@ -48,6 +49,7 @@ public class IntersectionsManager : MonoBehaviour
 
         thisIntersection = other.gameObject.GetComponent<Intersection>();
         Coordinate _thisIntersectionCoord = other.gameObject.GetComponent<Intersection>().coord;
+        //CardinalDir _quarterTurn; ;
         //CardinalDir _enteredFrom;
 
         //lastIntersectionCollider = other;
@@ -96,9 +98,16 @@ public class IntersectionsManager : MonoBehaviour
                 //{
                 //    AddToPlayerRouteDir(lastIntersectionCoord, _enteredFrom);
                 //}
-                if (lastIntersection.inDir != thisIntersection.inDir) //fi change of direction
+                if (lastIntersection.outDir != lastIntersection.inDir) //fi change of direction in last intersection
                 {
                     Debug.Log("Change of direction");
+                    
+                    //_quarterTurn = IntermediateTurn(lastIntersection.inDir, lastIntersection.outDir);
+                    if (_quarterTurn != CardinalDir.X)
+                    {
+                        AddToPlayerRouteDir(lastIntersectionCoord, _quarterTurn);
+                        //AddToPlayerRouteDirLive(lastIntersectionCoord, _quarterTurn);
+                    }
                     AddToPlayerRouteDir(lastIntersectionCoord, _exitedFrom);
                 }
                 AddToPlayerRouteDir(_thisIntersectionCoord, _enteredFrom);
@@ -175,18 +184,23 @@ public class IntersectionsManager : MonoBehaviour
     public void OnIntersectionExit(Collider other)
     {
         Coordinate _thisIntersection = other.gameObject.GetComponent<Intersection>().coord;
-        
+        //CardinalDir _quarterTurn;
 
-        if (GameManager.gameData.playerRoute.Count == 0)
+        _exitedFrom = DirectionFromLastIntersection(lastIntersectionCoord);
+        lastIntersection = other.gameObject.GetComponent<Intersection>();
+        lastIntersection.outDir = _exitedFrom;
+        //TODO: Get start orientation from 
+        if (GameManager.gameData.playerRouteWithDir.Count == 0)
         {
             Debug.LogFormat("EXIT ({0}", _thisIntersection.name);
-            //AddToPlayerRouteDir(_thisIntersection, _exitedFrom);
+            AddToPlayerRouteDir(_thisIntersection, _exitedFrom);
+            AddToPlayerRouteDirLive(_thisIntersection, _exitedFrom);
+            lastIntersection.inDir = _exitedFrom; //Initialise if
         }
         else
         {
-            _exitedFrom = DirectionFromLastIntersection(lastIntersectionCoord);
-            lastIntersection = other.gameObject.GetComponent<Intersection>();
-            lastIntersection.outDir = _exitedFrom;
+            //_exitedFrom = DirectionFromLastIntersection(lastIntersectionCoord);
+          
             Debug.LogFormat("EXIT ({0} heading {1})", _thisIntersection.name, _exitedFrom.ToString());
             //if (GameManager.gameData.playerRouteWithDir.Count == 0) // if started within intersection
             //{
@@ -194,9 +208,15 @@ public class IntersectionsManager : MonoBehaviour
             //}
 
 
-                //if (_enteredFrom != _exitedFrom) // if not exiting from the samme direciton I entered in
-                if (thisIntersection.inDir != thisIntersection.outDir)
+            // if not exiting from the samme direciton I entered in
+            if (thisIntersection.inDir != thisIntersection.outDir)
             {
+                //If there was a quarter turn
+                _quarterTurn = IntermediateTurn(thisIntersection.inDir, thisIntersection.outDir);
+                if ( GameManager.gameData.playerRouteWithDir.Count != 0 && _quarterTurn != CardinalDir.X) //check for RD lenght
+                {
+                    AddToPlayerRouteDirLive(_thisIntersection, _quarterTurn);
+                }
                 AddToPlayerRouteDirLive(_thisIntersection, _exitedFrom);
             }
 
@@ -237,6 +257,22 @@ public class IntersectionsManager : MonoBehaviour
         return _cardDir;
         
     }
+
+    public CardinalDir IntermediateTurn(CardinalDir inDir, CardinalDir outDir)
+    {
+        CardinalDir _quarterTurn = CardinalDir.X;
+
+        if ((inDir == CardinalDir.N && outDir == CardinalDir.E) || (inDir == CardinalDir.E && outDir == CardinalDir.N))
+            _quarterTurn = CardinalDir.NE;
+        else if ((inDir == CardinalDir.S && outDir == CardinalDir.E) || (inDir == CardinalDir.E && outDir == CardinalDir.S))
+            _quarterTurn = CardinalDir.SE;
+        else if ((inDir == CardinalDir.N && outDir == CardinalDir.W) || (inDir == CardinalDir.W && outDir == CardinalDir.N))
+            _quarterTurn = CardinalDir.NW;
+        else if ((inDir == CardinalDir.S && outDir == CardinalDir.W) || (inDir == CardinalDir.W && outDir == CardinalDir.S))
+            _quarterTurn = CardinalDir.SW;
+        return _quarterTurn;
+    }
+
     // Calculates the direction in which an intersection was entered by comparing the last entered intersection and the current position
     public CardinalDir DirectionFromLastIntersection(Coordinate last)
     {
