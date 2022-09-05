@@ -9,8 +9,10 @@ public struct GameData
     public List<Coordinate> routeCoord;
     public List<string> playerRoute;    // Route the player has taken as string
     public List<Coordinate> playerRouteCoord; // Route the player has taken as cooridinates
-    public List<string> playerRouteWithDir; // Route the player has taken as string, used to generate IMG string
-    public List<string> playerRouteWithDirNew;  // This new route includes re-entering and exiting interscions
+    // Route the player has taken as string, used to generate IMG string
+    public List<string> playerRouteWithDir; // Route version used in 4P and 5P
+    public List<string> playerRouteWithDirLive; // Route the player has taken as string, used to generate IMG string
+    public List<string> playerRouteWithDirLiveAll;  // This new route includes re-entering and exiting intersections
 
     public GameData(int _scenario, int _route)
     {
@@ -19,7 +21,8 @@ public struct GameData
         routeCoord = new List<Coordinate>();
         playerRoute = new List<string>();
         playerRouteCoord = new List<Coordinate>();
-        playerRouteWithDir = new List < string>();
-        playerRouteWithDirNew = new List<string>();
+        playerRouteWithDir = new List<string>();
+        playerRouteWithDirLive = new List < string>();
+        playerRouteWithDirLiveAll = new List<string>();
     }
 }

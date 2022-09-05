@@ -65,8 +65,11 @@ public class IntersectionsManager : MonoBehaviour
             {
                 Debug.LogFormat("ENTER ({0})", _thisIntersection.name);
                 _enteredFrom = Singleton.Instance.coordinatesMngr.OppositeCardDir(DirectionFromLastIntersection(_thisIntersection));
-                AddToPlayerRouteAll(_thisIntersection,_enteredFrom);
-  
+                //AddToPlayerRouteAll(_thisIntersection,_enteredFrom);
+                AddToPlayerRoute(_thisIntersection);
+                AddToPlayerRouteDir(_thisIntersection, _enteredFrom);
+                AddToPlayerRouteDirLive(_thisIntersection, _enteredFrom);
+
             }
 
         }
@@ -85,10 +88,9 @@ public class IntersectionsManager : MonoBehaviour
             {
                 _enteredFrom = Singleton.Instance.coordinatesMngr.OppositeCardDir(_exitedFrom);
                 Debug.LogFormat("RE-ENTER ({0}) heading {1}", _thisIntersection.name, _enteredFrom.ToString());
-                GameManager.gameData.playerRouteWithDir.RemoveAt(GameManager.gameData.playerRouteWithDir.Count - 1);
-                GameManager.gameData.playerRouteWithDirNew.Add(_thisIntersection.name + _enteredFrom.ToString());
+                GameManager.gameData.playerRouteWithDirLive.RemoveAt(GameManager.gameData.playerRouteWithDirLive.Count - 1);
+                GameManager.gameData.playerRouteWithDirLiveAll.Add(_thisIntersection.name + _enteredFrom.ToString());
             }
-
             
         }
 
@@ -103,14 +105,20 @@ public class IntersectionsManager : MonoBehaviour
 
     private void RemoveFromPlayerRouteDir(Coordinate _coord)
     {
-        GameManager.gameData.playerRouteWithDir.RemoveAt(GameManager.gameData.playerRouteWithDir.Count - 1);
+        GameManager.gameData.playerRouteWithDirLive.RemoveAt(GameManager.gameData.playerRouteWithDirLive.Count - 1);
         //GameManager.gameData.playerRouteWithDirCoord.RemoveAt(GameManager.gameData.playerRoute.Count - 1);
     }
 
     private void AddToPlayerRouteAll(Coordinate _coord, CardinalDir dir)
     {
         AddToPlayerRoute(_coord);
+        if (GameManager.gameData.playerRoute.Count > 1) //if there is more than one intersection in the current route
+        {
+            AddToPlayerRouteDir(lastIntersection, dir);
+        }
         AddToPlayerRouteDir(_coord, dir);
+        AddToPlayerRouteDirLive(_coord, dir);
+
     }
 
     private void AddToPlayerRouteDir(Coordinate _coord, CardinalDir dir)
@@ -118,8 +126,17 @@ public class IntersectionsManager : MonoBehaviour
         //To avoid repeat, only add the direction if it's different (there was a turn)
         string _temp = _coord.name + dir.ToString();
 
-            GameManager.gameData.playerRouteWithDir.Add(_coord.name + dir.ToString());
-            GameManager.gameData.playerRouteWithDirNew.Add(_coord.name + dir.ToString());
+        GameManager.gameData.playerRouteWithDir.Add(_coord.name + dir.ToString());
+
+    }
+
+    private void AddToPlayerRouteDirLive(Coordinate _coord, CardinalDir dir)
+    {
+        //To avoid repeat, only add the direction if it's different (there was a turn)
+        string _temp = _coord.name + dir.ToString();
+
+            GameManager.gameData.playerRouteWithDirLive.Add(_coord.name + dir.ToString());
+            GameManager.gameData.playerRouteWithDirLiveAll.Add(_coord.name + dir.ToString());
        
 
     }
@@ -141,7 +158,7 @@ public class IntersectionsManager : MonoBehaviour
             Debug.LogFormat("EXIT ({0} heading {1})", _thisIntersection.name, _exitedFrom.ToString());
             if (_enteredFrom != _exitedFrom) // if not exiting from the samme direciton I entered in
             {
-                AddToPlayerRouteDir(_thisIntersection, _exitedFrom);
+                AddToPlayerRouteDirLive(_thisIntersection, _exitedFrom);
             }
 
             
@@ -158,6 +175,7 @@ public class IntersectionsManager : MonoBehaviour
     }
 
     //UNDONE: Return cardinal direction
+    // Calculates the direction in which an interseciton was entered by comparing the last entered intersection and the current intersection. e.g. If player entered from teh EAST,they were going WEST
     public CardinalDir DirectionFromLastIntersection(Coordinate last, Coordinate current)
     {
         CardinalDir _cardDir;
@@ -180,7 +198,7 @@ public class IntersectionsManager : MonoBehaviour
         return _cardDir;
         
     }
-
+    // Calculates the direction in which an intersection was entered by comparing the last entered intersection and the current position
     public CardinalDir DirectionFromLastIntersection(Coordinate last)
     {
         CardinalDir _cardDir;
