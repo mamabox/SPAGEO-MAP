@@ -120,9 +120,15 @@ public class IntersectionsManager : MonoBehaviour
                 _enteredFrom = Singleton.Instance.coordinatesMngr.OppositeCardDir(_exitedFrom);
                 Debug.LogFormat("RE-ENTER ({0}) heading {1}", _thisIntersectionCoord.name, _enteredFrom.ToString());
                 // Delete the last DirLive unless it is the first one - to prevent deleting the first intersection enter
-                if (GameManager.gameData.playerRouteWithDirLive.Count > 1)
-                { 
-                GameManager.gameData.playerRouteWithDirLive.RemoveAt(GameManager.gameData.playerRouteWithDirLive.Count - 1);
+
+                //TODO: delete only if change of direction between lastintersection and current one
+                if ((GameManager.gameData.playerRouteWithDirLive.Count > 1) && (thisIntersection.outDir != thisIntersection.inDir))
+                { if (IntermediateTurn(thisIntersection.inDir, thisIntersection.outDir) != CardinalDir.X)//if made a quarter turn, delete one before last (quarter turn) coordinate
+                    {
+                        GameManager.gameData.playerRouteWithDirLive.RemoveAt(GameManager.gameData.playerRouteWithDirLive.Count - 2);
+                    }
+
+                        GameManager.gameData.playerRouteWithDirLive.RemoveAt(GameManager.gameData.playerRouteWithDirLive.Count - 1);
             }
                 GameManager.gameData.playerRouteWithDirLiveAll.Add(_thisIntersectionCoord.name + _enteredFrom.ToString());
             }
@@ -130,6 +136,11 @@ public class IntersectionsManager : MonoBehaviour
         }
 
         
+    }
+
+    private void RemovePlayerRouteDirLive()
+    {
+
     }
 
     private void AddToPlayerRoute(Coordinate _coord)
