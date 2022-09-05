@@ -5,6 +5,8 @@ using UnityEngine;
 public class Intersection : MonoBehaviour
 {
     public Coordinate coord;
+    public CardinalDir inDir;
+    public CardinalDir outDir;
 
     private void Awake()
     {

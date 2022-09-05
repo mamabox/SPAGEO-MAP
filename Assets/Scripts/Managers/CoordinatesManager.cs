@@ -5,7 +5,7 @@ using System.Linq;
 
 public enum CardinalDir
 {
-    N, NE, E, SE, S, SW, W, NW
+    X,N, NE, E, SE, S, SW, W, NW
 }
 
 public class CoordinatesManager : MonoBehaviour
@@ -190,7 +190,9 @@ public class CoordinatesManager : MonoBehaviour
             return CardinalDir.N;
         else if (dir == CardinalDir.W)
             return CardinalDir.E;
-        else
+        else if (dir == CardinalDir.E)
             return CardinalDir.W;
+        else
+            return CardinalDir.X;
     }
 }
