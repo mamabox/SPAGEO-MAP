@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Sc11Manager : MonoBehaviour
 {
-    private GameManager gameManager;
-    private CameraManager camManager;
-    public DropPin dropPin;
-    private MapView mapView;
-    private UIManager uiManager;
-    private GameObject playerObj;
+//    private GameManager gameManager;
+//    private CameraManager camManager;
+//    //public DropPin dropPin;
+//    private MapView mapView;
+//    private UIManager uiManager;
+//    private GameObject playerObj;
     public List<GameObject> uiElements;
     [SerializeField] bool showPlayerSymbol;
     [SerializeField] bool showPlayerSymbolRot;
@@ -18,23 +18,23 @@ public class Sc11Manager : MonoBehaviour
 
     private void Awake()
     {
-        playerObj = GameObject.FindGameObjectWithTag("Player");
-        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
-        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
-        mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
-        dropPin = GetComponent<DropPin>();
+        //playerObj = GameObject.FindGameObjectWithTag("Player");
+        //gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        //uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        //camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
+        //mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
+        //dropPin = GetComponent<DropPin>();
     }
 
     public void Start()
     {
         
-        SetupRoute();
+        
 
     }
 
     //TODO: pull data from file
-    public void SetupRoute()
+    public void SetRouteSettings()
     {
         showPlayerSymbol = true;
         showPlayerSymbolRot = true;
@@ -43,24 +43,29 @@ public class Sc11Manager : MonoBehaviour
 
     public void StartScenario()
     {
-        Debug.Log(gameManager.activeScenario + ": StartScenario()");
+        SetRouteSettings();
+
+        //Debug.Log(GameManager.gameData.scenario + ": StartScenario()");
         //uiManager.ShowSidePanel(0);
-        uiManager.HideUIParents();
-        uiManager.ShowSidePanel(1);
+        Singleton.Instance.UIMngr.HideUIParents();
+        Singleton.Instance.UIMngr.ShowSidePanel(1);
         SetActiveUIElements();
-        mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
-        dropPin.dropPinEnabled = true;
+        Singleton.Instance.cameraMngr.mapView.SetMapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
+        Singleton.Instance.operationsMngr.dropPinEnabled = true;
     }
 
+    public void SaveData()
+    {
 
+    }
 
     public void EndScenario()
     {
-        if (gameManager.activeScenario == 11)
+        if (GameManager.gameData.scenario == 11)
         {
-            Debug.Log(gameManager.activeScenario + ": EndScenario()");
-            dropPin.dropPinEnabled = false;
-            dropPin.DeleteAllPins();
+            //Debug.LogFormat("EndScenario({0})", GameManager.gameData.scenario);
+            Singleton.Instance.operationsMngr.dropPinEnabled = false;
+            Singleton.Instance.operationsMngr.dropPin.DeleteAllPins();
         }
     }
 

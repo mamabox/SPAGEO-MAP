@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Sc12Manager : MonoBehaviour
 {
-    private GameManager gameManager;
-    private CameraManager camManager;
-    private ScenarioManager scenarioManager;
-    public DrawRoute drawRoute;
-    private MapView mapView;
-    private UIManager uiManager;
-    private GameObject playerObj;
+    //private GameManager gameManager;
+    //private CameraManager camManager;
+    //private ScenarioManager scenarioManager;
+    //public DrawRoute drawRoute;
+    //private MapView mapView;
+    //private UIManager uiManager;
+    //private GameObject playerObj;
+
     public List<GameObject> uiElements;
     [SerializeField] bool showPlayerSymbol;
     [SerializeField] bool showPlayerSymbolRot;
@@ -33,52 +34,49 @@ public class Sc12Manager : MonoBehaviour
 
     private void Awake()
     {
-        playerObj = GameObject.FindGameObjectWithTag("Player");
-        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
-        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-        camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
-        mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
-        scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
-        
+        //playerObj = GameObject.FindGameObjectWithTag("Player");
+        //gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        //uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        //camManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
+        //mapView = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<MapView>();
+        //scenarioManager = GameObject.FindGameObjectWithTag("ScenarioManager").GetComponent<ScenarioManager>();
     }
 
     public void Start()
     {
-        
-        SetupRoute();
-        
 
     }
 
     //TODO: pull data from file
-    public void SetupRoute()
+    public void SetRouteSettigs()
     {
         showPlayerSymbol = true;
         showPlayerSymbolRot = true;
         showStartSymbol = true;
+
+        startPos = "3_3";
     }
 
     public void StartScenario()
     {
-        Debug.Log(gameManager.activeScenario + ": StartScenario()");
-        //uiManager.ShowSidePanel(0);
-        uiManager.HideUIParents();
-        uiManager.ShowSidePanel(2);
+        SetRouteSettigs();
+
+        //Debug.Log(GameManager.gameData.scenario + ": StartScenario()");
+        Singleton.Instance.UIMngr.HideUIParents();
+        Singleton.Instance.UIMngr.ShowSidePanel(2);
         SetActiveUIElements();
-        mapView.MapViewSettins(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
+        Singleton.Instance.cameraMngr.mapView.SetMapViewSettings(showPlayerSymbol, showPlayerSymbolRot, showStartSymbol);
         
 
         route = Instantiate(DrawRoutePrefab, drawRouteParent.transform); //TODO: instantiate as parent
-        route.name = "NEW ROUTE";
+        route.name = "Drawn route";
         //drawRoute = route.GetComponent<DrawRoute>();
         //lr = route.GetComponent<LineRenderer>();
         //pencil = drawRoute.pencilObj.GetComponent<Pencil>();
-        scenarioManager.drawingAllowed = true;
+        Singleton.Instance.operationsMngr.drawingAllowed = true;
         //drawRoute.SetPencil(pencilDot);
-
         //drawRoute = pencil.GetComponent<DrawRoute>();
 
-        startPos = "3_3";
         route.GetComponent<DrawRoute>().SetStartPoint(startPos);
     }
 
@@ -86,11 +84,11 @@ public class Sc12Manager : MonoBehaviour
 
     public void EndScenario()
     {
-        if (gameManager.activeScenario == 12)
+        if (GameManager.gameData.scenario == 12)
         {
-            Debug.Log(gameManager.activeScenario + ": EndScenario()");
-            scenarioManager.sc12.route.GetComponent<DrawRoute>().ResetLine();
-            scenarioManager.drawingAllowed = false;
+            //Debug.Log(GameManager.gameData.scenario + ": EndScenario()");
+            Singleton.Instance.scenarioMngr.sc12.route.GetComponent<DrawRoute>().ResetLine();
+            Singleton.Instance.operationsMngr.drawingAllowed = false;
         }
     }
 
