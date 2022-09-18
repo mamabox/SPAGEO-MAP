@@ -13,11 +13,54 @@ public class ScenariosData
 [System.Serializable]
 public class Sc10Data
 {
+    public ScInfo info;
+    public ScSettings scSettings;
+    public List<Sc10Routes> routes;
+}
+
+[System.Serializable]
+public class Sc10Routes
+{
+    public MapSettings mapSettings;
+    public List<POI> POIs;
+}
+
+[System.Serializable]
+public class RouteInfo
+{
+    public string description;
+    public string dropDownMenuText;
+}
+
+    [System.Serializable]
+public class ScInfo
+{
     public int scenarioID;
     public string description;
     public string dropDownMenuText;
     public Instructions instructions;
-    public List<POI> POIs;
+}
+
+[System.Serializable]
+public class ScSettings
+{
+    public int attemptsNb;
+    public string validation;  //none, image or map
+    public int validationNb;
+    public bool receiverTransmitter;
+}
+
+[System.Serializable]
+public class MapSettings
+{
+    public int mapNb;
+    public bool showStart;
+    public bool showPlayer;
+    public bool showPlayerRot;
+    public bool limitViews;
+    public int viewsAllowed;
+    public bool limitTime;
+    public float timeAllowed;  
 }
 
 [System.Serializable]
@@ -31,6 +74,6 @@ public class Instructions
 [System.Serializable]
 public class POI
 {
-    public Coordinate coord;
     public string name;
+    public string coord;
 }

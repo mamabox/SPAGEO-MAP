@@ -1,28 +1,48 @@
 ﻿{
     "scenariosNb": 1,
-    "Sc10Data": {
-        "scenarioID": 2,
-        "description": "Mirroir",
-        "dropdownMenuText": "Miroir",
-        "attemptsNb": 2,
-        "validationNb": 2,
-        "receiverTransmitterOption": true,
-        "imageValidation": false,
-        "displayLines": true,
+    "sc10Data": {
+        "info": {
+            "scenarioID": 10,
+            "description": "Compléter plan de la ville",
+            "dropdownMenuText": "Compléter plan",
+            "instructions": {
+                "start": "Ton objectif est de compléter le plan de la ville",
+                "end": "Bien joué, tu as terminé.|Appui sur le bouton (B) pour revenir au menu principal",
+                "attempts": [ "question: ", "Tourne toi vers ", " et appuie sur le bouton (C) pour valider." ]
+            }
+        },
+        "scSettings": {
+            "attemptsNb": 0,
+            "validation": "map",
+            "validationNb": 1,
+            "receiverTransmitter": false
+        },
         "routes": [
             {
-                "startCoord": {
-                    "coord": "",
-                    "cardDir": ""
+                "mapSettings": {
+                    "mapNb": 1,
+                    "showStart": true,
+                    "showPlayer": true,
+                    "showPlayerRot": true,
+                    "limitViews": false,
+                    "viewsAllowed": 0,
+                    "limitTime": false,
+                    "timeAllowed": 0
                 },
-                "routeCoord": ""
-            },
-            {
-                "startCoord": {
-                    "coord": "",
-                    "cardDir": ""
-                },
-                "routeCoord": ""
+                "POIs": [
+                    {
+                        "name": "POI1",
+                        "coord": "1_2"
+                    },
+                    {
+                        "name": "POI2",
+                        "coord": "2_8"
+                    },
+                    {
+                        "name": "POI3",
+                        "coord": "4_6"
+                    }
+                ]
             }
         ]
     }

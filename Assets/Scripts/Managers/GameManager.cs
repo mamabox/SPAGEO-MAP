@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         started = true;
         // FOR TESTING
         Singleton.Instance.scenarioMngr.sc10.StartScenario();
-        Debug.Log("IMPORT TEST " + GameManager.playerData.groupID);
+        Debug.Log("IMPORT TEST " + scData.sc10Data.routes[0].POIs[1].name);
         Singleton.Instance.dataMngr.saveGameData.StartSavingData();
         Singleton.Instance.dataMngr.saveGameData.StopSavingData();
     }
