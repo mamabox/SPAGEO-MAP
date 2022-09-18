@@ -1,0 +1,30 @@
+﻿{
+    "scenariosNb": 1,
+    "Sc10Data": {
+        "scenarioID": 2,
+        "description": "Mirroir",
+        "dropdownMenuText": "Miroir",
+        "attemptsNb": 2,
+        "validationNb": 2,
+        "receiverTransmitterOption": true,
+        "imageValidation": false,
+        "displayLines": true,
+        "routes": [
+            {
+                "startCoord": {
+                    "coord": "",
+                    "cardDir": ""
+                },
+                "routeCoord": ""
+            },
+            {
+                "startCoord": {
+                    "coord": "",
+                    "cardDir": ""
+                },
+                "routeCoord": ""
+            }
+        ]
+    }
+
+}

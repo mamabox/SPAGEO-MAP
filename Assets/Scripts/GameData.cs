@@ -13,6 +13,8 @@ public struct GameData
     public List<string> playerRouteWithDir; // Route version used in 4P and 5P
     public List<string> playerRouteWithDirLive; // Route the player has taken as string, used to generate IMG string
     public List<string> playerRouteWithDirLiveAll;  // This new route includes re-entering and exiting intersections
+    public string fileName;
+
 
     public GameData(int _scenario, int _route)
     {
@@ -24,5 +26,6 @@ public struct GameData
         playerRouteWithDir = new List<string>();
         playerRouteWithDirLive = new List < string>();
         playerRouteWithDirLiveAll = new List<string>();
+        fileName = "";
     }
 }

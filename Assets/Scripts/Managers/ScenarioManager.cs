@@ -18,6 +18,7 @@ public class ScenarioManager : MonoBehaviour
         sc10 = GetComponentInChildren<Sc10Manager>();
         sc11 = GetComponentInChildren<Sc11Manager>();
         sc12 = GetComponentInChildren<Sc12Manager>();
+        //sc13 = GetComponentInChildren<Sc13Manager>();
 
         // Initialise Variables
         drawingAllowed = false;

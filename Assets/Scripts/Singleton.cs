@@ -22,6 +22,7 @@ public class Singleton : MonoBehaviour
     public PlayerActionsManager playerInputMngr { get; private set; }
     public ScenarioManager scenarioMngr { get; private set; }
     public UIManager UIMngr { get; private set; }
+    public DataManager dataMngr { get; private set; }
     //public PlayerMovement playerMovement { get; private set; }
     
 
@@ -53,6 +54,7 @@ public class Singleton : MonoBehaviour
         playerInputMngr = GetComponentInChildren<PlayerActionsManager>();
         scenarioMngr = GetComponentInChildren<ScenarioManager>();
         UIMngr = GetComponentInChildren<UIManager>();
+        dataMngr = GetComponentInChildren<DataManager>();
         //playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     
     }
